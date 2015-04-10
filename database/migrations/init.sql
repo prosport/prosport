@@ -59,6 +59,8 @@ CREATE TABLE products
 );
 ALTER TABLE products ADD CONSTRAINT pkproducts 	PRIMARY KEY (id);
 
+
+
 /* Table: Images */
 CREATE TABLE images
 (
@@ -84,3 +86,12 @@ CREATE TABLE products_images (product_id INTEGER NOT NULL, image_id INTEGER NOT 
 ALTER TABLE images ADD CONSTRAINT fk_images_images FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE products_images ADD CONSTRAINT fk_products_images_images FOREIGN KEY (image_id) REFERENCES images (id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE products_images ADD CONSTRAINT fk_products_images_products FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+/* Add date information for all tables sort by adding */
+ALTER TABLE products ADD COLUMN created_at TIMESTAMP;
+ALTER TABLE products ALTER COLUMN created_at SET NOT NULL;
+ALTER TABLE products ADD COLUMN modified_at TIMESTAMP;
+ALTER TABLE products ALTER COLUMN modified_at SET NOT NULL;
+
+

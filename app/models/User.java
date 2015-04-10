@@ -46,7 +46,7 @@ public class User extends Model {
 //    @Label("Role")
     public String role;
 
-//    public static final Model.Finder<Integer, User> find = new Model.Finder<>(Integer.class, User.class);
+    public static final Model.Finder<Integer, User> find = new Model.Finder<>(Integer.class, User.class);
 
     @Override
     public String toString() {
@@ -58,12 +58,11 @@ public class User extends Model {
      * Authenticate a User.
      */
     //TODO return User
-    public static boolean authenticate(String email, String password) {
-        return email.equals("valera.dt@gmail.ru")  && password.equals("123456");
-//        return find.where()
-//                .eq("email", email)
-//                .eq("password", password)
-//                .findUnique();
+    public static User authenticate(String email, String password) {
+        return find.where()
+                .eq("email", email)
+                .eq("password", password)
+                .findUnique();
     }
 
 

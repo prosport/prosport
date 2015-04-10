@@ -10,7 +10,6 @@ import static play.data.Form.form;
 import views.html.*;
 
 public class Application extends Controller {
-    // -- Authentication
 
     public static class Login {
 
@@ -18,7 +17,7 @@ public class Application extends Controller {
         public String password;
 
         public String validate() {
-            if (User.authenticate(email, password)) { //TODO  == null
+            if (User.authenticate(email, password) == null) {
                 return "Invalid user or password";
             }
             return null;
@@ -27,17 +26,15 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
+        User u  = User.find.where().eq("email", "valera.dt@gmail.com").findUnique();
+        return ok(u.password);
     }
-
 
     /**
      * Login page.
      */
     public static Result login() {
-        return ok(
-            login.render(form(Login.class))
-        );
+        return ok(login.render(form(Login.class)));
     }
 
     /**
@@ -63,6 +60,5 @@ public class Application extends Controller {
                 routes.Application.login()
         );
     }
-
 
 }
