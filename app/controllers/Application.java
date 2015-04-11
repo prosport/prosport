@@ -1,22 +1,20 @@
 package controllers;
 
-import models.User;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import views.html.index;
 import models.Product;
+import models.User;
 import play.Logger;
+import play.data.Form;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
+import views.html.login;
 
-import static play.data.Form.form;
-import views.html.*;
 import javax.persistence.TypedQuery;
 import java.util.List;
+
+import static play.data.Form.form;
 
 public class Application extends Controller {
 
@@ -25,6 +23,7 @@ public class Application extends Controller {
         public String email;
         public String password;
 
+        @Transactional(readOnly = true)
         public String validate() {
             if (User.authenticate(email, password) == null) {
                 return "Invalid user or password";
@@ -34,9 +33,12 @@ public class Application extends Controller {
 
     }
 
+    @Transactional(readOnly = true)
     public static Result index() {
-        User u  = User.find.where().eq("email", "valera.dt@gmail.com").findUnique();
-        return ok(u.password);
+        User u  = User.authenticate("email", "valera.dt@gmail.com");
+        return u == null
+                ? notFound("User with this email does'nt exist")
+                : ok(u.getPassword());
     }
 
     /**
@@ -78,7 +80,6 @@ public class Application extends Controller {
         List<Product> products = query.getResultList();
 
         return ok(index.render("products count: " + products.size()));
-
     }
 
 

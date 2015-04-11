@@ -1,69 +1,74 @@
 package models;
 
-import com.avaje.ebean.annotation.Encrypted;
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
-import play.db.ebean.Model;
+import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
+import utils.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Users
  */
 @Entity
-@Table(name = "users", schema="public")
-//@Label("Users")
-public class User extends Model {
-    /**
-     * Id
-     */
-    @Id
-//    @Label("Id")
-    public Integer id;
-    /**
-     * Email
-     */
+@Table(name = "users")
+@SequenceGenerator(name = "entity_id_gen", sequenceName = "users_id_seq")
+public class User extends AbstractBaseEntity {
+
+    @NotNull
     @Column(unique = true)
     @Length(min = 0, max = 255)
     @Constraints.Email
-//    @Label("Email")
-    public String email;
-    /**
-     * Password
-     */
+    private String email;
+
     @Length(min = 0, max = 32)
-//    @Encrypted(dbEncryption = false)
-//    @Label("Password")
-    public String password;
+    private String password;
 
-    /**
-     * Role
-     */
     @Length(min = 0, max = 16)
-//    @Label("Role")
     public String role;
-
-    public static final Model.Finder<Integer, User> find = new Model.Finder<>(Integer.class, User.class);
 
     @Override
     public String toString() {
-        return " <" + email + ">";
+        return StringUtils.getAngleBracketString(email);
     }
 
-
-    /**
-     * Authenticate a User.
-     */
-    //TODO return User
     public static User authenticate(String email, String password) {
-        return find.where()
-                .eq("email", email)
-                .eq("password", password)
-                .findUnique();
+        try {
+            return JPA.em().createQuery("FROM User WHERE email = :email AND password = :password", User.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        } catch(NoResultException ex){
+            return null;
+        } catch(NonUniqueResultException ex) {
+            throw ex;
+        }
     }
 
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

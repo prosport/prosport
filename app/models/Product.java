@@ -1,6 +1,8 @@
 package models;
 
 
+import utils.StringUtils;
+
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -10,8 +12,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "product")
-@SequenceGenerator(name = "entity_id_gen", sequenceName = "product_id_seq")
+@Table(name = "products")
+@SequenceGenerator(name = "entity_id_gen", sequenceName = "products_id_seq")
 public class Product extends AbstractBaseEntity{
     private String name;
 
@@ -21,5 +23,10 @@ public class Product extends AbstractBaseEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return StringUtils.getAngleBracketString(name);
     }
 }
