@@ -3,6 +3,7 @@ package dao;
 import models.AbstractBaseEntity;
 import play.db.jpa.JPA;
 
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -35,6 +36,20 @@ public class DAOHelper {
 
     public static void flush() {
         JPA.em().flush();
+    }
+
+    public static <T extends AbstractBaseEntity> List<T> findByAttribute(Class<T> persistentClass, String attr, String value) {
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("FROM " + persistentClass.getSimpleName())
+                .append(" c WHERE c.")
+                .append(attr)
+                .append(" = '")
+                .append(value)
+                .append("'");
+        Query q = JPA.em().createQuery(sb.toString());
+        return q.getResultList();
+
     }
 
 

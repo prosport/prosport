@@ -36,4 +36,6 @@ public abstract class AbstractBaseEntity implements Serializable{
         }
         return getId().equals(((AbstractBaseEntity) obj).getId());
     }
+
+
 }
