@@ -5,6 +5,13 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+# Authentication
+GET     /login                              controllers.Application.login()
+POST    /login                              controllers.Application.authenticate()
+GET     /logout                             controllers.Application.logout()
+
+
+#test route
 POST    /test                       controllers.Application.test()
 
 # Map static resources from the /public folder to the /assets URL path

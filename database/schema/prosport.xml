@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><Db flnm="prosport" nm="prosport" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>/home/rumata/projects/play/prosport/database/schema</DocFolder>
+  <Sch Cm="" nm="public">
+    <Tbl UsSo="1" nm="categories">
+      <TblOpts/>
+      <Pk ClNs="id" nm="pkcategories"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="title" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="parent_id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="0" nm="fk_categories_categories" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="categories" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="categories" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="parent_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="images">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkimages"/>
+      <Cl au="1" df="nextval('images_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="title" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="filename" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="product_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="created_at" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_images_images" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="products" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="images" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="product_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="products">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkproducts"/>
+      <Cl au="1" df="nextval('products_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="title" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="articul" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="description" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="short_description" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="created_at" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="modified_at" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="0" nm="rating" nu="0">
+        <DT arr="0" ds="Float" en="" id="6" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="0" nm="count_views" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="author" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="hints" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="products_categories">
+      <TblOpts/>
+      <Cl au="0" df="" nm="product_id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="category_id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="0" nm="fk_products_categories_categories" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="categories" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="products_categories" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="category_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="0" nm="fk_products_categories_products" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="products" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="products_categories" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="product_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="products_images">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Cl au="0" df="" nm="product_id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="image_id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="0" nm="fk_products_images_images" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="images" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="products_images" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="image_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="0" nm="fk_products_images_products" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="products" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="products_images" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="product_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" ftx="0" nm="mm_products_images" spa="0" unq="1">
+        <ClNs>product_id, image_id</ClNs>
+        <OptTx/>
+      </Idx>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="users">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkusers"/>
+      <Cl au="1" df="nextval('users_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="password" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="32" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="role" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="16" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="registred_at" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Idx clu="0" ftx="0" nm="uniq_email" spa="0" unq="1">
+        <ClNs>email</ClNs>
+        <OptTx>USING btree</OptTx>
+      </Idx>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Seq incr="1" nm="images_id_seq"/>
+    <Seq incr="1" nm="products_id_seq"/>
+    <Seq incr="1" nm="users_id_seq"/>
+    <CustomTypes/>
+  </Sch>
+  <Dgm nm="prosport-store">
+    <RnCf ClkAct="true" FtSz="9" lkStgy="RightAngleStrategy" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="1" PkCols="1"/>
+      <ErNotation>DbwErNotation</ErNotation>
+      <DbTableRectangleFill>HeaderFooterFill</DbTableRectangleFill>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="images" x="364" y="64"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="products" x="370" y="296"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="products_images" x="489" y="187"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="users" x="87" y="62"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="categories" x="90" y="183"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="products_categories" x="93" y="273"/>
+    <FkGl bkCl="ff000000" childEdge="" nm="public.categories.fk_categories_categories" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.images.fk_images_images" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="409" x2="409" y1="279" y2="154"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="public.products_categories.fk_products_categories_categories" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="public.products_categories.fk_products_categories_products" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.products_images.fk_products_images_images" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="553" x2="553" y1="154" y2="170"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.products_images.fk_products_images_products" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="577" x2="577" y1="279" y2="247"/>
+      </positionableLines>
+    </FkGl>
+    <Notes/>
+    <Zones>
+      <Zone bkCl="ffece9d8" h="355" nm="Images" w="240" x="344" y="29"/>
+    </Zones>
+  </Dgm>
+  <RnmMgr NxRnmId="3">
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="categories" SupCls="Schema" SupNme="public">
+      <Rnm id="1" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="products_categories" SupCls="Schema" SupNme="public">
+      <Rnm id="2" nNm="id" oNm="Id"/>
+    </RnmCh>
+  </RnmMgr>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+  <OpenEditors>
+    <OpenEditor ClsNm="Diagram" fqn="null.prosport-store" selected="1"/>
+  </OpenEditors>
+  <TreePaths>
+    <TreePath/>
+    <TreePath>/Schemas (1)</TreePath>
+    <TreePath>/Schemas (1)/public</TreePath>
+    <TreePath>/Schemas (1)/public/Tables (6)</TreePath>
+    <TreePath>/Diagrams (1)</TreePath>
+  </TreePaths>
+</Db>
