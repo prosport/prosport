@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "products_id_seq")
-public class Product extends IDNameEntity{
+public class Product extends IDNameTimeEntity {
 
 
 }
