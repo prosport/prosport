@@ -1,4 +1,4 @@
-CREATE DATABASE prosport;
+--CREATE DATABASE prosport;
 
 
 -- Users
@@ -78,9 +78,10 @@ ALTER TABLE images ADD CONSTRAINT pkimages PRIMARY KEY (id);
 CREATE TABLE products_images ( product_id BIGINT NOT NULL, image_id BIGINT NOT NULL ) WITHOUT OIDS;
 CREATE UNIQUE INDEX mm_products_images ON products_images (product_id, image_id);
 
+CREATE SEQUENCE categories_id_seq INCREMENT BY 1;
 CREATE TABLE categories
 (
-  id BIGINT NOT NULL,
+  id BIGINT DEFAULT nextval('categories_id_seq'::regclass) NOT NULL,
   title VARCHAR(255) NOT NULL,
   parent_id BIGINT NOT NULL
 );
@@ -91,4 +92,21 @@ CREATE TABLE products_categories (product_id BIGINT NOT NULL, category_id BIGINT
 ALTER TABLE images ADD CONSTRAINT fk_images_images FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE products_images ADD CONSTRAINT fk_products_images_images FOREIGN KEY (image_id) REFERENCES images (id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE products_images ADD CONSTRAINT fk_products_images_products FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+ALTER TABLE categories ADD semantic_url VARCHAR(255) NULL;
+CREATE UNIQUE INDEX uniq_url ON categories (semantic_url);
+ALTER TABLE categories ALTER COLUMN parent_id DROP NOT NULL;
+
+CREATE TABLE comments
+(
+  id BIGINT NOT NULL,
+  user_id BIGINT NULL,
+  content TEXT NULL,
+  is_show BOOL DEFAULT 'FALSE' NOT NULL,
+  created_at TIMESTAMP DEFAULT now() NOT NULL
+);
+
+ALTER TABLE comments ADD CONSTRAINT pkcomments PRIMARY KEY (id);
+
 
