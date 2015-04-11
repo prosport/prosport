@@ -6,7 +6,8 @@
 
 
 /** */
-INSERT INTO categories (id, title) VALUES
+INSERT INTO product_categories(id, name)
+values
 (1, 'Дзюдо'),
 (2, 'Самбо'),
 (3, 'Борьба'),
@@ -18,4 +19,4 @@ INSERT INTO categories (id, title) VALUES
 (9, 'Россия'),
 (10, 'Разное');
 
-SELECT setval('categories_id_seq', (SELECT max(id) + 1 from categories), false);
+--SELECT setval('categories_id_seq', (SELECT max(id) + 1 from categories), false);
