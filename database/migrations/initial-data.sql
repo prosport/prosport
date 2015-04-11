@@ -1,8 +1,8 @@
 
 /* Table: Users */
-INSERT INTO users(email,password,"role") VALUES
-  ('valera.dt@gmail.com', '123456', 'admin'),
-  ('i.dont.know.your.email@gmail.com', '123456', 'admin');
+    INSERT INTO users(id,email,password,"role") VALUES
+      (nextval('users_id_seq'),'valera.dt@gmail.com', '123456', 'admin'),
+      (nextval('users_id_seq'), 'lstghost@gmail.com', '123456', 'admin');
 
 
 /** */

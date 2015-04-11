@@ -3,7 +3,6 @@ package models;
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
-import play.db.jpa.Transactional;
 import utils.StringUtils;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name = "entity_id_gen", sequenceName = "users_id_seq")
+@SequenceGenerator(name = "entity_id_gen", sequenceName = "users_id_seq", allocationSize = 1)
 public class User extends AbstractBaseEntity {
 
     @NotNull
