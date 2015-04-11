@@ -7,6 +7,7 @@ import utils.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 /**
  * Users
@@ -27,6 +28,12 @@ public class User extends AbstractBaseEntity {
 
     @Length(min = 0, max = 16)
     public String role;
+
+    @Column(name = "registed_at")
+    public Date registredAt;
+
+    @Column(name = "is_blocked")
+    public Boolean isBlocked;
 
     @Override
     public String toString() {
