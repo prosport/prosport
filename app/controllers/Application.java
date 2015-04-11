@@ -1,11 +1,16 @@
 package controllers;
 
+import dao.DAOHelper;
+import models.ProductCategory;
 import models.User;
 import play.data.Form;
 import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
+
+import java.util.List;
 
 import static play.data.Form.form;
 
@@ -32,6 +37,12 @@ public class Application extends Controller {
         return u == null
                 ? notFound("User with this email does'nt exist")
                 : ok(u.getPassword());
+    }
+
+    @Transactional(readOnly = true)
+    public static Result listCategories() {
+        List<ProductCategory> pc = DAOHelper.getAll(ProductCategory.class);
+        return ok(Json.toJson(pc));
     }
 
     /**
@@ -64,4 +75,6 @@ public class Application extends Controller {
                 routes.Application.login()
         );
     }
+
+
 }

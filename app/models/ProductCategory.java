@@ -12,4 +12,6 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "productcategories_id_seq")
 public class ProductCategory extends IDNameEntity {
 
+
+
 }
