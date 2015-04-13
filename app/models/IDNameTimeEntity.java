@@ -13,11 +13,11 @@ import java.util.Date;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class IDNameTimeEntity extends IDNameEntity {
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     protected Date createdAt;
 
-    @Column(name = "modified_at")
-    protected Date modifiedAt;
+    @Column(name = "modified_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
+    protected Date modifiedAt = new Date();
 
     public Date getCreatedAt() {
         return createdAt;

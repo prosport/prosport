@@ -5,21 +5,54 @@
   <DocFolder>/home/rumata/projects/play/prosport/database/schema</DocFolder>
   <Sch Cm="" nm="public">
     <Tbl UsSo="1" nm="categories">
-      <TblOpts/>
+      <TblOpts>WITHOUT OIDS</TblOpts>
       <Pk ClNs="id" nm="pkcategories"/>
-      <Cl au="0" df="" nm="id" nu="0">
+      <Cl au="1" df="" nm="id" nu="0">
         <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
       <Cl au="0" df="" nm="title" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
       </Cl>
-      <Cl au="0" df="" nm="parent_id" nu="0">
+      <Cl au="0" df="" nm="parent_id" nu="1">
         <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
+      <Cl au="0" df="" nm="semantic_url" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
       <Fk deAc="0" nm="fk_categories_categories" prLkCl="id" upAc="0">
-        <PrTb mn="0" nm="categories" oe="1" sch="public" zr="0"/>
+        <PrTb mn="0" nm="categories" oe="1" sch="public" zr="1"/>
         <CdTb mn="1" nm="categories" oe="0" sch="public" zr="1"/>
         <ClPr cdCl="parent_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" ftx="0" nm="uniq_url" spa="0" unq="1">
+        <ClNs>semantic_url</ClNs>
+        <OptTx>USING btree</OptTx>
+      </Idx>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="comments">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcomments"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="user_id" nu="1">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="content" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="is_show" nu="0">
+        <DT arr="0" ds="Boolean" en="" id="16" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="created_at" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="0" nm="fk_comments_users" prLkCl="id" upAc="0">
+        <PrTb mn="0" nm="users" oe="1" sch="public" zr="1"/>
+        <CdTb mn="1" nm="comments" oe="0" sch="public" zr="1"/>
+        <ClPr cdCl="user_id" prCl="id"/>
       </Fk>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -40,7 +73,7 @@
         <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
       <Cl au="0" df="now()" nm="created_at" nu="1">
-        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
       <Fk deAc="3" nm="fk_images_images" prLkCl="id" upAc="3">
         <PrTb mn="0" nm="products" oe="1" sch="public" zr="0"/>
@@ -90,7 +123,7 @@
       <SchTrHis/>
     </Tbl>
     <Tbl UsSo="1" nm="products_categories">
-      <TblOpts/>
+      <TblOpts>WITHOUT OIDS</TblOpts>
       <Cl au="0" df="" nm="product_id" nu="0">
         <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
@@ -130,7 +163,7 @@
       </Fk>
       <Idx clu="0" ftx="0" nm="mm_products_images" spa="0" unq="1">
         <ClNs>product_id, image_id</ClNs>
-        <OptTx/>
+        <OptTx>USING btree</OptTx>
       </Idx>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -160,6 +193,7 @@
       <UniqueConstraints/>
       <SchTrHis/>
     </Tbl>
+    <Seq incr="1" nm="categories_id_seq"/>
     <Seq incr="1" nm="images_id_seq"/>
     <Seq incr="1" nm="products_id_seq"/>
     <Seq incr="1" nm="users_id_seq"/>
@@ -190,31 +224,42 @@
     <TbGl bkCl="ff6666ff" sch="public" tbl="images" x="364" y="64"/>
     <TbGl bkCl="ff6666ff" sch="public" tbl="products" x="370" y="296"/>
     <TbGl bkCl="ff6666ff" sch="public" tbl="products_images" x="489" y="187"/>
-    <TbGl bkCl="ff6666ff" sch="public" tbl="users" x="87" y="62"/>
-    <TbGl bkCl="ff6666ff" sch="public" tbl="categories" x="90" y="183"/>
-    <TbGl bkCl="ff6666ff" sch="public" tbl="products_categories" x="93" y="273"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="users" x="101" y="33"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="categories" x="89" y="261"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="products_categories" x="94" y="398"/>
+    <TbGl bkCl="ff6666ff" sch="public" tbl="comments" x="96" y="144"/>
     <FkGl bkCl="ff000000" childEdge="" nm="public.categories.fk_categories_categories" parentEdge="" positioner="">
       <positionableLines/>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.images.fk_images_images" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.comments.fk_comments_users" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="409" x2="409" y1="279" y2="154"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="194" x2="194" y1="106" y2="144"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="" nm="public.products_categories.fk_products_categories_categories" parentEdge="" positioner="">
-      <positionableLines/>
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.images.fk_images_images" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="409" x2="409" y1="296" y2="137"/>
+      </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="" nm="public.products_categories.fk_products_categories_products" parentEdge="" positioner="">
-      <positionableLines/>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.products_categories.fk_products_categories_categories" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="179" x2="179" y1="324" y2="398"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.products_categories.fk_products_categories_products" parentEdge="WEST" positioner="TwoLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="PARENT_LINE" x1="370" x2="264" y1="349" y2="349"/>
+        <positionableLine lineRole="CHILD_LINE" x1="260" x2="260" y1="398" y2="353"/>
+      </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="public.products_images.fk_products_images_images" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="553" x2="553" y1="154" y2="170"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="553" x2="553" y1="137" y2="187"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="public.products_images.fk_products_images_products" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="577" x2="577" y1="279" y2="247"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="577" x2="577" y1="296" y2="230"/>
       </positionableLines>
     </FkGl>
     <Notes/>
@@ -222,12 +267,15 @@
       <Zone bkCl="ffece9d8" h="355" nm="Images" w="240" x="344" y="29"/>
     </Zones>
   </Dgm>
-  <RnmMgr NxRnmId="3">
+  <RnmMgr NxRnmId="4">
     <RnmCh ObjCls="Column" ParCls="Table" ParNme="categories" SupCls="Schema" SupNme="public">
       <Rnm id="1" nNm="id" oNm="Id"/>
     </RnmCh>
     <RnmCh ObjCls="Column" ParCls="Table" ParNme="products_categories" SupCls="Schema" SupNme="public">
       <Rnm id="2" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="comments" SupCls="Schema" SupNme="public">
+      <Rnm id="3" nNm="id" oNm="Id"/>
     </RnmCh>
   </RnmMgr>
   <DbDocOptionMgr>
@@ -252,7 +300,7 @@
     <TreePath/>
     <TreePath>/Schemas (1)</TreePath>
     <TreePath>/Schemas (1)/public</TreePath>
-    <TreePath>/Schemas (1)/public/Tables (6)</TreePath>
+    <TreePath>/Schemas (1)/public/Tables (7)</TreePath>
     <TreePath>/Diagrams (1)</TreePath>
   </TreePaths>
 </Db>

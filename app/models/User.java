@@ -29,7 +29,7 @@ public class User extends AbstractBaseEntity {
     @Length(min = 0, max = 16)
     public String role;
 
-    @Column(name = "registed_at")
+    @Column(name = "registed_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     public Date registredAt;
 
     @Column(name = "is_blocked")

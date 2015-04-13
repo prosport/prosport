@@ -18,6 +18,10 @@ import java.util.List;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "products_id_seq")
 public class Product extends IDNameTimeEntity {
 
+    @NotNull
+//    @Column(name="category_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    public ProductCategory category;
 
     @NotNull
     @Constraints.Required
