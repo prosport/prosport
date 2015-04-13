@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product_categories")
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "productcategories_id_seq")
-public class ProductCategory extends IDNameEntity {
+public class ProductCategory extends IDNameTimeEntity {
 
 
 

@@ -3,14 +3,13 @@
 -- DANGER! DELETE SECTION
 -------------------------
 DROP TABLE comments;
-DROP TABLE products_categories;
-DROP TABLE products_images;
-DROP TABLE images;
-DROP TABLE products;
-DROP TABLE categories;
-DROP TABLE users;
+DROP TABLE product_categories CASCADE;
+DROP TABLE images CASCADE;
+DROP TABLE products_images CASCADE;
+DROP TABLE products CASCADE;
+DROP TABLE users CASCADE;
 
-DROP SEQUENCE images_id_seq;
+DROP SEQUENCE images_id_seq CASCADE;
 DROP SEQUENCE products_id_seq;
 DROP SEQUENCE users_id_seq;
-DROP SEQUENCE categories_id_seq;
+DROP SEQUENCE productcategories_id_seq;
