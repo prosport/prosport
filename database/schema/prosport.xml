@@ -293,9 +293,7 @@
       <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
     </BasicOptionMgr>
   </DbDocOptionMgr>
-  <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.prosport-store" selected="1"/>
-  </OpenEditors>
+  <OpenEditors/>
   <TreePaths>
     <TreePath/>
     <TreePath>/Schemas (1)</TreePath>

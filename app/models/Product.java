@@ -25,6 +25,12 @@ public class Product extends IDNameTimeEntity {
 
     @NotNull
     @Constraints.Required
+    @Formats.NonEmpty
+    @Column(name="semantic_url")
+    public String semanticUrl;
+
+    @NotNull
+    @Constraints.Required
     @Constraints.MaxLength(20)
     @Formats.NonEmpty
     @Column(name="articul")
