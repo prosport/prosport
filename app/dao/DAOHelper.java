@@ -1,6 +1,8 @@
 package dao;
 
 import models.AbstractBaseEntity;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import play.db.jpa.JPA;
 
 import javax.persistence.Query;
@@ -51,6 +53,16 @@ public class DAOHelper {
         return q.getResultList();
 
     }
+
+    public static <T> Long getRowCount(Class<T> persistentClass) {
+        return (Long)getSession().createCriteria(persistentClass).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    public static Session getSession() {
+        return (Session)JPA.em().getDelegate();
+    }
+
+
 
 
 
