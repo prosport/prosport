@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
+import views.html.tree;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class Application extends Controller {
         return ok(Json.toJson(pc));
     }
 
+
     /**
      * Login page.
      */
@@ -74,6 +76,12 @@ public class Application extends Controller {
         return redirect(
                 routes.Application.login()
         );
+    }
+
+
+    @Transactional(readOnly = true)
+    public static Result test() {
+        return ok(tree.render("Дерево", null));
     }
 
 

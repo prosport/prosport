@@ -12,6 +12,7 @@ POST    /login                              controllers.Application.authenticate
 GET     /logout                             controllers.Application.logout()
 
 #test
+GET     /tree                               controllers.Application.test()
 
 GET     /categories/list                               controllers.Application.listCategories()
 
