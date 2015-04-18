@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class IDNameEntity extends AbstractBaseEntity{
+public abstract class IDNameEntity extends AbstractBaseEntity {
     @Column(unique = true)
     protected String name;
 

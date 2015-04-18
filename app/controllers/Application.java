@@ -9,7 +9,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
-import views.html.tree;
 
 import java.util.List;
 
@@ -79,10 +78,7 @@ public class Application extends Controller {
     }
 
 
-    @Transactional(readOnly = true)
-    public static Result test() {
-        return ok(tree.render("Дерево", null));
-    }
+
 
 
 }

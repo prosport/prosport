@@ -1,14 +1,13 @@
 package models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by andy on 4/11/15.
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractBaseEntity implements Serializable{
+public abstract class AbstractBaseEntity {
 
 
     @Id

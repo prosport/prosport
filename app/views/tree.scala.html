@@ -1,4 +1,5 @@
-@(title: String)(content: Html)
+@(title: String, categories: List[ProductCategory])
+@import play.libs.Json
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -12,24 +13,42 @@
         <script src="@routes.Assets.at("lib/bootstrap-3.3.4-dist/js/bootstrap.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("lib/bootstrap-treeview/bootstrap-treeview.js")" ></script>
     </head>
-    <script>
+
+    <body>
+        <div class="container">
+            <h1>Bootstrap Tree View - DOM Tree</h1>
+            <br/>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="treeview"></label>
+                    <div id="treeview"></div>
+                </div>
+            </div>
+
+            <div id="tree"></div>
+        </div>
+        <script>
+
+        var dd = @Html(Json.toJson(categories).toString);
+        console.log(dd);
+
+
+
     var d =[ {
     text : "Parent 1",
-    nodes :[ { text : "Child 1",
-    nodes :[ { text : "Grandchild 1" }, { text : "Grandchild 2" } ] }, { text : "Child 2" } ] }, { text : "Parent 2"
-    }, { text : "Parent 3"
-    }, { text : "Parent 4"
-    }, { text : "Parent 5"
-    }
-    ] ;
+    nodes :[ {text : "Child 1",
+              nodes :[ {text : "Grandchild 1" },
+                       { text : "Grandchild 2" }]},
+             { text : "Child 2" } ] },
+             { text : "Parent 2"},
+             { text : "Parent 3"},
+             { text : "Parent 4"},
+             { text : "Parent 5"}];
 
 
-    $ ( '#tree' ).treeview ( { data : d, backcolor : 'green' } ) ;
+
+    $ ('#tree').treeview ( { data : dd, backcolor : 'green' }) ;
     </script>
-    <body>
-
-        <div id="tree" width="100" height="100" background="red"></div>
-
 
     </body>
 </html>
