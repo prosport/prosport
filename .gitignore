@@ -15,3 +15,8 @@ dist
 /.settings
 conf/personal.conf
 scripts
+# For Sapsan development (see this code in https://github.com/RumataEstorsky/SapsanAdmin)
+app/controllers/sa
+app/sapsan
+app/views/sapsan
+conf/sa.routes
