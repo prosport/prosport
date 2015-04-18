@@ -1,5 +1,6 @@
 package controllers;
 
+import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -9,20 +10,14 @@ import play.mvc.Result;
  */
 public class Test extends Controller {
 
-
-    //
-//    @Transactional(readOnly = true)
     public static Result test1() {
-////        try {
-//            ProductCategory c = JPA.em()
-//                    .createQuery("FROM ProductCategory WHERE name = :name", ProductCategory.class)
-//                    .setParameter("name", "Бокс")
-//                    .getSingleResult();
-////        } catch(NoResultException ex){
-////            return null;
-////        } catch(NonUniqueResultException ex) {
-////            throw ex;
-////        }
-        return ok("");
+        User u = User.find.where().eq("email", "valera.dt@gmail.com").findUnique();
+        return ok(u.role.name());
     }
+
+    public static Result test3(Long id) {
+
+        return ok("!!!" + id );
+    }
+
 }

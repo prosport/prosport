@@ -1,11 +1,9 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
-import sapsan.schema.DataTypeGroup;
 import utils.StringUtils;
 
 import javax.persistence.*;
@@ -33,7 +31,7 @@ public class User extends AbstractBaseEntity {
 
     @SapsanField()
     @Length(min = 0, max = 16)
-    public String role;
+    public SecurityRole role;
 
     @SapsanField()
     @Column(name = "registed_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
@@ -74,11 +72,4 @@ public class User extends AbstractBaseEntity {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
