@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   "ru.myscala" % "sapsan_2.10" % "0.2"
 )
 
+resolvers += Resolver.url("SapsanAdmin GitHub Repository", url("http://rumataestorsky.github.io/releases/"))(Resolver.ivyStylePatterns)
 
 play.Project.playJavaSettings
