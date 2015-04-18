@@ -2,6 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 import sapsan.annotation.SapsanField;
+import sapsan.common.HtmlInputComponent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,20 +15,22 @@ import javax.validation.constraints.NotNull;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "images_id_seq")
 public class Image extends IDNameEntity {
 
-    @Constraints.MaxLength(255)
-    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
     @SapsanField
-    public String filename;
+    public Product product;
 
     @Constraints.MaxLength(255)
     @NotNull
     @SapsanField
     public String color;
 
+    @Constraints.MaxLength(255)
+    @NotNull
+    @SapsanField(inputComponent = HtmlInputComponent.FileUpload)
+    public String filename;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @SapsanField
-    public Product product;
+
+
 
 
 }

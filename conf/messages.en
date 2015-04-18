@@ -1,0 +1,151 @@
+###############################################################################
+# Системные сообщения
+###############################################################################
+
+# --- Constraints
+constraint.required=Обязательное
+constraint.min=Минимальное значение: {0}
+constraint.max=Максимальное значение: {0}
+constraint.minLength=Минималная длина: {0}
+constraint.maxLength=Максимальная длина: {0}
+constraint.email=Email
+constraints.unique=Такое значение уже есть
+
+# --- Formats
+format.date=Дата (''{0}'')
+format.numeric=Число
+format.real=Вещ. число
+
+# --- Errors
+error.invalid=Некорректное значение
+error.required=Это поле необходимо заполнить
+error.number=Ожидается числовое значение
+error.real=Ожидается вещественное число
+error.min=Должно быть больше или равно {0}
+error.max=Должно быть меньше или равно {0}
+error.minLength=Миним. длина должна быть {0}
+error.maxLength=Максим. длина должна быть {0}
+error.email=Введите верный E-mail
+error.pattern=Должно удовлетворять {0}
+
+error.alluppercase=Все буквы этого поля должны быть заглавными
+constraint.alluppercase=Ожидались заглавные буквы
+
+###############################################################################
+# Общий интерфейс
+###############################################################################
+interface.yes=Да
+interface.no=Нет
+interface.save=Сохранить
+interface.cancel=Отмена
+interface.add=Добавить
+interface.edit=Редактировать
+interface.delete=Удалить
+interface.chooseValue=-- Выберите значение --
+interface.choose=Выберите
+interface.search=Поиск
+
+interface.notFound=Запись номер {0} не найдена!
+interface.successAdded=Запись "{0}" была успешно добавлена!
+interface.successEdited=Запись "{0}" была успешно отредактирована!
+interface.successDeleted=Запись c номером {0} была успешно удалена!
+
+interface.list.previous=Предыдущая
+interface.list.next=Следующая
+interface.list.displaying=Показано от
+interface.list.to= до
+interface.list.of= из
+interface.list.noRecords=Нет записей для отображения
+
+interface.upload.max_size=Максимальный размер файла для загрузки составляет {0} Кб, а размер Вашего файла {1} Кб!
+interface.upload.extensions=Неподдерживаемый формат файла "{0}", допустимы файлы форматов: {1}
+interface.upload.image_tag=<img src="{0}">
+#interface.upload.doc_tag=<a href="{0}">{1}</a>
+interface.upload.doc_tag=<a href="javascript:void(null);" rel="{0}" class="redactor_file_link redactor_file_ico_{2}">{1}</a>';
+interface.upload.error=Ошибка загрузки файла!
+
+###############################################################################
+# Администрирование Сапсан-Админ
+###############################################################################
+
+admin.skeleton.dashboard=Панель управления
+admin.skeleton.goHome=Домой
+admin.skeleton.logout=Выход
+admin.skeleton.navigation=Обзор моделей
+admin.skeleton.admin=Сапсан-Андмин™
+admin.skeleton.loading=Загрузка...
+
+admin.list.list=Список
+admin.list.addNew=Добавить
+admin.list.export=Экспорт
+admin.list.history=История
+admin.list.delete=Удалить
+admin.list.edit=Правка
+admin.list.selectedItems=Выбранные записи
+admin.list.addFilter=Добавить фильтр
+admin.list.filter=Фильтр
+admin.list.refresh=Обновить
+admin.list.show=Просмотр
+admin.list.exportB=Экспорт найденных
+admin.list.deleteB=Удалить выделенные
+
+admin.export.selectFields=Выбор полей для экспорта
+admin.export.selectFieldsModel=Поля из "{0}"
+admin.export.optionsCSV=Настройки для CSV
+admin.export.codepage=Кодировка
+admin.export.codepageHelp=Выбор выходной кодировки для файла CSV. По-умолчанию используется UTF-8
+admin.export.noHeader=Опустить заголовок
+admin.export.noHeaderHelp=Не выводить заголовки полей в файл
+admin.export.separator=Разделитель полей
+admin.export.separatorHelp=Выбор разделителя для отделения данных одного поля от данных другого, используется запятая по-умолчаию. В русской локали рекомендуется использовать табуляцию, т.к. с помощью запятых отделяется дробная часть числа от целой.
+admin.export.sep1=<запятая> ","
+admin.export.sep2=<точка с запятой> ";"
+admin.export.sep3=<табуляция>
+admin.export.buttonCSV=Экспорт в CSV
+admin.export.buttonJSON=Экспорт в JSON
+admin.export.buttonXML=Экспорт в XML
+
+admin.edit.save=Сохранить
+admin.edit.saveAndAdd=Сохранить и добавить ещё
+admin.edit.saveAndEdit=Сохранить и редактировать
+
+admin.delete.yes=Да, я уверен
+admin.delete.confirm=Вы уверены, что хотите безвозвратно удалить объект "{0}" и все связанные с ним объекты?
+
+admin.show.title=Основная информация
+
+
+auth.badLogin=Неправильный логин или пароль
+auth.logoutSuccess=Вы успешно разлогинились
+
+
+###############################################################################
+# Pro-Sport: Локализация названий
+###############################################################################
+model.Image=Картинки
+field.Image.name=Название
+field.Image.product=Товар
+field.Image.color=Цвет
+field.Image.filename=Файл картинки
+
+model.Product=Товары
+field.Product.articul=Артикул
+field.Product.name=Название
+field.Product.description=Полное описание
+field.Product.shortDescription=Краткое описание
+field.Product.author=Автор
+field.Product.viewsCount=Просмотров
+field.Product.rating=Рейтинг
+field.Product.category=Категория
+field.Product.semanticUrl=ЧПУ
+
+model.ProductCategory=Категория товаров
+field.ProductCategory.parent=Родительская категория
+field.ProductCategory.name=Название
+
+model.User=Пользователи
+field.User.email=E-mail адрес
+field.User.isBlocked=Блокирован
+field.User.role=Роль
+field.User.registredAt=Зарегистрирован
+field.User.password=Пароль
