@@ -6,13 +6,11 @@ ebeanEnabled := false
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
-  "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final", // replace by your jpa implementation
-  "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
+  javaEbean,
+  cache,
+  "org.avaje.ebeanorm" % "avaje-ebeanorm-api" % "3.1.1",
   "com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.1",
-  cache
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 )
-
-
 
 play.Project.playJavaSettings

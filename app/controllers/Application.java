@@ -1,10 +1,8 @@
 package controllers;
 
-import dao.DAOHelper;
 import models.ProductCategory;
 import models.User;
 import play.data.Form;
-import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,7 +19,7 @@ public class Application extends Controller {
         public String email;
         public String password;
 
-        @Transactional(readOnly = true)
+//        @Transactional(readOnly = true)
         public String validate() {
             if (User.authenticate(email, password) == null) {
                 return "Invalid user or password";
@@ -31,18 +29,21 @@ public class Application extends Controller {
 
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public static Result index() {
-        User u  = User.authenticate("email", "valera.dt@gmail.com");
-        return u == null
-                ? notFound("User with this email does'nt exist")
-                : ok(u.getPassword());
+        User u = User.authenticate("valera.dt@gmail.com", "123456");
+        return ok(u.getId().toString());
+//        User u  = User.authenticate("email", "valera.dt@gmail.com");
+//        return u == null
+//                ? notFound("User with this email does'nt exist")
+//                : ok(u.getPassword());
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public static Result listCategories() {
-        List<ProductCategory> pc = DAOHelper.getAll(ProductCategory.class);
-        return ok(Json.toJson(pc));
+//        List<ProductCategory> pc = DAOHelper.getAll(ProductCategory.class);
+//        return ok(Json.toJson(pc));
+        return ok("");
     }
 
     /**
@@ -71,9 +72,10 @@ public class Application extends Controller {
     public static Result logout() {
         session().clear();
         flash("success", "You've been logged out");
-        return redirect(
-                routes.Application.login()
-        );
+//        return redirect(
+//                routes.Application.login()
+//        );
+        return ok("");
     }
 
 

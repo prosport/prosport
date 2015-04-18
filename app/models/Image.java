@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import sapsan.annotation.SapsanField;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,14 +16,17 @@ public class Image extends IDNameEntity {
 
     @Constraints.MaxLength(255)
     @NotNull
+    @SapsanField
     public String filename;
 
     @Constraints.MaxLength(255)
     @NotNull
+    @SapsanField
     public String color;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @SapsanField
     public Product product;
 
 
