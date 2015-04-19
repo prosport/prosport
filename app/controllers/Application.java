@@ -28,6 +28,10 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
+    public static Result catalog() {
+        return ok(catalog.render());
+    }
+
 //    @Transactional(readOnly = true)
     public static Result listCategories() {
 //        List<ProductCategory> pc = DAOHelper.getAll(ProductCategory.class);
