@@ -1,8 +1,12 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import models.SecurityRole;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import java.util.Date;
 
 
 /**
@@ -15,9 +19,14 @@ public class Test extends Controller {
         return ok(u.role.name());
     }
 
-    public static Result test3(Long id) {
-
-        return ok("!!!" + id );
+    public static Result test3() {
+        User u = new User();
+        u.email = "valera@lastochka-os.ru";
+        u.password = "123456";
+        u.role = SecurityRole.ROLE_ADMIN;
+        u.registredAt = new Date();
+        Ebean.save(u);
+        return ok("!!!");
     }
 
 }

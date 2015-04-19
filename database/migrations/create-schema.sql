@@ -112,3 +112,13 @@ CREATE TABLE comments
 ALTER TABLE comments ADD CONSTRAINT pkcomments PRIMARY KEY (id);
 
 
+CREATE SEQUENCE images_seq;
+CREATE SEQUENCE products_seq;
+CREATE SEQUENCE product_categories_seq;
+CREATE SEQUENCE users_seq;
+
+
+DROP SEQUENCE images_id_seq;
+DROP SEQUENCE productcategories_id_seq;
+DROP SEQUENCE products_id_seq;
+DROP SEQUENCE users_id_seq;
