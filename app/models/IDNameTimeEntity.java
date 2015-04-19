@@ -17,21 +17,6 @@ public abstract class IDNameTimeEntity extends IDNameEntity {
     public Date createdAt;
 
     @Column(name = "modified_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
-     Date modifiedAt = new Date();
+    public Date modifiedAt = new Date();
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
 }
