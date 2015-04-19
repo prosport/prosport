@@ -15,7 +15,8 @@ public abstract class AbstractBaseEntity implements Serializable{
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(generator = "entity_id_gen", strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(generator = "entity_id_gen", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @SapsanField()
     public Long id;
 

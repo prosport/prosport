@@ -14,10 +14,10 @@ import java.util.Date;
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class IDNameTimeEntity extends IDNameEntity {
     @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
-    protected Date createdAt;
+    public Date createdAt;
 
     @Column(name = "modified_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
-    protected Date modifiedAt = new Date();
+     Date modifiedAt = new Date();
 
     public Date getCreatedAt() {
         return createdAt;

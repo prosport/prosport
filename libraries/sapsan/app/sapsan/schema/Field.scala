@@ -14,7 +14,7 @@ import com.avaje.ebean.Ebean
 
 object Field {
     val createdAt = "createdAt"
-    val updatedAt = "updatedAt"
+    val updatedAt = "modifiedAt"
     val dateFields = Array(createdAt, updatedAt)
 }
 

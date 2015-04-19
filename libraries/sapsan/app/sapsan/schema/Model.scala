@@ -153,11 +153,19 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
         saveRecord(obj)
     }
 
+    def getReflectField(name: String) = {
+        try {
+            val f = clazz.getField(name)
+            Some(f)
+        } catch {
+            case _ : NoSuchFieldException => None
+        }
+    }
+
     /** Сохранение новой записи  в БД */
     def saveRecord(bean: Any) {
         // Проставляем дату добавления записи (если есть такое поле)
-        val f = clazz.getDeclaredField(Field.createdAt)
-        if(f != null) {
+        getReflectField(Field.createdAt).map { f =>
             f.set(bean, new Date())
         }
         // Сохраняем запись
@@ -171,9 +179,8 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 
     /** Обновление записи  в БД */
     def updateRecord(bean: Any, id: Long) {
-        // Проставляем дату добавления записи (если есть такое поле)
-        val f = clazz.getDeclaredField(Field.updatedAt)
-        if(f != null) {
+        // Проставляем дату обновления записи (если есть такое поле)
+        getReflectField(Field.updatedAt).map { f =>
             f.set(bean, new Date())
         }
         // Обновляем запись
