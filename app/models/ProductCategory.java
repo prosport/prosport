@@ -31,6 +31,12 @@ public class ProductCategory extends IDNameTimeEntity {
         return find.all();
     }
 
+    public static List<ProductCategory> findAllRoots() {
+        return find.where()
+                .eq("parent", null)
+                .findList();
+    }
+
 
     public ProductCategory() {
     }

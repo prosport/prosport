@@ -16,7 +16,7 @@ import java.util.List;
 public class TreePageController extends Controller {
 
     public static Result GET() {
-        List<ProductCategory> categories = ProductCategory.findAll();
+        List<ProductCategory> categories = ProductCategory.findAllRoots();
         return ok(tree.render("Дерево", convertToTree(categories)));
     }
 
