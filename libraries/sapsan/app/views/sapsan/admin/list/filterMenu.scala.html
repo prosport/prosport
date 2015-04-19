@@ -1,0 +1,8 @@
+@(model: _root_.sapsan.schema.Model)
+<ul class="dropdown-menu" id="filters" style="left:auto; right:0;">
+@for((fieldName, field) <- model.fields) {
+    <li>
+        <a data-field-label="@field.label" data-field-name="@field.toCNotation" data-field-options="" data-field-type="@field.dataType" data-field-value="" href="#">@field.label</a>
+    </li>
+}
+</ul>

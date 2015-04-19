@@ -1,0 +1,6 @@
+@(route: Call, title: String, tp: String, size: String)
+<div class="btn-group">
+    <a href="@route" class="btn @tp @size">@title</a>
+    <a href="#" data-toggle="dropdown" class="btn @tp @size dropdown-toggle"><span class="caret"/></a>
+    Bootstrap::dropdown_menu(items)
+</div>

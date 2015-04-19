@@ -1,0 +1,29 @@
+@(modelName: String, currentPage: com.avaje.ebean.Page[_], route: (String, Int, String, String) => Call)
+
+@if(currentPage.getTotalPageCount > 1){
+<div>
+    <ul class="pagination pagination-lg center">
+        @if(currentPage.hasPrev) {
+            <li class="prev">
+                <a href="@route(modelName, currentPage.getPageIndex - 1, "", "")">&larr; @Messages("interface.list.previous")</a>
+            </li>
+        } else {
+            <li class="prev disabled">
+                <a>&larr; @Messages("interface.list.previous")</a>
+            </li>
+        }
+        <li class="current">
+            <a>@Messages("interface.list.displaying") @currentPage.getDisplayXtoYofZ(" " + Messages("interface.list.to") + " ", " " + Messages("interface.list.of") + " ")</a>
+        </li>
+        @if(currentPage.hasNext) {
+            <li class="next">
+                <a href="@route(modelName, currentPage.getPageIndex + 1, "", "")">@Messages("interface.list.next") &rarr;</a>
+            </li>
+        } else {
+            <li class="next disabled">
+                <a>@Messages("interface.list.next") &rarr;</a>
+            </li>
+        }
+    </ul>
+</div>
+}

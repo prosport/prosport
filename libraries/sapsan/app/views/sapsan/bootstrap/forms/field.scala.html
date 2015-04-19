@@ -1,0 +1,8 @@
+@(name: String, label: String, help: String)(controls: Html)
+<div class="control-group">
+    <label class="control-label" for="@name">@label</label>
+    <div class="controls">
+        @controls
+        <p class="help-block">@help</p>
+    </div>
+</div>

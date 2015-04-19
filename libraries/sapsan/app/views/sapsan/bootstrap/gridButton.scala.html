@@ -1,0 +1,4 @@
+@(url: Call, image: String, hint: String = "Удалить запись", onclick: String = "return confirmDelete();")
+<a href="@url" onclick="@onclick">
+    <img src="@controllers.sa.routes.Assets.at(image)" alt="@hint" title="@hint" />
+</a>

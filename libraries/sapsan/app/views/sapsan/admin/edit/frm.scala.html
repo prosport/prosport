@@ -1,0 +1,38 @@
+@(model: _root_.sapsan.schema.Model, f: Form[_], id: Long)
+@import helper._
+@import controllers.sa._
+
+@form(if(id == -1) routes.Admin.save(model.toCNotation) else routes.Admin.update(model.toCNotation, id),
+      'class -> "form-horizontal",
+      'role -> "form",
+      'id -> ("new_" + model.toCNotation)
+) {
+    <fieldset>
+
+        @model.fieldsForEdit3.map { case (fieldName, field) =>
+            @fieldSelector(field, f)
+        }
+
+
+    </fieldset>
+
+    <div class="form-actions">
+
+        <button class="btn btn-primary" data-disable-with="Save" name="@FormButton.Save" type="submit">
+            <span class="glyphicon glyphicon-ok"></span> @Messages("admin.edit.save")
+        </button>
+        <span class="extra_buttons">
+            <button class="btn btn-info" data-disable-with="Save and add another" name="@FormButton.SaveAndAdd" type="submit">
+                @Messages("admin.edit.saveAndAdd")
+            </button>
+            <button class="btn btn-info" data-disable-with="Save and edit" name="@FormButton.SaveAndEdit" type="submit">
+                @Messages("admin.edit.saveAndEdit")
+            </button>
+            <button class="btn btn-default" href="@routes.Admin.list(model.toCNotation)">
+                <span class="glyphicon glyphicon-remove-circle"></span> @Messages("interface.cancel")
+            </button>
+        </span>
+
+    </div>
+
+}

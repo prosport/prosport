@@ -1,0 +1,80 @@
+@(field: _root_.sapsan.schema.Field, f: Form[_], showConstraints: Boolean = false, size: String = "form-control")
+@import _root_.sapsan.common.HtmlInputComponent
+@import _root_.sapsan.schema.DataTypeGroup
+@import views.html.sapsan.bootstrap._
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(views.html.sapsan.bootstrap.fieldConstructor.render) }
+
+@field.component match {
+
+    case comp if(field.dataType == DataTypeGroup.ManyToOne) => {
+        @select(f(field.name + "." + field.foreignModel.primaryField.name),
+            options(field.foreignModel.biList.map(x => x._1.toString -> x._2.toString )),
+            '_label -> field.label,
+            '_default -> Messages("interface.chooseValue"),
+            'class -> size,
+            '_showConstraints -> showConstraints
+        )
+    }
+    case HtmlInputComponent.InputCheckbox => {
+        @checkbox(f(field.name),
+            '_label -> None,
+            '_text -> field.label,
+            'class -> size,
+            '_showConstraints -> showConstraints
+        )
+    }
+    case HtmlInputComponent.InputNumeric => {
+        @inputText(f(field.name),
+            '_label -> field.label,
+            '_showConstraints -> showConstraints,
+            'class -> size,
+            'type -> "number"
+        )
+    }
+    case HtmlInputComponent.InputDateTime => {
+        @inputText(f(field.name),
+            '_label -> field.label,
+            '_showConstraints -> showConstraints,
+            'class -> size,
+            'type -> "datetime-local"
+        )
+    }
+
+    case HtmlInputComponent.TextArea => {
+        @textarea(f(field.name),
+            '_label -> field.label,
+            'class -> size,
+            '_showConstraints -> showConstraints
+        )
+    }
+    case HtmlInputComponent.CKEditor => {
+        @textarea(f(field.name),
+            '_label -> field.label,
+            'class -> ("ckeditor " + size).toString,
+            '_showConstraints -> showConstraints,
+            'rows -> 10,
+            'cols -> 80
+        )
+    }
+
+    case HtmlInputComponent.InputPassword  => {
+        @inputPassword(f(field.name), '_label -> field.label, 'class -> size,'_showConstraints -> showConstraints)
+    }
+
+    case HtmlInputComponent.FileUpload  => {
+        @inputFile(f(field.name), '_label -> field.label)
+    }
+
+    case HtmlInputComponent.InputHidden => {
+        <input type="hidden" name="@field.name"/>
+    }
+
+    case _ => {
+        @inputText(f(field.name),
+            '_label -> field.label,
+            'class -> size,
+            '_showConstraints -> showConstraints
+        )
+    }
+}

@@ -1,0 +1,16 @@
+@(name: String, route : play.api.mvc.Call, items: Map[String, String], title: String = play.i18n.Messages.get("interface.add"))
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(views.html.sapsan.bootstrap.fieldConstructor.render) }
+@form(route, args = 'class -> "well form-inline") {
+
+    <label for="@name"> @Messages("interface.choose"): </label>
+
+    <select name="@name" id="@name" class="input-xlarge">
+    @for((id, value) <- items) {
+        <option value="@id">@value</option>
+    }
+    </select>
+
+    <button type="submit" class="btn btn-success">@title</button>
+}
+

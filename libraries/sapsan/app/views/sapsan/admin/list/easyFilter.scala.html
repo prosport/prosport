@@ -1,0 +1,19 @@
+@(model: _root_.sapsan.schema.Model)(adding: Html)
+<form action="@controllers.sa.routes.Admin.list(model.toCNotation)" class="form form-inline"  role="form" method="GET">
+    <div class="well">
+
+        <div class="form-group">
+
+            <span id="filters_box"></span>
+
+            <hr class="filters_box" style="display:none">
+
+            <input class="input-sm form-control" name="query" placeholder="@Messages("admin.list.filter")" type="search">
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+            <span class="glyphicon glyphicon-refresh"></span> @Messages("admin.list.refresh")
+        </button>
+        @adding
+    </div>
+</form>

@@ -1,0 +1,8 @@
+@(items: (Any, Any)*)
+
+<dl class="dl-horizontal">
+    @for((title, value) <- items) {
+        <dt>@title</dt>
+        <dd>@value</dd>
+    }
+</dl>

@@ -1,0 +1,6 @@
+ @(text : String, maxLength : Int)
+@if(text != null && text.length > maxLength) {
+     @text.substring(0, maxLength) ...
+ } else {
+     @text
+ }

@@ -1,0 +1,11 @@
+@(model: _root_.sapsan.schema.Model = null)
+<div class="well nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">@Messages("admin.skeleton.navigation")</li>
+        @for((name, title) <- controllers.sa.Admin.navigation) {
+            <li class="@Html("active".when(model != null && model.toCNotation == name))" data-model="@name">
+                <a class=" " href="@controllers.sa.routes.Admin.list(name)">@title</a>
+            </li>
+        }
+    </ul>
+</div>

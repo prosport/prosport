@@ -1,0 +1,4 @@
+@(title: String, url: Call, tp: String = "", size : String = "", icon: String = null, disabled : Boolean = false )
+<a href="@url" class="btn @tp @size @if(!disabled) { disabled }">
+@if(icon != null) { <span class="@icon"></span> } @title
+</a>

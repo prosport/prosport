@@ -1,0 +1,37 @@
+@(model: _root_.sapsan.schema.Model, active: String)(content: Html)
+@import views.html.sapsan.bootstrap._
+
+<ul class="nav nav-tabs">
+
+@nav.adm1(title = Messages("admin.list.list"),
+    url = controllers.sa.routes.Admin.list(model.toCNotation),
+    icon = "glyphicon-th-list",
+    classes = "icon index_collection_link " + " active".when(active == "list")
+)
+
+
+@nav.adm1(title = Messages("admin.list.addNew"),
+    url = controllers.sa.routes.Admin.create(model.toCNotation),
+    icon = "glyphicon-plus",
+    classes = "icon icon new_collection_link" + " active".when(active == "addNew")
+)
+@*
+@nav.adm1(title = Messages("admin.list.export"),
+    url = controllers.sa.routes.Admin.exportConfig(model.toCNotation),
+    icon = "glyphicon-share",
+    classes = "icon export_collection_link"  + " active".when(active == "export")
+)
+
+@if(play.Play.application.configuration.getBoolean("sapsan.history", true)) {
+    @nav.adm1(title = Messages("admin.list.history"),
+        url = controllers.sa.routes.Admin.history(model.toCNotation),
+        icon = "glyphicon-book",
+        classes = "icon history_index_collection_link"  + " active".when(active == "history")
+    )
+}
+*@
+
+@content
+
+
+</ul>
