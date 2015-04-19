@@ -4,6 +4,9 @@
 
 # Home page
 GET         /                       controllers.Application.index()
+GET         /catalog                controllers.Application.catalog()
+
+
 GET         /test1                  controllers.Test.test1()
 GET         /test3                  controllers.Test.test3()
 #GET         /admin/product/:id/show        controllers.Test.test3(id: Long)

@@ -1,0 +1,28 @@
+// out: null
+
+.stars {
+    ul {
+        display: inline-block;
+        
+        li {
+            background: url("../images/stars.png") 0 0 no-repeat;
+            display: block;
+            float: left;
+            height: 12px;
+            margin-right: 2px;
+            width: 12px;
+            
+            &:last-child {
+                margin-right: 0;
+            }
+            
+            &.positive {
+                background-position: -11px 0;
+            }
+            
+            &.negative {
+                background-position: 0 0;
+            }
+        }
+    }
+}

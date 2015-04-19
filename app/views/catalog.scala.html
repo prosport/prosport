@@ -1,0 +1,44 @@
+@()
+@main(title = "ProSport Catalog") {
+    <content>
+        @elements.slider()
+        @elements.breadcrumbs()
+        <section class="catalog-list">
+            <ul>
+            @for(i <- (1 to 8)) {
+                <li>
+                    <h3>Футболка "Kickboxing, вензеля_1"</h3>
+                    <div class="img-wrapper">
+                        <a href="#">
+                            <img src="@routes.Assets.at("images/temp/6.jpg")" alt="Image"/>
+                        </a>
+                    </div>
+                    <div class="features">
+                        <p class="float-right"><b>КБ024</b></p>
+                        <p>Кикбоксинг</p>
+                        <ul class="colors">
+                            <li>
+                                <a href="#" style="background: red"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="background: orange"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="background: gray"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="background: white" class="border"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="background: violet"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="background: black"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            }
+            </ul>
+        </section>
+}
