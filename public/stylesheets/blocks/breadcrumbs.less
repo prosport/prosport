@@ -1,0 +1,45 @@
+// out: null
+
+.breadcrumbs {
+    color: @active-color;
+    display: inline-block;
+    font-size: 10px;
+    box-sizing: border-box;
+    padding: 5px @lr-content-padding;
+    width: 100%;
+    
+    ul {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+        
+        li {
+            display: block;
+            float: left;
+        }
+        
+        li a {
+            color: @active-color;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        li a:after {
+            content: "/";
+            display: inline-block;
+            padding: 0 4px;
+        }
+        
+        li a:hover {
+            color: @hover-link;
+            
+            &:after {
+                color: @active-color;
+            }
+        }
+        
+        li:last-child a:after {
+            display: none;
+        }
+    }
+}

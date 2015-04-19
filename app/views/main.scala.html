@@ -1,13 +1,19 @@
 @(title: String)(content: Html)
-
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/styles.compiled.css")" charset="UTF-8"/>
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.min.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.flexslider-min.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/scripts.js")" charset="UTF-8"></script>
     </head>
     <body>
         @content

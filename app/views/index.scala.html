@@ -1,0 +1,110 @@
+@()
+@import utils.Temporary
+@main(title = "ProSport") {
+    <div class="wrapper">
+        <header>
+            <a href="/" title="На главную" class="log">
+                <img src="@routes.Assets.at("images/log.png")" alt="Pro Sport"/>
+            </a>
+            <section class="header-phones">
+                <div class="header-phones_inner">
+                    +7-342-2-181-904
+                    <br/>
+                    +7-342-2-125-490
+                </div>
+            </section>
+            <section class="reg-section">
+                <div class="reg-section_inner">
+                    <a href="#">Регистрация</a>
+                    <a href="#" class="orange">Вход</a>
+                </div>
+            </section>
+        </header>
+        <nav>
+            <ul>
+            @for((title, url) <- Temporary.topSiteMenu) {
+                <li>
+                    <a href="@url" class="@("active".when(title == Temporary.topSiteMenuActive))">
+                        <span class="text-wrapper">
+                            @title
+                            <span class="border-bottom"></span>
+                        </span>
+                    </a>
+                </li>
+            }
+            </ul>
+        </nav>
+        <content>
+            <section class="general-slider" id="general-clider">
+                <ul class="slides-list">
+                    <li>
+                        <img src="@routes.Assets.at("images/temp/1.jpg")" alt="Image"/>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/temp/2.jpg")" alt="Image"/>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/temp/3.jpg")" alt="Image"/>
+                    </li>
+                    <li>
+                        <img src="@routes.Assets.at("images/temp/4.jpg")" alt="Image"/>
+                    </li>
+                </ul>
+            </section>
+            <section class="breadcrumbs">
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Новости компании</a></li>
+                </ul>
+            </section>
+            <section class="news-list">
+                <h2 class="section-header__border-left"><a href="#">Новости компании</a></h2>
+                <article>
+                    <h3><a href="#">Производственная компания "PRO-SPORT" предлагает футболки классические</a></h3>
+                    <div class="news-content edit-box">
+                        <img src="@routes.Assets.at("images/temp/5.jpg")" alt="Image"/>
+                    </div>
+                    <div class="news-footer">
+                        <section class="stars">
+                            <ul>
+                                <li class="positive"></li>
+                                <li class="positive"></li>
+                                <li class="positive"></li>
+                                <li class="positive"></li>
+                                <li class="negative"></li>
+                            </ul>
+                        </section>
+                        <p>Просмотров: 555 | Добавил: <a href="#">Test53</a> | <a href="#">Комментарии (11)</a></p>
+                    </div>
+                </article>
+                <h2 class="section-header__border-left"><a href="#">Лента новостей</a></h2>
+                <article>
+                    <h3><a href="#">Производственная компания "PRO-SPORT" предлагает футболки классические</a></h3>
+                    <div class="news-content edit-box">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                    </div>
+                    <div class="news-footer">
+                        <section class="stars">
+                            <ul>
+                                <li class="positive"></li>
+                                <li class="positive"></li>
+                                <li class="negative"></li>
+                                <li class="negative"></li>
+                                <li class="negative"></li>
+                            </ul>
+                        </section>
+                        <p>Просмотров: 555 | Добавил: <a href="#">Test53</a> | <a href="#">Комментарии (11)</a></p>
+                    </div>
+                </article>
+            </section>
+        </content>
+        <footer>
+            <div class="log"></div>
+            <section class="footer_inner">
+                <p class="align-center">Copyright PRO-SPORT© 2004-2015</p>
+            </section>
+        </footer>
+
+        <a href="javascript:void(0)" class="button-ontop"></a>
+    </div>
+}

@@ -1,0 +1,28 @@
+// out: null
+
+footer {
+    border-top: 4px solid @active-color;
+    color: #000;
+    font-size: 12px;
+    padding-top: 7px;
+    position: relative;
+    width: @content-width;
+    
+    .align-center {
+        text-align: center;
+    }
+    
+    .log {
+        background: url("../images/log-footer.png") 0 0 no-repeat;
+        height: 46px;
+        margin-left: -23px;
+        position: absolute;
+        left: 50%; top: -25px;
+        width: 46px;
+    }
+    
+    .footer_inner {
+        background: @active-color;
+        padding: 20px 0 10px 0;
+    }
+}

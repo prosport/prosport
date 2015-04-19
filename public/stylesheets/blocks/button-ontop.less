@@ -1,0 +1,26 @@
+// out: null
+
+.button-ontop {
+    background: url("../images/button-ontop.png") center center no-repeat #FFF;
+    border: 1px solid @active-color;
+    cursor: default;
+    display: block;
+    border-radius: 5px;
+    height: 40px;
+    opacity: 0;
+    position: fixed;
+    transition: all .5s;
+    right: 25px;
+    bottom: 25px;
+    width: 52px;
+    
+    &.visible {
+        cursor: pointer;
+        display: block;
+        opacity: .5;
+    }
+    
+    &.visible:hover {
+        opacity: 1;
+    }
+}

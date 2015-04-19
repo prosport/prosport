@@ -1,0 +1,88 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.bottom_step1 { margin-bottom: 10px; }
+.bottom_step2 { margin-bottom: 20px; }
+.bottom_step3 { margin-bottom: 30px; }
+
+.center {
+    margin: 0 auto;
+}
+
+.supertext1 {
+    font-weight: bold;
+    font-size: 130%;
+    color: #000000;
+}
+
+
+/* ************************************************************************************** */
+
+
+
+
+
+ul.breadcrumb {
+    background-color: #fbfbfb;
+    background-image: -moz-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -ms-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#f5f5f5));
+    background-image: -webkit-linear-gradient(top, #fff, #f5f5f5);
+    background-image: -o-linear-gradient(top, #fff, #f5f5f5);
+    background-image: linear-gradient(top, #fff, #f5f5f5);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF5F5F5', GradientType=0);;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+    -moz-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff
+}
+
+
+
+/* ************************************************************************************** */
+
+
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+#wrap > .container {
+    padding: 60px 15px 0;
+}
+.container .credit {
+    margin: 20px 0;
+}
+
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+code {
+    font-size: 80%;
+}

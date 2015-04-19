@@ -4,8 +4,7 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.login;
-
+import views.html.*;
 import static play.data.Form.form;
 
 public class Application extends Controller {
@@ -25,14 +24,8 @@ public class Application extends Controller {
 
     }
 
-//    @Transactional(readOnly = true)
     public static Result index() {
-        User u = User.authenticate("valera.dt@gmail.com", "123456");
-        return ok(u.getId().toString());
-//        User u  = User.authenticate("email", "valera.dt@gmail.com");
-//        return u == null
-//                ? notFound("User with this email does'nt exist")
-//                : ok(u.getPassword());
+        return ok(index.render());
     }
 
 //    @Transactional(readOnly = true)

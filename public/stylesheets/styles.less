@@ -1,0 +1,78 @@
+// out: styles.compiled.css, compress: true, autoprefixer: true
+// Guide: https://github.com/jdiehl/brackets-less-autocompile
+
+@import url("libs/reset.css");
+@import url("libs/flexslider.css");
+
+@body-bg            : #F4F4F4;
+@content-bg         : #FFF;
+@active-color       : #f87900;
+@hover-link         : red;
+@content-width      : 1260px;
+@lr-content-padding : 30px;
+
+html,
+body {
+    background: @body-bg;
+    font: 400 12px/18px Arial, Tahoma, Verdana;
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+img {
+	image-rendering: optimizeQuality;
+}
+
+.wrapper {
+    border-left: 10px solid #EBEBEB;
+    border-right: 10px solid #EBEBEB;
+    margin: 0 auto;
+    position: relative;
+    width: @content-width;
+}
+
+header,
+content,
+footer,
+nav {
+    background: @content-bg;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section-header {
+    &__border-left {
+        border-left: 5px solid #EBEBEB;
+        margin-left: 0 - @lr-content-padding;
+        padding-left: @lr-content-padding - 5px;
+    }
+}
+
+@import url("blocks/header.less");
+@import url("blocks/nav.less");
+@import url("blocks/content.less");
+@import url("blocks/footer.less");
+@import url("blocks/button-ontop.less");
+
+/*
+ *  Adaptive Rules
+ */
+
+@media only screen and (max-width: 1300px) {
+
+    .wrapper,
+    header,
+    nav,
+    content,
+    footer,
+    .general-slider {
+        border-left: 0;
+        border-right: 0;
+        min-width: 1000px !important;
+        width: 100% !important;
+    }
+    
+}
