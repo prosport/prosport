@@ -2,7 +2,8 @@ package models;
 
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
-import play.db.jpa.JPA;
+import play.db.ebean.Model;
+import sapsan.annotation.SapsanField;
 import utils.StringUtils;
 
 import javax.persistence.*;
@@ -21,17 +22,22 @@ public class User extends AbstractBaseEntity {
     @Column(unique = true)
     @Length(min = 0, max = 255)
     @Constraints.Email
-    private String email;
+    @SapsanField()
+    public String email;
 
+    @SapsanField()
     @Length(min = 0, max = 32)
-    private String password;
+    public String password;
 
+    @SapsanField()
     @Length(min = 0, max = 16)
-    public String role;
+    public SecurityRole role;
 
+    @SapsanField()
     @Column(name = "registed_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     public Date registredAt;
 
+    @SapsanField()
     @Column(name = "is_blocked")
     public Boolean isBlocked;
 
@@ -40,17 +46,13 @@ public class User extends AbstractBaseEntity {
         return StringUtils.getAngleBracketString(email);
     }
 
+    public static Model.Finder<String,User> find = new Model.Finder<String,User>(String.class, User.class);
+
     public static User authenticate(String email, String password) {
-        try {
-            return JPA.em().createQuery("FROM User WHERE email = :email AND password = :password", User.class)
-                    .setParameter("email", email)
-                    .setParameter("password", password)
-                    .getSingleResult();
-        } catch(NoResultException ex){
-            return null;
-        } catch(NonUniqueResultException ex) {
-            throw ex;
-        }
+        return find.where()
+                .eq("email", email)
+                .eq("password", password)
+                .findUnique();
     }
 
 
@@ -70,11 +72,4 @@ public class User extends AbstractBaseEntity {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

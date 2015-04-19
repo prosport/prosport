@@ -1,9 +1,10 @@
 package models;
 
 
-import org.hibernate.validator.constraints.Length;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
+import sapsan.annotation.SapsanField;
+import sapsan.common.HtmlInputComponent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,47 +20,55 @@ import java.util.List;
 public class Product extends IDNameTimeEntity {
 
     @NotNull
-//    @Column(name="category_id")
+    @Column(name = "category_id")
     @ManyToOne(cascade = CascadeType.ALL)
+    @SapsanField()
     public ProductCategory category;
 
     @NotNull
     @Constraints.Required
     @Formats.NonEmpty
-    @Column(name="semantic_url")
+    @Column(name = "semantic_url")
+    @SapsanField()
     public String semanticUrl;
 
     @NotNull
     @Constraints.Required
     @Constraints.MaxLength(20)
     @Formats.NonEmpty
-    @Column(name="articul")
+    @Column(name = "articul")
+    @SapsanField()
     public String articul;
 
     @NotNull
     @Constraints.Required
-    @Column(name="description")
+    @Column(name = "description")
+    @SapsanField(inputComponent = HtmlInputComponent.CKEditor)
     public String description;
 
     @NotNull
     @Constraints.Required
     @Formats.NonEmpty
-    @Column(name="short_description")
+    @Column(name = "short_description")
+    @SapsanField(inputComponent = HtmlInputComponent.TextArea)
     public String shortDescription;
 
     @NotNull
-    @Column(name="rating")
+    @Column(name = "rating")
+    @SapsanField()
     public Double rating = 0D;
 
     @NotNull
-    @Column(name="views_count")
+    @Column(name = "views_count")
+    @SapsanField()
     public Integer viewsCount = 0;
 
-    @Column(name="author")
+    @Column(name = "author")
+    @SapsanField()
     public String author;
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Image> images;
 
 }

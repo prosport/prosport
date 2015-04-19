@@ -1,5 +1,7 @@
 package models;
 
+import sapsan.annotation.SapsanField;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -14,7 +16,8 @@ import java.util.Set;
 public class ProductCategory extends IDNameTimeEntity {
 
     @ManyToOne
-    private ProductCategory parent;
+    @SapsanField()
+    public ProductCategory parent;
 
     @NotNull
     @OneToMany(mappedBy = "parent")

@@ -1,5 +1,6 @@
 package models;
 
+import sapsan.annotation.SapsanField;
 import utils.StringUtils;
 
 import javax.persistence.Column;
@@ -12,18 +13,11 @@ import javax.persistence.MappedSuperclass;
  */
 
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class IDNameEntity extends AbstractBaseEntity {
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class IDNameEntity extends AbstractBaseEntity{
+    @SapsanField()
     @Column(unique = true)
-    protected String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String name;
 
     @Override
     public String toString() {
