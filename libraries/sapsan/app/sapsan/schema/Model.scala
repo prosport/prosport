@@ -99,9 +99,12 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 
     /** Возвращает "именной ключ", или же первый столбец, если именной ключ не будет найден */
     def nameField = {
-        val col = fields.find(f => f._2.name == "name" || f._2.dataType == DataTypeGroup.String)
-        if(col.nonEmpty) col.head._2 else fields.head._2
-    }
+        fields.find(f => f._2.name == Field.name).headOption.getOrElse {
+            fields.find(f => f._2.dataType == DataTypeGroup.String).headOption.getOrElse {
+                fields.head
+            }
+        }
+    }._2
 
     /** Извлечение кода записи из переданного объекта */
     def extractId(obj: Any) = primaryField.extract(obj).toString.toLong

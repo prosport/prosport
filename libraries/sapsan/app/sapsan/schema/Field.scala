@@ -13,8 +13,10 @@ import scala.util.Random
 import com.avaje.ebean.Ebean
 
 object Field {
-    val createdAt = "createdAt"
-    val updatedAt = "modifiedAt"
+    val id = Schema.conf.getString("sapsan.column_names.id", "id")
+    val name = Schema.conf.getString("sapsan.column_names.name", "name")
+    val createdAt = Schema.conf.getString("sapsan.column_names.createdAt", "createdAt")
+    val updatedAt = Schema.conf.getString("sapsan.column_names.createdAt", "updatedAt")
     val dateFields = Array(createdAt, updatedAt)
 }
 

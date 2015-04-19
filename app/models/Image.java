@@ -19,12 +19,10 @@ public class Image extends IDNameEntity {
     @SapsanField
     public Product product;
 
-    @Constraints.MaxLength(255)
     @NotNull
     @SapsanField
     public String color;
 
-    @Constraints.MaxLength(255)
     @NotNull
     @SapsanField(inputComponent = HtmlInputComponent.FileUpload)
     public String filename;

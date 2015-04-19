@@ -8,9 +8,10 @@ import scala.collection.immutable.TreeMap
 
 
 object Schema {
+  lazy val conf = Play.application.configuration
 
   /** Хеш по Си-псевдониму имени */
-  lazy val models = loadModels(Play.application.configuration.getString("sapsan.models_package", "models"))
+  lazy val models = loadModels(conf.getString("sapsan.models_package", "models"))
 
 
   def modelsByStatic = models.values.toList.sortWith(_ < _)
