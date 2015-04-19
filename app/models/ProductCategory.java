@@ -1,10 +1,12 @@
 package models;
 
+import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,6 +24,13 @@ public class ProductCategory extends IDNameTimeEntity {
     @NotNull
     @OneToMany(mappedBy = "parent")
     private Set<ProductCategory> subCategories = new HashSet<>();
+
+    public static Model.Finder<String,ProductCategory> find = new Model.Finder<>(String.class, ProductCategory.class);
+
+    public static List<ProductCategory> findAll() {
+        return find.all();
+    }
+
 
     public ProductCategory() {
     }

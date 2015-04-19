@@ -11,8 +11,8 @@ GET         /login                  controllers.Application.login()
 POST        /login                  controllers.Application.authenticate()
 GET         /logout                 controllers.Application.logout()
 
-#test
-GET     /tree                               controllers.TreePageController.GET()
+#tree
+GET          /tree                  controllers.TreePageController.GET()
 
 GET         /categories/list        controllers.Application.listCategories()
 

@@ -6,7 +6,10 @@ import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 import utils.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
@@ -46,7 +49,7 @@ public class User extends AbstractBaseEntity {
         return StringUtils.getAngleBracketString(email);
     }
 
-    public static Model.Finder<String,User> find = new Model.Finder<String,User>(String.class, User.class);
+    public static Model.Finder<String,User> find = new Model.Finder<>(String.class, User.class);
 
     public static User authenticate(String email, String password) {
         return find.where()

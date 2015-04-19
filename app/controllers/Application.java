@@ -1,14 +1,10 @@
 package controllers;
 
-import models.ProductCategory;
 import models.User;
 import play.data.Form;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
-
-import java.util.List;
 
 import static play.data.Form.form;
 

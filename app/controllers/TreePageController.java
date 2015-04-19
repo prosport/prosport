@@ -1,12 +1,13 @@
 package controllers;
 
-import dao.DAOHelper;
 import models.ProductCategory;
-import play.db.jpa.Transactional;
+import models.TreeNode;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.tree;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,10 +15,26 @@ import java.util.List;
  */
 public class TreePageController extends Controller {
 
-    @Transactional(readOnly = true)
     public static Result GET() {
-        List<ProductCategory> categories = DAOHelper.getAll(ProductCategory.class);
-        return ok(tree.render("Дерево", categories));
+        List<ProductCategory> categories = ProductCategory.findAll();
+        return ok(tree.render("Дерево", convertToTree(categories)));
     }
+
+
+    public static List<TreeNode> convertToTree(Collection<ProductCategory> categories) {
+        List<TreeNode> result = new ArrayList<>(categories.size());
+        for (ProductCategory category : categories) {
+            result.add(convertNode(category));
+        }
+        return result;
+    }
+
+    public static TreeNode convertNode(ProductCategory category) {
+        TreeNode result = new TreeNode();
+        result.text = category.name;
+        result.nodes.addAll(convertToTree(category.getSubCategories()));
+        return result;
+    }
+
 
 }
