@@ -1,0 +1,22 @@
+@(model: _root_.sapsan.schema.Model)
+@import views.html.sapsan.bootstrap._
+@import views.html.sapsan.admin._
+@skeleton(model = model) {
+
+    @common.pageHeader(model.label)
+
+    @breadcrumbs(
+        collection.immutable.Map(
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index,
+            model.label -> controllers.sa.routes.Admin.list(model.toCNotation)
+        ),
+        active = Messages("admin.list.export")
+    )
+
+
+    @modelTabs(model, "export") {
+    }
+
+    @frm(model)
+
+}

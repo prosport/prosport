@@ -1,0 +1,10 @@
+@(tp : String = "info", title : String = play.i18n.Messages.get("interface.information"), closeUrl : String = null)(message: Html)
+<div class="alert alert-@tp">
+@if(closeUrl != null) {
+    <a class="close" data-dismiss="alert" href="@closeUrl">×</a>
+}
+    <h4 class="alert-heading">@title</h4>
+
+    @message
+
+</div>

@@ -1,0 +1,19 @@
+@(model: _root_.sapsan.schema.Model, page: com.avaje.ebean.Page[_])
+@import views.html.sapsan.bootstrap._
+@import views.html.sapsan.admin._
+@skeleton(model = model) {
+
+    @common.pageHeader(model.label)
+
+    @breadcrumbs(
+        collection.immutable.Map(
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index
+        ),
+        active = model.label
+    )
+
+    @grid(model, page)
+
+    @pagination(model.toCNotation, page, controllers.sa.routes.Admin.list)
+
+}

@@ -1,0 +1,107 @@
+@(model: _root_.sapsan.schema.Model, page: com.avaje.ebean.Page[_])
+@import views.html.sapsan.admin._
+@import controllers.sa._
+@modelTabs(model, "list") {
+
+    @*<li class="dropdown" style="float:right">*@
+        @*<a class="dropdown-toggle" data-toggle="dropdown" href="#">*@
+            @*@Messages("admin.list.selectedItems")<b class="caret"></b>*@
+        @*</a>*@
+        @*<ul class="dropdown-menu" style="left:auto; right:0;">*@
+            @*<li><a href="#" onclick="jQuery("#bulk_action").val("export"); jQuery("#bulk_form").submit(); return false;">@Messages("admin.list.exportB", model.label)</a></li>*@
+            @*<li><a href="#" onclick="jQuery("#bulk_action").val("bulk_delete"); jQuery("#bulk_form").submit(); return false;">@Messages("admin.list.deleteB", model.label)</a></li>*@
+        @*</ul>*@
+    @*</li>*@
+    @*<li class="dropdown" style="float:right">*@
+        @*<a class="dropdown-toggle" data-toggle="dropdown" href="#">*@
+            @*@Messages("admin.list.addFilter")*@
+            @*<b class="caret"></b>*@
+        @*</a>*@
+        @*@filterMenu(model)*@
+    @*</li>*@
+}
+
+<div id="list">
+    <script>
+    $(document).ready(function(){
+        $("#list input.toggle").click(function () {
+            if ( $(this).is(":checked") )  {
+                $("#list [name="bulk_ids[]"]").attr({"checked": "checked" })
+            } else {
+                $("#list [name="bulk_ids[]"]").removeAttr("checked")
+            }
+        })
+    });
+
+    jQuery(function($) {
+        $.filters.options.regional = {
+        datePicker: {
+        dateFormat: "mm/dd/yy",
+        dayNames: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        dayNamesShort: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        dayNamesMin: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        firstDay: "1",
+        monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        monthNamesShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        }
+        }
+
+        });
+    </script>
+    <style>
+</style>
+    @*@easyFilter(model) {*@
+        @*<span style="float : right"><a href="@routes.Admin.exportConfig(model.toCNotation)" class="btn btn-info">@Messages("admin.list.exportB", model.label)</a></span>*@
+    @*}*@
+
+    <form accept-charset="UTF-8" action="@routes.Admin.bulkAction(model.toCNotation)" class="form" id="bulk_form" method="POST">
+        <input id="bulk_action" name="bulk_action" type="hidden" />
+        <table class="table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th class="shrink">
+                        <input class="toggle" type="checkbox">
+                    </th>
+                    @for((name, field) <- model.fieldsForGrid) {
+                        <th class="header @name " data-href="@routes.Admin.list(model.toCNotation, sort = name, order = "asc")">@field.label</th>
+                    }
+                    <th class="other right shrink">...</th>
+                    <th class="last shrink"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(item <- page.getList) {
+                    @defining(model.extractId(item)) { id =>
+                    <tr>
+                        <td><input name="bulk_ids[]" type="checkbox" value="@id" /></td>
+                        @for((name, field) <- model.fieldsForGrid) {
+                            @if(field.extract(item) == null) {
+                                <td>-</td>
+                            } else {
+                                @if(field.isManyToOne) {
+                                    <td><a href="@routes.Admin.show(field.foreignModel.toCNotation, field.foreignColumn.extract(field.extract(item)).toString.toLong)">@field.extract(item)</a></td>
+                                } else {
+                                    <td>@field.extractD(item)</td>
+                                }
+                            }
+                        }
+                        <td class="last links">
+                            <ul class="inline">
+                                @gridButton(routes.Admin.show(model.toCNotation, id), Messages("admin.list.show"), "glyphicon-info-sign")
+                                @gridButton(routes.Admin.edit(model.toCNotation, id), Messages("admin.list.edit"), "glyphicon-pencil")
+                                @gridButton(routes.Admin.deleteConfirm(model.toCNotation, id), Messages("admin.list.delete"), "glyphicon-remove")
+@*//                                @if(play.Play.application.configuration.getBoolean("sapsan.history", true)) {*@
+@*//                                    @gridButton(routes.Admin.historyRecord(model.toCNotation, id), Messages("admin.list.history"), "glyphicon-book")*@
+@*//                                }*@
+                            </ul>
+                        </td>
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </form>
+</div>
+

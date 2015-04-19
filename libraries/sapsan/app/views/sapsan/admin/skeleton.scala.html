@@ -1,0 +1,77 @@
+@(model: _root_.sapsan.schema.Model = null, stylesheets: Html = Html(""), javascripts: Html = Html(""))(content: Html)
+@import views.html.sapsan.tags._
+@import controllers.sa.Admin
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="NONE,NOARCHIVE" name="robots">
+        <title>@(if(model == null) "" else model.label) | @Admin.appName</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+        @css("sapsan.css")
+        @stylesheets
+
+
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        @javascript("ra.filter-box.js")
+        @javascripts
+
+    </head>
+    <body>
+        <div class="label label-warning" id="loading" style="display:none; position:fixed; right:20px; bottom:20px; z-index:100000">@Messages("admin.skeleton.loading")</div>
+
+
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="glyphicon-bar"></span>
+                        <span class="glyphicon-bar"></span>
+                        <span class="glyphicon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@controllers.sa.routes.Admin.index">
+                        @Admin.appName
+                        <small>@Messages("admin.skeleton.admin")</small>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="@controllers.sa.routes.Admin.index" class="">@Messages("admin.skeleton.dashboard")</a></li>
+                        <li><a href="/" class="">@Messages("admin.skeleton.goHome")</a></li>
+                        <li><a href="/logout" data-method="get"><span class="label label-danger">@Messages("admin.skeleton.logout")</span></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="col-md-3" id="sidebar" role="navigation">
+                <div class="row">
+                @modelMenu(model)
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="content" data-pjax-container>
+
+                @content
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit">Based on the platform SapsanAdmin &copy; <a href="mailto:rumata@@sputnikchess.ru">Rumata Estorsky</a>, 2013.</p>
+            </div>
+        </div>
+
+    </body>
+</html>

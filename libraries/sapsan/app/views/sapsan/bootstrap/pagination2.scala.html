@@ -1,0 +1,32 @@
+@(currentPage: com.avaje.ebean.Page[_], route: (Int, String, String) => Call)
+
+@if(currentPage.getTotalPageCount > 1){
+<div>
+    @if(currentPage.getTotalPageCount > 11) {
+        <ul class="pagination pagination pagination-lg">
+            <li class="previous"><a href="@route(0, "", "")">&larr2;</a></li>
+
+            @for(i <- (if (currentPage.getPageIndex - 5 >= 0) currentPage.getPageIndex - 5 else 0) to
+                      (if (currentPage.getPageIndex + 5 >= currentPage.getTotalPageCount - 1) currentPage.getTotalPageCount - 1 else currentPage.getPageIndex + 5)) {
+                <li class="@("active".when(currentPage.getPageIndex == i))"><a href="@route(i, "", "")">@(i + 1)</a></li>
+            }
+            <li class="next"><a href="@route(currentPage.getTotalPageCount, "", "")">&rarr2;</a></li>
+        </ul>
+    } else {
+        <ul>
+            @if(currentPage.getPageIndex > 0) {
+                <li class="previous"><a href="@route(currentPage.getPageIndex - 1, "", "")">&larr;</a></li>
+            }
+
+            @for(i <- 0 to currentPage.getTotalPageCount - 1) {
+                <li class="@("active".when(currentPage.getPageIndex == i))"><a href="@route(i, "", "")">@(i + 1)</a></li>
+            }
+
+            @if(currentPage.getPageIndex < (currentPage.getTotalPageCount - 1)) {
+                <li class="next"><a href="@route(currentPage.getPageIndex + 1, "", "")">&rarr;</a></li>
+            }
+        </ul>
+    }
+</div>
+}
+

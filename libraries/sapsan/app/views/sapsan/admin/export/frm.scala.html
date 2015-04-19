@@ -1,0 +1,81 @@
+@(model: _root_.sapsan.schema.Model)
+@import helper._
+@import java.nio.charset.Charset
+@form(controllers.sa.routes.Admin.export(model.toCNotation, true),  'class -> "form-horizontal denser") {
+    <input name="send_data" type="hidden" value="true">
+    <fieldset>
+        <legend>
+            <span class="glyphicon glyphicon-chevron-down"></span>  @Messages("admin.export.selectFields")
+        </legend>
+        <input type="hidden" name="model" value="@model.toCNotation">
+        <div class="control-group">
+            <label class="control-label" data-original-title="Click to reverse selection" onclick="jQuery(this).siblings(".controls").find("input").click()" rel="tooltip">@Messages("admin.export.selectFieldsModel", model.label)</label>
+            <div class="controls">
+                @for((fieldName, field) <- model.fields) {
+                <label class="checkbox" for="sel_col">
+                    <input checked="checked" id="sel_col" name="sel_col" type="checkbox" value="@field.toCNotation" />
+                    @field.label
+                </label>
+                }
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <span class="glyphicon-chevron-down"></span>
+            @Messages("admin.export.optionsCSV")
+        </legend>
+        <div class="control-group">
+            <label class="control-label" for="charset">@Messages("admin.export.codepage")</label>
+            <div class="controls">
+                <select id="charset" name="charset">
+                    @for((name, charset) <- Charset.availableCharsets) {
+                        <option value="@name" @("selected".when(Charset.defaultCharset == charset))>@name</option>
+                    }
+                </select>
+                <p class="help-block">@Messages("admin.export.codepageHelp", Charset.defaultCharset.displayName)</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="is_skip_header">@Messages("admin.export.noHeader")</label>
+            <div class="controls">
+                <input id="is_skip_header" name="is_skip_header" type="checkbox" value="true" />
+                <p class="help-block">@Messages("admin.export.noHeaderHelp")</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="csv_separator">@Messages("admin.export.separator")</label>
+            <div class="controls">
+                <select id="csv_separator" name="csv_separator">
+                    <option value="," selected>@Messages("admin.export.sep1")</option>
+                    <option value=";">@Messages("admin.export.sep2")</option>
+                    <option value="@('\t')">@Messages("admin.export.sep3")</option></select>
+                <p class="help-block">@Messages("admin.export.separatorHelp")</p>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <input name="return_to" type="hidden">
+
+        <button class="btn btn-primary" name="format" type="submit" value="csv">
+            <span class="glyphicon glyphicon-save"></span>
+            @Messages("admin.export.buttonCSV")
+        </button>
+
+        <button class="btn btn-info" name="format" value="json" type="submit">
+            <span class="glyphicon glyphicon-save"></span>
+            @Messages("admin.export.buttonJSON")
+        </button>
+
+        <button class="btn btn-info" name="xml" type="submit">
+            <span class="glyphicon glyphicon-save"></span>
+            @Messages("admin.export.buttonXML")
+        </button>
+
+        <button class="btn" name="_continue" type="submit">
+            <span class="glyphicon glyphicon-remove"></span>
+            @Messages("interface.cancel")
+        </button>
+
+    </div>
+}

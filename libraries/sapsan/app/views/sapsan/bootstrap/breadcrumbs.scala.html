@@ -1,0 +1,11 @@
+@(items: scala.collection.immutable.Map[String, Call], active: String = null)
+
+<ul class="breadcrumb">
+
+    @for((title, url) <- items) {
+        <li><a href="@url">@title</a></li>
+        <span class="divider"> / </span>
+    }
+       <li class="active">@active</li>
+
+</ul>

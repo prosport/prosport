@@ -1,0 +1,48 @@
+@(model: _root_.sapsan.schema.Model, item: Any, id: Long)
+@import views.html.sapsan.bootstrap._
+@import views.html.sapsan.admin._
+@import controllers.sa._
+@import helper._
+
+@skeleton(model = model) {
+
+    @common.pageHeader(model.label)
+
+    @breadcrumbs(
+        collection.immutable.Map(
+            Messages("admin.skeleton.dashboard") -> routes.Admin.index,
+            model.label -> routes.Admin.list(model.toCNotation),
+            model.nameField.extract(item).toString -> routes.Admin.show(model.toCNotation, model.extractId(item))
+        ),
+        active = Messages("admin.list.delete")
+    )
+
+    @recordTabs(model, "delete", id) { }
+    <h4>
+        @Messages("admin.delete.confirm", item)
+    </h4>
+    @*<ul>*@
+        @*<li style="display : block ; margin-top : 10 px">*@
+            @*<span class="label">@model.label</span>*@
+            @*<a href="@routes.Admin.show(model.toCNotation, id)">@item</a>*@
+            @*<ul>*@
+            @*</ul>*@
+        @*</li>*@
+    @*</ul>*@
+    @form(routes.Admin.delete(model.toCNotation, id)) {
+        <input name="return_to" type="hidden">
+
+        <div class="form-actions">
+            <button class="btn btn-danger" type="submit">
+                <span class="glyphicon glyphicon-ok"></span>
+                @Messages("admin.delete.yes")
+            </button>
+            <button class="btn" href="@routes.Admin.list(model.toCNotation)">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+                @Messages("interface.cancel")
+            </button>
+        </div>
+    }
+
+
+}

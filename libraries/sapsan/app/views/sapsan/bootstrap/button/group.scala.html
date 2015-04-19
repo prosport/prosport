@@ -1,0 +1,10 @@
+@(groups : List[Map[Any, Any]], title: String, tp: String, size: String)
+<div class="btn-toolbar">
+    @for(buttons <- groups) {
+    <div class="btn-group">
+        @for((title, url) <- buttons) {
+            <a class="btn  @tp @size" href="@url">@title</a>
+        }
+    </div>
+    }
+</div>

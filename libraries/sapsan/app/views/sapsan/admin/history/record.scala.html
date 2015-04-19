@@ -1,0 +1,18 @@
+@(model: _root_.sapsan.schema.Model, item: Any, id: Long)
+@import views.html.sapsan.bootstrap._
+@import views.html.sapsan.admin._
+@skeleton(model = model) {
+
+    @common.pageHeader(model.label)
+
+    @breadcrumbs(
+        collection.immutable.Map(
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index,
+            model.label -> controllers.sa.routes.Admin.list(model.toCNotation),
+            model.nameField.extract(item).toString -> controllers.sa.routes.Admin.show(model.toCNotation, model.extractId(item))
+        ),
+        active = Messages("admin.list.history")
+    )
+
+    @recordTabs(model, "history", id) { }
+}

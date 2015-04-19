@@ -1,0 +1,27 @@
+@(model: _root_.sapsan.schema.Model, modelForm: Form[_], id: Long)
+@import views.html.sapsan.bootstrap._
+@import views.html.sapsan.admin._
+@import views.html.sapsan.tags._
+
+@javascripts = {
+    @javascript("ckeditor/ckeditor.js")
+}
+
+@skeleton(model = model, javascripts = javascripts) {
+
+    @common.pageHeader(model.label)
+
+    @breadcrumbs(
+        collection.immutable.Map(
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index,
+            model.label -> controllers.sa.routes.Admin.list(model.toCNotation)
+        ),
+        active = Messages("admin.list.edit")
+    )
+
+    @recordTabs(model, "edit", id) {
+    }
+
+    @frm(model, modelForm, id)
+
+}

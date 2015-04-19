@@ -1,0 +1,7 @@
+@(title: String, attrs: Any*)
+ data-field-label="Id" data-field-name="id" data-field-options="" data-field-type="integer" data-field-value="" href="#">Id</a>
+<a
+    @for((name, value) <- attrs) {
+        @name = "@value"
+    }
+>@title</a>

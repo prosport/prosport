@@ -1,0 +1,17 @@
+@(headers: Array[String], args: (Symbol,Any)*)(body: Html)
+
+<table @toHtmlArgs(args.toMap)>
+
+    <thead>
+	<tr>
+  	    @for(header <- headers) {
+	        <th> @header </th>
+	    }
+	</tr>
+    </thead>
+
+    <tbody>
+        @body
+    </tbody>
+
+</table>
