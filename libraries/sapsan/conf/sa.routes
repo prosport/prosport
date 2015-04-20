@@ -16,8 +16,9 @@ GET     /                     controllers.sa.AdminController.index
 
 
 
-GET     /random         controllers.sa.GenController.random
-GET     /i18l           controllers.sa.GenController.i18l
+GET     /random               controllers.sa.GenController.random
+GET     /i18l/:onlyNew        controllers.sa.GenController.i18l(onlyNew: Boolean)
+GET     /unit-tests           controllers.sa.GenController.unitTests
 
 
 

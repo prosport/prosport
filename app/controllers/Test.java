@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import models.Image;
 import models.SecurityRole;
 import models.User;
 import play.mvc.Controller;
@@ -26,7 +27,12 @@ public class Test extends Controller {
 //        u.role = SecurityRole.ROLE_ADMIN;
 //        u.registredAt = new Date();
 //        Ebean.save(u);
-
+        Image m = new Image();
+        m.name = "sdf";
+        m.color = "sdf";
+        m.filename = "sdf";
+        Ebean.save(m);
+//        m.product = "";
         return ok("!!!");
     }
 
