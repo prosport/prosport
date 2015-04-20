@@ -7,9 +7,9 @@
 
     @breadcrumbs(
         collection.immutable.Map(
-            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index,
-            model.label -> controllers.sa.routes.Admin.list(model.toCNotation),
-            model.nameField.extract(item).toString -> controllers.sa.routes.Admin.show(model.toCNotation, model.extractId(item))
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.AdminController.index,
+            model.label -> controllers.sa.routes.AdminController.list(model.toCNotation),
+            model.nameField.extract(item).toString -> controllers.sa.routes.AdminController.show(model.toCNotation, model.extractId(item))
         ),
         active = Messages("admin.list.history")
     )

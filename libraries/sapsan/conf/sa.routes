@@ -12,41 +12,49 @@
 ###############################################################################
 
 # Список всех моделей
-GET     /                     controllers.sa.Admin.index
+GET     /                     controllers.sa.AdminController.index
 
-GET     /random               controllers.sa.Admin.random
+
+
+GET     /random         controllers.sa.GenController.random
+GET     /i18l           controllers.sa.GenController.i18l
+
+
 
 # Страница администрирования данной таблицы
-GET     /:model               controllers.sa.Admin.list(model: String, page: Int ?= 0, sort ?= "", order ?= "asc")
+GET     /:model               controllers.sa.AdminController.list(model: String, page: Int ?= 0, sort ?= "", order ?= "asc")
 
 
 # Добавление новой записи
-GET     /:model/new           controllers.sa.Admin.create(model: String)
-POST    /:model               controllers.sa.Admin.save(model: String)
+GET     /:model/new           controllers.sa.AdminController.create(model: String)
+POST    /:model               controllers.sa.AdminController.save(model: String)
 
 # Страница настроек экспорта
-GET     /:model/export        controllers.sa.Admin.exportConfig(model: String)
-POST    /:model/export        controllers.sa.Admin.export(model: String, all: Boolean ?= true)
+GET     /:model/export        controllers.sa.AdminController.exportConfig(model: String)
+POST    /:model/export        controllers.sa.AdminController.export(model: String, all: Boolean ?= true)
 
 # История всех записей по таблице
-GET     /:model/history       controllers.sa.Admin.history(model: String)
+GET     /:model/history       controllers.sa.AdminController.history(model: String)
 
 # Действия с выделенными записями
-POST    /:model/bulk_action   controllers.sa.Admin.bulkAction(model: String)
+POST    /:model/bulk_action   controllers.sa.AdminController.bulkAction(model: String)
 
 # История данной записи
-GET     /:model/:id/history   controllers.sa.Admin.historyRecord(model: String, id: Long)
+GET     /:model/:id/history   controllers.sa.AdminController.historyRecord(model: String, id: Long)
 
 # Правка существующей записи
-GET     /:model/:id           controllers.sa.Admin.edit(model: String, id: Long)
-POST    /:model/:id           controllers.sa.Admin.update(model: String, id: Long)
+GET     /:model/:id           controllers.sa.AdminController.edit(model: String, id: Long)
+POST    /:model/:id           controllers.sa.AdminController.update(model: String, id: Long)
 
 # Детальный просмотр выбранной записи
-GET     /:model/:id/show      controllers.sa.Admin.show(model: String, id: Long)
+GET     /:model/:id/show      controllers.sa.AdminController.show(model: String, id: Long)
 
 # Удаление записи
-GET     /:model/:id/delete    controllers.sa.Admin.deleteConfirm(model: String, id: Long)
-POST    /:model/:id/delete    controllers.sa.Admin.delete(model: String, id: Long)
+GET     /:model/:id/delete    controllers.sa.AdminController.deleteConfirm(model: String, id: Long)
+POST    /:model/:id/delete    controllers.sa.AdminController.delete(model: String, id: Long)
+
+
+
 
 
 ## Map static resources from the /public folder to the /assets URL path

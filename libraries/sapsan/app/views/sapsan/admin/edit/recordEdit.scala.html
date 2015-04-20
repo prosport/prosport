@@ -13,8 +13,8 @@
 
     @breadcrumbs(
         collection.immutable.Map(
-            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index,
-            model.label -> controllers.sa.routes.Admin.list(model.toCNotation)
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.AdminController.index,
+            model.label -> controllers.sa.routes.AdminController.list(model.toCNotation)
         ),
         active = Messages("admin.list.edit")
     )

@@ -51,10 +51,10 @@
     <style>
 </style>
     @*@easyFilter(model) {*@
-        @*<span style="float : right"><a href="@routes.Admin.exportConfig(model.toCNotation)" class="btn btn-info">@Messages("admin.list.exportB", model.label)</a></span>*@
+        @*<span style="float : right"><a href="@routes.AdminController.exportConfig(model.toCNotation)" class="btn btn-info">@Messages("admin.list.exportB", model.label)</a></span>*@
     @*}*@
 
-    <form accept-charset="UTF-8" action="@routes.Admin.bulkAction(model.toCNotation)" class="form" id="bulk_form" method="POST">
+    <form accept-charset="UTF-8" action="@routes.AdminController.bulkAction(model.toCNotation)" class="form" id="bulk_form" method="POST">
         <input id="bulk_action" name="bulk_action" type="hidden" />
         <table class="table table-condensed table-striped">
             <thead>
@@ -63,7 +63,7 @@
                         <input class="toggle" type="checkbox">
                     </th>
                     @for((name, field) <- model.fieldsForGrid) {
-                        <th class="header @name " data-href="@routes.Admin.list(model.toCNotation, sort = name, order = "asc")">@field.label</th>
+                        <th class="header @name " data-href="@routes.AdminController.list(model.toCNotation, sort = name, order = "asc")">@field.label</th>
                     }
                     <th class="other right shrink">...</th>
                     <th class="last shrink"></th>
@@ -80,7 +80,7 @@
                                 <td>-</td>
                             } else {
                                 @if(field.isManyToOne) {
-                                    <td><a href="@routes.Admin.show(field.foreignModel.toCNotation, field.foreignColumn.extract(field.extract(item)).toString.toLong)">@field.extract(item)</a></td>
+                                    <td><a href="@routes.AdminController.show(field.foreignModel.toCNotation, field.foreignColumn.extract(field.extract(item)).toString.toLong)">@field.extract(item)</a></td>
                                 } else {
                                     <td>@field.extractD(item)</td>
                                 }
@@ -88,11 +88,11 @@
                         }
                         <td class="last links">
                             <ul class="inline">
-                                @gridButton(routes.Admin.show(model.toCNotation, id), Messages("admin.list.show"), "glyphicon-info-sign")
-                                @gridButton(routes.Admin.edit(model.toCNotation, id), Messages("admin.list.edit"), "glyphicon-pencil")
-                                @gridButton(routes.Admin.deleteConfirm(model.toCNotation, id), Messages("admin.list.delete"), "glyphicon-remove")
+                                @gridButton(routes.AdminController.show(model.toCNotation, id), Messages("admin.list.show"), "glyphicon-info-sign")
+                                @gridButton(routes.AdminController.edit(model.toCNotation, id), Messages("admin.list.edit"), "glyphicon-pencil")
+                                @gridButton(routes.AdminController.deleteConfirm(model.toCNotation, id), Messages("admin.list.delete"), "glyphicon-remove")
 @*//                                @if(play.Play.application.configuration.getBoolean("sapsan.history", true)) {*@
-@*//                                    @gridButton(routes.Admin.historyRecord(model.toCNotation, id), Messages("admin.list.history"), "glyphicon-book")*@
+@*//                                    @gridButton(routes.AdminController.historyRecord(model.toCNotation, id), Messages("admin.list.history"), "glyphicon-book")*@
 @*//                                }*@
                             </ul>
                         </td>

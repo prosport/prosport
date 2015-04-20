@@ -5,7 +5,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Messages
 
-object Auth extends Controller {
+object AuthController extends Controller {
 
     val loginForm = Form(
         tuple(
@@ -30,13 +30,13 @@ object Auth extends Controller {
         implicit request =>
         //        loginForm.bindFromRequest.fold(
         //            formWithErrors => BadRequest(auth.login(formWithErrors)),
-        //            user => Redirect(routes.Admin.index).withSession(Security.username -> user._1)
+        //            user => Redirect(routes.AdminController.index).withSession(Security.username -> user._1)
         //        )
             Ok
     }
 
     def logout = Action {
-        Redirect(routes.Admin.index).withNewSession.flashing(
+        Redirect(routes.AdminController.index).withNewSession.flashing(
             "success" -> Messages("auth.logoutSuccess")
         )
     }

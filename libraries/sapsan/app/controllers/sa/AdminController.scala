@@ -8,19 +8,15 @@ import play.Play
 import play.api.i18n.Messages
 import java.nio.charset.Charset
 import sapsan.common.Export
+import sapsan.common.FormButton
 
 
-object FormButton extends Enumeration {
-    type FormButton = Value
-    val Save = Value("_save")
-    val SaveAndAdd = Value("_saveAndAdd")
-    val SaveAndEdit = Value("_saveAndEdit")
-}
+
 
 /**
  * Основной контроллер админки
  */
-object Admin extends Controller with Secured {
+object AdminController extends Controller with Secured {
 
 //    case class exportForm(format: String, model: String, selCol: Set[String], returnTo: String, sendData: String, csvSeparator, charset: String)
 //    val exportFormMapping = Form(
@@ -36,14 +32,6 @@ object Admin extends Controller with Secured {
     /** Приветственная страница админки, включает список моделей и краткую историю по ним */
     def index = withAuth { username => implicit request =>
         Ok(admin.index.siteAdministration())
-    }
-
-    /** Заполнение моделей базы данных случайными данными */
-    def random = withAuth { _ => implicit request =>
-        List("base", "section", "question", "answer", "template" //, "letter", "bases_acces"
-        ).foreach(m => Schema.models(m).createRandomRecord)
-        //        Array("Привет", "Ля-ля", "На-на").foreach( g => new Group(g).save())
-        Ok("Модели заполнены случайными данными")
     }
 
 
@@ -95,15 +83,15 @@ object Admin extends Controller with Secured {
     /** Перенаправление после редактирования записи в модели, в зависимости от нажатой кнопки в форме */
     def redirectAfterSave(model: String, id: Long, data: Map[String, String], msg: (String, String) ) =
         if (data.exists(_._1 == FormButton.SaveAndEdit.toString))
-            Redirect(controllers.sa.routes.Admin.edit(model, id)).flashing(
+            Redirect(controllers.sa.routes.AdminController.edit(model, id)).flashing(
                 msg
             )
         else if (data.exists(_._1 == FormButton.SaveAndAdd.toString))
-            Redirect(controllers.sa.routes.Admin.create(model)).flashing(
+            Redirect(controllers.sa.routes.AdminController.create(model)).flashing(
                 msg
             )
         else
-            Redirect(controllers.sa.routes.Admin.list(model)).flashing(
+            Redirect(controllers.sa.routes.AdminController.list(model)).flashing(
                 msg
             )
 
@@ -153,7 +141,7 @@ object Admin extends Controller with Secured {
     def delete(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         m.delete(id)
-        Redirect(routes.Admin.list(m.toCNotation))
+        Redirect(routes.AdminController.list(m.toCNotation))
     }
 
     /** Настройка экспорта данных из модели */
@@ -208,15 +196,6 @@ object Admin extends Controller with Secured {
                 Ok
             case None =>
                 BadRequest
-        }
-    }
-
-    def x(qs: Map[String, Seq[String]]) = {
-        val pattern = """f\[(\w+)\]\[(\d+)\]\[(\w)\]""".r
-        qs.filter(_._1.startsWith("f")).foreach {
-            f =>
-                val pattern(name, id, t) = f._1
-                println(name)
         }
     }
 

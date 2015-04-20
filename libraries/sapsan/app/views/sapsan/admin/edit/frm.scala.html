@@ -1,8 +1,9 @@
 @(model: _root_.sapsan.schema.Model, f: Form[_], id: Long)
 @import helper._
 @import controllers.sa._
+@import _root_.sapsan.common.FormButton
 
-@form(if(id == -1) routes.Admin.save(model.toCNotation) else routes.Admin.update(model.toCNotation, id),
+@form(if(id == -1) routes.AdminController.save(model.toCNotation) else routes.AdminController.update(model.toCNotation, id),
       'class -> "form-horizontal",
       'role -> "form",
       'id -> ("new_" + model.toCNotation)
@@ -28,7 +29,7 @@
             <button class="btn btn-info" data-disable-with="Save and edit" name="@FormButton.SaveAndEdit" type="submit">
                 @Messages("admin.edit.saveAndEdit")
             </button>
-            <button class="btn btn-default" href="@routes.Admin.list(model.toCNotation)">
+            <button class="btn btn-default" href="@routes.AdminController.list(model.toCNotation)">
                 <span class="glyphicon glyphicon-remove-circle"></span> @Messages("interface.cancel")
             </button>
         </span>

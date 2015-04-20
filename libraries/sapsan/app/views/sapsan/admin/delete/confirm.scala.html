@@ -10,9 +10,9 @@
 
     @breadcrumbs(
         collection.immutable.Map(
-            Messages("admin.skeleton.dashboard") -> routes.Admin.index,
-            model.label -> routes.Admin.list(model.toCNotation),
-            model.nameField.extract(item).toString -> routes.Admin.show(model.toCNotation, model.extractId(item))
+            Messages("admin.skeleton.dashboard") -> routes.AdminController.index,
+            model.label -> routes.AdminController.list(model.toCNotation),
+            model.nameField.extract(item).toString -> routes.AdminController.show(model.toCNotation, model.extractId(item))
         ),
         active = Messages("admin.list.delete")
     )
@@ -24,12 +24,12 @@
     @*<ul>*@
         @*<li style="display : block ; margin-top : 10 px">*@
             @*<span class="label">@model.label</span>*@
-            @*<a href="@routes.Admin.show(model.toCNotation, id)">@item</a>*@
+            @*<a href="@routes.AdminController.show(model.toCNotation, id)">@item</a>*@
             @*<ul>*@
             @*</ul>*@
         @*</li>*@
     @*</ul>*@
-    @form(routes.Admin.delete(model.toCNotation, id)) {
+    @form(routes.AdminController.delete(model.toCNotation, id)) {
         <input name="return_to" type="hidden">
 
         <div class="form-actions">
@@ -37,7 +37,7 @@
                 <span class="glyphicon glyphicon-ok"></span>
                 @Messages("admin.delete.yes")
             </button>
-            <button class="btn" href="@routes.Admin.list(model.toCNotation)">
+            <button class="btn" href="@routes.AdminController.list(model.toCNotation)">
                 <span class="glyphicon glyphicon-remove-circle"></span>
                 @Messages("interface.cancel")
             </button>

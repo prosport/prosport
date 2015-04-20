@@ -20,12 +20,13 @@ public class Test extends Controller {
     }
 
     public static Result test3() {
-        User u = new User();
-        u.email = "valera@lastochka-os.ru";
-        u.password = "123456";
-        u.role = SecurityRole.ROLE_ADMIN;
-        u.registredAt = new Date();
-        Ebean.save(u);
+//        User u = new User();
+//        u.email = "valera@lastochka-os.ru";
+//        u.password = "123456";
+//        u.role = SecurityRole.ROLE_ADMIN;
+//        u.registredAt = new Date();
+//        Ebean.save(u);
+
         return ok("!!!");
     }
 

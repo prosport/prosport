@@ -1,7 +1,7 @@
 @(model: _root_.sapsan.schema.Model)
 @import helper._
 @import java.nio.charset.Charset
-@form(controllers.sa.routes.Admin.export(model.toCNotation, true),  'class -> "form-horizontal denser") {
+@form(controllers.sa.routes.AdminController.export(model.toCNotation, true),  'class -> "form-horizontal denser") {
     <input name="send_data" type="hidden" value="true">
     <fieldset>
         <legend>

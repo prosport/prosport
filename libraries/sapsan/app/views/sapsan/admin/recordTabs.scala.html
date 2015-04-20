@@ -4,20 +4,20 @@
 <ul class="nav nav-tabs">
 
     @nav.adm1(title = Messages("admin.list.show"),
-        url = controllers.sa.routes.Admin.show(model.toCNotation, id),
+        url = controllers.sa.routes.AdminController.show(model.toCNotation, id),
         icon = "glyphicon-info-sign",
         classes = "icon show_member_link " + " active".when(active == "show")
     )
 
 
     @nav.adm1(title = Messages("admin.list.edit"),
-        url = controllers.sa.routes.Admin.edit(model.toCNotation, id),
+        url = controllers.sa.routes.AdminController.edit(model.toCNotation, id),
         icon = "glyphicon-pencil",
         classes = "icon edit_member_link" + " active".when(active == "edit")
     )
 
     @nav.adm1(title = Messages("admin.list.delete"),
-        url = controllers.sa.routes.Admin.deleteConfirm(model.toCNotation, id),
+        url = controllers.sa.routes.AdminController.deleteConfirm(model.toCNotation, id),
         icon = "glyphicon-remove",
         classes = "icon delete_member_link"  + " active".when(active == "delete")
     )
@@ -25,7 +25,7 @@
 @if(play.Play.application.configuration.getBoolean("sapsan.history", true)) {
 
     @nav.adm1(title = Messages("admin.list.history"),
-        url = controllers.sa.routes.Admin.historyRecord(model.toCNotation, id),
+        url = controllers.sa.routes.AdminController.historyRecord(model.toCNotation, id),
         icon = "glyphicon-book",
         classes = "icon history_show_member_link"  + " active".when(active == "history")
     )

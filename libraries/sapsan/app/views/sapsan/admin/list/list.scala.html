@@ -7,13 +7,13 @@
 
     @breadcrumbs(
         collection.immutable.Map(
-            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.Admin.index
+            Messages("admin.skeleton.dashboard") -> controllers.sa.routes.AdminController.index
         ),
         active = model.label
     )
 
     @grid(model, page)
 
-    @pagination(model.toCNotation, page, controllers.sa.routes.Admin.list)
+    @pagination(model.toCNotation, page, controllers.sa.routes.AdminController.list)
 
 }

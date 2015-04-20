@@ -17,9 +17,9 @@
         </thead>
         <tbody>
         @for((name, model) <- _root_.sapsan.schema.Schema.models) {
-            <tr class="odd link" data-link="@routes.Admin.list(model.toCNotation)">
+            <tr class="odd link" data-link="@routes.AdminController.list(model.toCNotation)">
                 <td>
-                    <span class="show"><a href="@routes.Admin.list(model.toCNotation)" class="">@model.label</a></span>
+                    <span class="show"><a href="@routes.AdminController.list(model.toCNotation)" class="">@model.label</a></span>
                 </td>
                 <td>
                 1 day ago
@@ -30,11 +30,11 @@
                 <td class="links">
                     <ul class="inline">
 
-                        @list.gridButton(routes.Admin.list(model.toCNotation), Messages("admin.list.list"), "glyphicon-th-list")
-                        @list.gridButton(routes.Admin.create(model.toCNotation), Messages("admin.list.addNew"), "glyphicon-plus")
-                        @list.gridButton(routes.Admin.exportConfig(model.toCNotation), Messages("admin.list.export"), "glyphicon-share")
+                        @list.gridButton(routes.AdminController.list(model.toCNotation), Messages("admin.list.list"), "glyphicon-th-list")
+                        @list.gridButton(routes.AdminController.create(model.toCNotation), Messages("admin.list.addNew"), "glyphicon-plus")
+                        @list.gridButton(routes.AdminController.exportConfig(model.toCNotation), Messages("admin.list.export"), "glyphicon-share")
                         @if(play.Play.application.configuration.getBoolean("sapsan.history", true)) {
-                            @list.gridButton(routes.Admin.history(model.toCNotation), Messages("admin.list.history"), "glyphicon-book")
+                            @list.gridButton(routes.AdminController.history(model.toCNotation), Messages("admin.list.history"), "glyphicon-book")
                         }
                     </ul>
                 </td>
