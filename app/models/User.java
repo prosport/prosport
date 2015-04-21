@@ -50,7 +50,7 @@ public class User extends AbstractBaseEntity {
         return StringUtils.getAngleBracketString(email);
     }
 
-    public static Model.Finder<String,User> find = new Model.Finder<>(String.class, User.class);
+    public static Model.Finder<Long,User> find = new Model.Finder<>(Long.class, User.class);
 
     public static User authenticate(String email, String password) {
         return find.where()
