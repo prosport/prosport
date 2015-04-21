@@ -9,16 +9,19 @@ $(document).ready(function() {
         animation: 'fade',
         selector: '.slides-list > li',
         controlsContainer: '#general-clider .sliderButtons_box',
-        animationSpeed: 2000,
+        animationSpeed: 0,
         direction: 'horisontal',
-        controlNav: true,
+        controlNav: false,
         directionNav: true,
         keyboard: false,
         slideshow: false,
         slideshowSpeed: 5000,
         pauseOnHover: true,
         useCSS: true,
-        touch: true
+        touch: true,
+        start: function(slider) {
+            slider.vars.animationSpeed = 2000;
+        }
     });
     
     /*

@@ -32,7 +32,7 @@ nav {
                 transition: all @transition-speed;
                 
                 &:after {
-                    background: url("../images/menu-separator.png") 0 0 no-repeat;
+                    background: url("../img/menu-separator.png") 0 0 no-repeat;
                     content: "";
                     display: block;
                     height: 34px;
@@ -60,9 +60,10 @@ nav {
                         display: block;
                         height: 3px;
                         margin: 0 auto;
+                        opacity: 0;
                         padding-top: 3px;
                         transition: all @transition-speed;
-                        width: 0;
+                        width: 100%;
                     }
                 }
                 
@@ -70,6 +71,7 @@ nav {
                     background-color: #ffffff;
                     color: #000;
                     .text-wrapper .border-bottom {
+                        opacity: 1;
                         width: 100%;
                     }
                 }
