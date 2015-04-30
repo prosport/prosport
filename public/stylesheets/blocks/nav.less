@@ -6,22 +6,26 @@ nav {
     border-bottom: 4px solid #EBEBEB;
     padding-bottom: 15px;
     text-align: center;
+    position: relative;
+    z-index: 10;
     
-    ul {
+    & > ul,
+    & > ul ul {
         background: #EBEBEB;
         box-sizing: border-box;
         display: inline-block;
         text-align: center;
+        position: relative;
         width: 100%;
         font-size: 0px;
         letter-spacing: 0px;
         word-spacing: 0px;
         padding: 0 @lr-content-padding;
         
-        li {
+        & > li {
             display: inline-block;
             
-            a {
+            & > a {
                 color: #4b4b4b;
                 display: inline-block;
                 font: 600 12px Arial;
@@ -29,7 +33,7 @@ nav {
                 position: relative;
                 text-transform: uppercase;
                 text-decoration: none;
-                transition: all @transition-speed;
+                /*transition: all @transition-speed;*/
                 
                 &:after {
                     background: url("../images/menu-separator.png") 0 0 no-repeat;
@@ -40,11 +44,6 @@ nav {
                     position: absolute;
                     right: 0; top: 50%;
                     width: 1px;
-                }
-                
-                &.active {
-                    background-color: #ffffff;
-                    color: @active-color;
                 }
                 
                 .text-wrapper {
@@ -62,39 +61,71 @@ nav {
                         margin: 0 auto;
                         opacity: 0;
                         padding-top: 3px;
-                        transition: all @transition-speed;
-                        width: 100%;
-                    }
-                }
-                
-                &:hover {
-                    background-color: #ffffff;
-                    color: #000;
-                    .text-wrapper .border-bottom {
-                        opacity: 1;
-                        width: 100%;
-                    }
-                }
-                
-                &.active {
-                    color: @active-color;
-                    .text-wrapper .border-bottom {
-                        border-color: @active-color;
-                        width: 100%;
-                    }
-                }
-                
-                &.active:hover {
-                    color: @active-color;
-                    .text-wrapper .border-bottom {
-                        border-color: @active-color;
+                        /*transition: all @transition-speed;*/
                         width: 100%;
                     }
                 }
             }
+            
+            &:hover > a {
+                background-color: #ffffff;
+                color: #000;
+                .text-wrapper .border-bottom {
+                    opacity: 1;
+                    width: 100%;
+                }
+            }
+            
+            & > a.active {
+                background: #FFF;
+                color: @active-color;
+                .text-wrapper .border-bottom {
+                    opacity: 1;
+                    border-color: @active-color;
+                    width: 100%;
+                }
+            }
+            
+            &:hover > a.active {
+                color: @active-color;
+                .text-wrapper .border-bottom {
+                    border-color: @active-color;
+                    width: 100%;
+                }
+            }
+            
+            & > ul {
+                background: #FFF;
+                display: none;
+                position: absolute;
+                left: 0; top: 100%;
+                width: @content-width;
+                
+                & > li:hover > a {
+                    background: @active-color;
+                    transition: all 0;
+                    color: #FFF;
+                }
+            }
+            
+            & > ul {
+                border-top: 2px solid @active-color;
+            }
+            
+            &:hover > ul {
+                display: block;
+            }
+            
+            & > ul ul {
+                background: @active-color;
+                
+                & li > a {
+                    text-transform: none;
+                }
+            }
         }
         
-        li:last-child a:after {display: none}
+        & > li:last-child a:after {display: none}
     }
 }
 
