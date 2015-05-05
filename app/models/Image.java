@@ -1,7 +1,6 @@
 package models;
 
 import play.data.validation.Constraints;
-import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 import sapsan.common.HtmlInputComponent;
 
@@ -16,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "images_id_seq")
 public class Image extends IDNameEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @SapsanField
     public Product product;
 
@@ -28,5 +27,8 @@ public class Image extends IDNameEntity {
     @SapsanField(inputComponent = HtmlInputComponent.FileUpload)
     public String filename;
 
-    public static Model.Finder<Long, Image> find = new Model.Finder<>(Long.class, Image.class);
+
+
+
+
 }

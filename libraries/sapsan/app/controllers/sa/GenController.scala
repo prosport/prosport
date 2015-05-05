@@ -15,7 +15,7 @@ object GenController extends Controller with Secured {
   }
 
   def i18l(onlyNew: Boolean) = withAuth { _ => implicit request =>
-    Ok(Schema.prepareKeysForI18l(false))
+    Ok(Schema.prepareKeysForI18l(onlyNew))
   }
 
   def unitTests = withAuth { _ => implicit request =>

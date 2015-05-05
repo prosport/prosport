@@ -2,18 +2,18 @@ package controllers.sa
 
 import play.api.mvc._
 import views.html.sapsan._
-import sapsan.schema.Schema
+import sapsan.schema.{Schema, Model}
 import play.data._
 import play.Play
 import play.api.i18n.Messages
 import java.nio.charset.Charset
 import sapsan.common.Export
 import sapsan.common.FormButton
+import play.api.Logger
 
 
 
-
-/**
+/**Model.scala:108
  * Основной контроллер админки
  */
 object AdminController extends Controller with Secured {
@@ -31,13 +31,14 @@ object AdminController extends Controller with Secured {
 
     /** Приветственная страница админки, включает список моделей и краткую историю по ним */
     def index = withAuth { username => implicit request =>
-        Ok(admin.index.siteAdministration())
+        val i18lErrors = Schema.prepareKeysForI18l(true).trim.nonEmpty
+        val warningsBlock = admin.index.selfVerification(i18lErrors, false)
+        Ok(admin.index.siteAdministration(warningsBlock))
     }
 
 
     /** Список записей данной модели, включает разбивку на страницы и сортировку */
     def list(model: String, page: Int, sort: String, orderBy: String) = withAuth { _ => implicit request =>
-//        x(request.queryString)
         val m = Schema.models(model)
 
         // записи для грида
@@ -48,8 +49,6 @@ object AdminController extends Controller with Secured {
         val items = m.pageXYZ(page, itemsPerPage, sortBy, orderBy)
         Ok(admin.list.list(Schema.models(model), items))
     }
-
-
 
     /** Форма добавления новой записи в заданную модель */
     def create(model: String) = withAuth { _ => implicit request =>
@@ -62,38 +61,50 @@ object AdminController extends Controller with Secured {
 
     /** Добавление новой записи - обработка данных отправленных create() */
     def save(model: String) = withAuth { _ => implicit request =>
-        request.body.asFormUrlEncoded match {
-            case Some(form) =>
-                val m = Schema.models(model)
-                val data = form.map(x => x._1 -> x._2.head)
-                import collection.JavaConversions._
-                val f = Form.form(m.clazz).bind(data)
-
-                if (f.hasErrors()) {
-                    BadRequest(admin.edit.recordCreate(m, f))
-                } else {
-                    m.saveRecord(f.get)
-
-                    redirectAfterSave(m.toCNotation,  m.extractId(f.get), data, "success" -> Messages("interface.successAdded",  f.get.toString))
+        val m = Schema.models(model)
+        if(request.body.isInstanceOf[AnyContentAsFormUrlEncoded]) {
+            saveFormUrlEncoded(m, request.body)
+        } else if(request.body.isInstanceOf[AnyContentAsMultipartFormData]) {
+            request.body.asMultipartFormData match {
+                case Some(form) => {
+                    println(form.files.size)
+                    form.files
+                    Ok(form.file(m.allFieldsFileUpload.values.head.name).head.ref.file.length.toString)
+                    saveFormUrlEncoded(m, request.body)
                 }
-            case None => BadRequest
+                case None => BadRequest
+            }
+        } else {
+            Logger.warn("Strange type of request body = " + request.body)
+            BadRequest
         }
     }
+
+    def saveFormUrlEncoded(m: Model, form: AnyContent/*, files: Seq[FilePart] = Seq()*/) = form.asFormUrlEncoded match {
+        case Some(form) =>
+            val data = form.map(x => x._1 -> x._2.head)
+            import collection.JavaConversions._
+            val f = Form.form(m.clazz).bind(data)
+
+            if (f.hasErrors()) {
+                BadRequest(admin.edit.recordCreate(m, f))
+            } else {
+                m.saveRecord(f.get)
+
+                redirectAfterSave(m.toCNotation, m.extractId(f.get), data, "success" -> Messages("interface.successAdded",  f.get.toString))
+            }
+        case None => BadRequest
+    }
+
 
     /** Перенаправление после редактирования записи в модели, в зависимости от нажатой кнопки в форме */
     def redirectAfterSave(model: String, id: Long, data: Map[String, String], msg: (String, String) ) =
         if (data.exists(_._1 == FormButton.SaveAndEdit.toString))
-            Redirect(controllers.sa.routes.AdminController.edit(model, id)).flashing(
-                msg
-            )
+            Redirect(controllers.sa.routes.AdminController.edit(model, id)).flashing(msg)
         else if (data.exists(_._1 == FormButton.SaveAndAdd.toString))
-            Redirect(controllers.sa.routes.AdminController.create(model)).flashing(
-                msg
-            )
+            Redirect(controllers.sa.routes.AdminController.create(model)).flashing(msg)
         else
-            Redirect(controllers.sa.routes.AdminController.list(model)).flashing(
-                msg
-            )
+            Redirect(controllers.sa.routes.AdminController.list(model)).flashing(msg)
 
 
     /** Форма редактирования существующей записи данной модели */

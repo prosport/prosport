@@ -5,7 +5,7 @@ import java.lang.reflect.{Field => ReflectField}
 import sapsan.annotation.SapsanField
 import play.api.i18n.Messages
 import scala.collection.mutable.LinkedHashMap
-import sapsan.common.Notation
+import sapsan.common.{HtmlInputComponent, Notation}
 import com.avaje.ebean.Ebean
 import java.util.Date
 
@@ -248,6 +248,10 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
   //        val method = m.clazz.getMethod("delete")
   //        method.invoke(r)
   // перевод к списку
+
+    def allFieldsFileUpload = fields.filter(_._2.component == HtmlInputComponent.FileUpload)
+
+    def isExistFieldFileUpload = allFieldsFileUpload.nonEmpty
 
 
     override def toString: String = name

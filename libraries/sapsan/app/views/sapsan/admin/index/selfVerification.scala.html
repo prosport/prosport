@@ -1,0 +1,10 @@
+@(i18lErrors: Boolean, databaseErrors: Boolean)
+@import controllers.sa._
+
+@if(i18lErrors) {
+    <div class="alert alert-warning" role="alert">@Messages("admin.index.warning.i18l") <a href="@routes.GenController.i18l(true)">@Messages("admin.simple.here")</a></div>
+}
+
+@if(databaseErrors) {
+    <div class="alert alert-warning" role="alert">@Messages("admin.index.warning.i18l") <a href="@routes.GenController.i18l(true)">@Messages("admin.simple.here")</a></div>
+}

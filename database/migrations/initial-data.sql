@@ -39,8 +39,3 @@ SELECT setval('images_seq', (SELECT max(id) + 1 FROM images), false);
 SELECT setval('products_seq', (SELECT max(id) + 1 FROM products), false);
 SELECT setval('product_categories_seq', (SELECT max(id) + 1 FROM product_categories), false);
 SELECT setval('users_seq', (SELECT max(id) + 1 FROM users), false);
-
-CREATE SEQUENCE images_seq;
-CREATE SEQUENCE ;
-CREATE SEQUENCE ;
-CREATE SEQUENCE ;

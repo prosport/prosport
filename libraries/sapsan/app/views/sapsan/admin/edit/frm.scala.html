@@ -2,12 +2,15 @@
 @import helper._
 @import controllers.sa._
 @import _root_.sapsan.common.FormButton
+@currRoute = @{if(id == -1) routes.AdminController.save(model.toCNotation) else routes.AdminController.update(model.toCNotation, id)}
 
-@form(if(id == -1) routes.AdminController.save(model.toCNotation) else routes.AdminController.update(model.toCNotation, id),
-      'class -> "form-horizontal",
-      'role -> "form",
-      'id -> ("new_" + model.toCNotation)
-) {
+<form action="@{currRoute.url}"
+      method="@{currRoute.method}"
+      class="form-horizontal"
+      role="form"
+      @if(model.isExistFieldFileUpload) {enctype="multipart/form-data"}
+      id="@("new_" + model.toCNotation)">
+
     <fieldset>
 
         @model.fieldsForEdit3.map { case (fieldName, field) =>
@@ -36,4 +39,4 @@
 
     </div>
 
-}
+</form>
