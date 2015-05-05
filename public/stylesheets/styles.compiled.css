@@ -95,22 +95,28 @@ nav {
   border-bottom: 4px solid #EBEBEB;
   padding-bottom: 15px;
   text-align: center;
+  position: relative;
+  z-index: 10;
 }
-nav ul {
+nav > ul,
+nav > ul ul {
   background: #EBEBEB;
   box-sizing: border-box;
   display: inline-block;
   text-align: center;
+  position: relative;
   width: 100%;
   font-size: 0px;
   letter-spacing: 0px;
   word-spacing: 0px;
   padding: 0 30px;
 }
-nav ul li {
+nav > ul > li,
+nav > ul ul > li {
   display: inline-block;
 }
-nav ul li a {
+nav > ul > li > a,
+nav > ul ul > li > a {
   color: #4b4b4b;
   display: inline-block;
   font: 600 12px Arial;
@@ -118,9 +124,11 @@ nav ul li a {
   position: relative;
   text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.5s;
+  /*transition: all @transition-speed;*/
+
 }
-nav ul li a:after {
+nav > ul > li > a:after,
+nav > ul ul > li > a:after {
   background: url("../images/menu-separator.png") 0 0 no-repeat;
   content: "";
   display: block;
@@ -131,11 +139,8 @@ nav ul li a:after {
   top: 50%;
   width: 1px;
 }
-nav ul li a.active {
-  background-color: #ffffff;
-  color: #f87900;
-}
-nav ul li a .text-wrapper {
+nav > ul > li > a .text-wrapper,
+nav > ul ul > li > a .text-wrapper {
   bottom: -6px;
   display: inline-block;
   font-weight: inherit;
@@ -143,37 +148,81 @@ nav ul li a .text-wrapper {
   text-align: center;
   z-index: 3;
 }
-nav ul li a .text-wrapper .border-bottom {
+nav > ul > li > a .text-wrapper .border-bottom,
+nav > ul ul > li > a .text-wrapper .border-bottom {
   border-bottom: 3px solid #CCC;
   display: block;
   height: 3px;
   margin: 0 auto;
+  opacity: 0;
   padding-top: 3px;
-  transition: all 0.5s;
-  width: 0;
+  /*transition: all @transition-speed;*/
+
+  width: 100%;
 }
-nav ul li a:hover {
+nav > ul > li:hover > a,
+nav > ul ul > li:hover > a {
   background-color: #ffffff;
   color: #000;
 }
-nav ul li a:hover .text-wrapper .border-bottom {
+nav > ul > li:hover > a .text-wrapper .border-bottom,
+nav > ul ul > li:hover > a .text-wrapper .border-bottom {
+  opacity: 1;
   width: 100%;
 }
-nav ul li a.active {
+nav > ul > li > a.active,
+nav > ul ul > li > a.active {
+  background: #FFF;
   color: #f87900;
 }
-nav ul li a.active .text-wrapper .border-bottom {
+nav > ul > li > a.active .text-wrapper .border-bottom,
+nav > ul ul > li > a.active .text-wrapper .border-bottom {
+  opacity: 1;
   border-color: #f87900;
   width: 100%;
 }
-nav ul li a.active:hover {
+nav > ul > li:hover > a.active,
+nav > ul ul > li:hover > a.active {
   color: #f87900;
 }
-nav ul li a.active:hover .text-wrapper .border-bottom {
+nav > ul > li:hover > a.active .text-wrapper .border-bottom,
+nav > ul ul > li:hover > a.active .text-wrapper .border-bottom {
   border-color: #f87900;
   width: 100%;
 }
-nav ul li:last-child a:after {
+nav > ul > li > ul,
+nav > ul ul > li > ul {
+  background: #FFF;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 1260px;
+}
+nav > ul > li > ul > li:hover > a,
+nav > ul ul > li > ul > li:hover > a {
+  background: #f87900;
+  transition: all 0;
+  color: #FFF;
+}
+nav > ul > li > ul,
+nav > ul ul > li > ul {
+  border-top: 2px solid #f87900;
+}
+nav > ul > li:hover > ul,
+nav > ul ul > li:hover > ul {
+  display: block;
+}
+nav > ul > li > ul ul,
+nav > ul ul > li > ul ul {
+  background: #f87900;
+}
+nav > ul > li > ul ul li > a,
+nav > ul ul > li > ul ul li > a {
+  text-transform: none;
+}
+nav > ul > li:last-child a:after,
+nav > ul ul > li:last-child a:after {
   display: none;
 }
 .wrapper.fixed-menu nav {

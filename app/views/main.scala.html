@@ -32,16 +32,59 @@
             </header>
             <nav>
                 <ul>
-                @for((title, url) <- Temporary.topSiteMenu) {
                     <li>
-                        <a href="@url" class="@("active".when(title == Temporary.topSiteMenuActive))">
+                        <a href="#" class="active">
                             <span class="text-wrapper">
-                                @title
-                            <span class="border-bottom"></span>
+                                Главная
+                                <span class="border-bottom"></span>
                             </span>
                         </a>
                     </li>
-                }
+                    <li>
+                        <a href="#">
+                            <span class="text-wrapper">
+                                Прайс-Лист
+                                <span class="border-bottom"></span>
+                            </span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#">Футболки</a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Дзюдо</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Самбо</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Борьба</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Бокс</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Боксинг</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Длинный рукав</a>
+                            </li>
+                            <li>
+                                <a href="#">Костюмы</a>
+                            </li>
+                            <li>
+                                <a href="#">Толстовки</a>
+                            </li>
+                            <li>
+                                <a href="#">Штаны</a>
+                            </li>
+                            <li>
+                                <a href="#">Зимние шапки</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
 
