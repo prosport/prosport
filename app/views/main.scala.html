@@ -1,4 +1,5 @@
 @(title: String)(content: Html)
+@import utils.StaticNavigation
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,99 +32,122 @@
             </header>
             <nav>
                 <ul>
-                    <li>
-                        <a href="#" class="active">
-                            <span class="text-wrapper">
-                                Главная
+
+                    @for(node <- StaticNavigation.get()) {
+                        <li>
+                            <a href="@node.url" class="@("active".when(StaticNavigation.main.equals(node.title)))">
+                                <span class="text-wrapper">
+                                    @node.title
                                 <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                Прайс-Лист
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="#">Футболки</a>
+                                </span>
+                            </a>
+                            @if(node.hasChilds) {
                                 <ul>
+
+                                @for(c <- node.nodes) {
                                     <li>
-                                        <a href="#">Дзюдо</a>
+                                        <a href="#">@c.title</a>
+                                        @if(c.hasChilds) {
+                                            <ul>
+                                            @for(cc <- c.nodes) {
+                                                <li>
+                                                    <a href="#">@cc.title</a>
+                                                </li>
+                                            }
+                                            </ul>
+                                        }
                                     </li>
-                                    <li>
-                                        <a href="#">Самбо</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Борьба</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Бокс</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Боксинг</a>
-                                    </li>
+                                }
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="#">Длинный рукав</a>
-                            </li>
-                            <li>
-                                <a href="#">Костюмы</a>
-                            </li>
-                            <li>
-                                <a href="#">Толстовки</a>
-                            </li>
-                            <li>
-                                <a href="#">Штаны</a>
-                            </li>
-                            <li>
-                                <a href="#">Зимние шапки</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                Каталог
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                Фотогалерея
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                Форум
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                О компании
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="text-wrapper">
-                                Контакты
-                                <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
+                            }
+                        </li>
+                    }
+                    @*<li>*@
+
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*Прайс-Лист*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*<ul>*@
+                    @*<li>*@
+                    @*<a href="#">Футболки</a>*@
+                    @*<ul>*@
+                    @*<li>*@
+                    @*<a href="#">Дзюдо</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Самбо</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Борьба</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Бокс</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Боксинг</a>*@
+                    @*</li>*@
+                    @*</ul>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Длинный рукав</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Костюмы</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Толстовки</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Штаны</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">Зимние шапки</a>*@
+                    @*</li>*@
+                    @*</ul>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*Каталог*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*Фотогалерея*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*Форум*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*О компании*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*</li>*@
+                    @*<li>*@
+                    @*<a href="#">*@
+                    @*<span class="text-wrapper">*@
+                    @*Контакты*@
+                    @*<span class="border-bottom"></span>*@
+                    @*</span>*@
+                    @*</a>*@
+                    @*</li>*@
                 </ul>
             </nav>
 
