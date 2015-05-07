@@ -14,6 +14,7 @@ footer {
     
     .log {
         background: url("../images/log-footer.png") 0 0 no-repeat;
+        cursor: pointer;
         height: 46px;
         margin-left: -23px;
         position: absolute;
@@ -21,8 +22,50 @@ footer {
         width: 46px;
     }
     
-    .footer_inner {
+    .footer_copyright {
         background: @active-color;
         padding: 20px 0 10px 0;
+    }
+    
+    .footer-contacts {
+        box-sizing: border-box;
+        display: none;
+        font-style: normal;
+        padding: 25px 0 15px 0;
+        width: 100%;
+        
+        h4 {
+            color: #737373;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .footer-phones {
+            box-sizing: border-box;
+            background: url("../images/phone-icon.png") 0 center no-repeat;
+            color: #737373;
+            display: block;
+            margin: 0 auto;
+            min-height: 31px;
+            padding-left: 40px;
+            width: 480px;
+            
+            & > p {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                
+                &:last-child {margin-bottom: 0}
+                
+                small {
+                    display: inline-block;
+                    font-size: 16px;
+                    padding-left: 15px;
+                }
+            }
+        }
     }
 }

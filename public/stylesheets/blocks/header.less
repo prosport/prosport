@@ -17,8 +17,9 @@ header {
     
     .header-phones {
         color: #737373;
-        display: inline-block;
+        display: block;
         font-size: 16px;
+        float: right;
         padding-left: 50px;
         
         .header-phones_inner {
@@ -26,34 +27,6 @@ header {
             height: 59px;
             line-height: 1.3em;
             vertical-align: middle;
-        }
-    }
-    
-    .reg-section {
-        display: block;
-        float: right;
-        height: 59px;
-        
-        .reg-section_inner {
-            display: table-cell;
-            height: 59px;
-            vertical-align: middle;
-            
-            a {
-                border-right: 1px solid #4b4b4b;
-                color: #4b4b4b;
-                display: inline-block;
-                padding: 0 10px;
-                line-height: 12px;
-                text-transform: uppercase;
-            }
-            a:first-child {padding-left: 0}
-            a:last-child {
-                border-right: 0;
-                padding-right: 0
-            }
-            a.orange {color: @active-color}
-            a:hover, a.orange:hover {color: @hover-link}
         }
     }
 }

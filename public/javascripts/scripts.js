@@ -8,10 +8,9 @@ $(document).ready(function() {
         namespace: 'flex_',
         animation: 'fade',
         selector: '.slides-list > li',
-        controlsContainer: '#general-clider .sliderButtons_box',
         animationSpeed: 0,
         direction: 'horisontal',
-        controlNav: false,
+        controlNav: true,
         directionNav: true,
         keyboard: false,
         slideshow: false,
@@ -52,19 +51,24 @@ $(document).ready(function() {
         $(document).on('scroll', function(e) {
             var scrollTop = $(document).scrollTop(),
                 windowHeight = $(window).height();
-            if (windowHeight / 2 < scrollTop) {
-                $('.button-ontop').addClass('visible');
-            } else {
-                $('.button-ontop').removeClass('visible');
-            }
+            ((windowHeight / 2) < scrollTop) ? $('.button-ontop').addClass('visible') : $('.button-ontop').removeClass('visible');
         });
         
         $('.button-ontop').on('click', function() {
             var scrollTop = $(document).scrollTop(),
                 windowHeight = $(window).height();
-            if (windowHeight / 2 < scrollTop) {
-                $('body').animate({scrollTop:0}, 300);
-            }
+            if (windowHeight / 2 < scrollTop) $('body').animate({scrollTop:0}, 300);
+        });
+    })();
+    
+    /*
+     *   Блок контактов в футере
+     */
+    
+    (function() {
+        $('.js-openFooterAddresses').on('click', function() {
+            $('body').animate({scrollTop: $(document).outerHeight()}, 300);
+            $('footer .footer-contacts').slideToggle(300);
         });
     })();
     
