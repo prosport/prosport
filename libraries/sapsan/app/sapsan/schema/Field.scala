@@ -196,7 +196,7 @@ class Field(val model: Model, jf: JavaField) {
         case dt if isString => DataTypeGroup.String
         case dt if isTimestampAny => DataTypeGroup.Timestamp
         case nt => {
-            Logger.warn("Неопределённый тип:" + nt)
+            Logger.warn("Unknown type:" + nt)
             DataTypeGroup.String
         }
     }

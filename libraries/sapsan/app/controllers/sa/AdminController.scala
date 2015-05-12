@@ -67,10 +67,12 @@ object AdminController extends Controller with Secured {
         } else if(request.body.isInstanceOf[AnyContentAsMultipartFormData]) {
             request.body.asMultipartFormData match {
                 case Some(form) => {
-                    println(form.files.size)
-                    form.files
-                    Ok(form.file(m.allFieldsFileUpload.values.head.name).head.ref.file.length.toString)
+
+//                    println(m.allFieldsFileUpload.map(_._2.name))
+//                    m.uploadAndSaveFiles(form.files)
+
                     saveFormUrlEncoded(m, request.body)
+
                 }
                 case None => BadRequest
             }
@@ -80,7 +82,7 @@ object AdminController extends Controller with Secured {
         }
     }
 
-    def saveFormUrlEncoded(m: Model, form: AnyContent/*, files: Seq[FilePart] = Seq()*/) = form.asFormUrlEncoded match {
+    def saveFormUrlEncoded(m: Model, form: AnyContent) = form.asFormUrlEncoded match {
         case Some(form) =>
             val data = form.map(x => x._1 -> x._2.head)
             import collection.JavaConversions._

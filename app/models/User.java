@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.validation.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -34,6 +35,7 @@ public class User extends AbstractBaseEntity {
     public String password;
 
     @SapsanField()
+    @NotEmpty
     @Length(min = 0, max = 16)
     public SecurityRole role;
 

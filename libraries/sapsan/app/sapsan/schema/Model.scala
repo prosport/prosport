@@ -1,11 +1,15 @@
 package sapsan.schema
 
+import java.io.File
 import java.lang.reflect.{Field => ReflectField}
 
+import play.Play
+import play.api.libs.Files
+import play.api.mvc.MultipartFormData
 import sapsan.annotation.SapsanField
 import play.api.i18n.Messages
 import scala.collection.mutable.LinkedHashMap
-import sapsan.common.{HtmlInputComponent, Notation}
+import sapsan.common.{UploadUtils, HtmlInputComponent, Notation}
 import com.avaje.ebean.Ebean
 import java.util.Date
 
@@ -253,6 +257,20 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 
     def isExistFieldFileUpload = allFieldsFileUpload.nonEmpty
 
+
+    def uploadAndSaveFiles(files: Seq[MultipartFormData.FilePart[Files.TemporaryFile]]) = {
+        val relativePath = Play.application.configuration.getString("sapsan.upload.path", "media")
+        val absolutePath = Play.application.getFile(relativePath)
+        for (file <- files) {
+
+            val start = System.currentTimeMillis
+            //            println(file.filename + " = " + md5File(file.ref.file).map("%02x" format _).mkString)
+            //file.ref.moveTo(new File(absolutePath + "/" + file.filename), true)
+            UploadUtils.uploadAndSaveFile(file.ref.file, absolutePath)
+
+            println(System.currentTimeMillis - start)
+        }
+    }
 
     override def toString: String = name
 }
