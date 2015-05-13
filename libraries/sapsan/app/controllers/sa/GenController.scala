@@ -6,12 +6,13 @@ import sapsan.schema.Schema
 
 object GenController extends Controller with Secured {
 
-  /** Заполнение моделей базы данных случайными данными */
-  def random = withAuth { _ => implicit request =>
-    List("base", "section", "question", "answer", "template" //, "letter", "bases_acces"
-    ).foreach(m => Schema.models(m).createRandomRecord)
-    //        Array("Привет", "Ля-ля", "На-на").foreach( g => new Group(g).save())
-    Ok("Модели заполнены случайными данными")
+  /** Filling models database with random data */
+  def random(numberAddingEntries: Integer) = withAuth { _ => implicit request =>
+    // TODO Need implementation
+    List("base", "section", "question", "answer", "template")
+      .foreach(m => Schema.models(m).createRandomRecord)
+
+    Ok("Models are filled with random data")
   }
 
   def i18l(onlyNew: Boolean) = withAuth { _ => implicit request =>

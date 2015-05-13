@@ -64,6 +64,10 @@ interface.upload.image_tag=<img src="{0}">
 interface.upload.doc_tag=<a href="javascript:void(null);" rel="{0}" class="redactor_file_link redactor_file_ico_{2}">{1}</a>';
 interface.upload.error=Ошибка загрузки файла!
 
+interface.deleteRecord="Удалить запись"
+interface.yes=Да
+interface.no=Нет
+
 ###############################################################################
 # Администрирование Сапсан-Админ
 ###############################################################################

@@ -13,8 +13,8 @@ import play.api.Logger
 
 
 
-/**Model.scala:108
- * Основной контроллер админки
+/**
+ * General Controller of SapsanAdmin - implements CRUD-actions
  */
 object AdminController extends Controller with Secured {
 
@@ -23,13 +23,13 @@ object AdminController extends Controller with Secured {
 //        mapping()(exportForm.apply)(exportForm.unapply)
 //    )
 
-    /** Название приложения */
+    /** Name of web-project */
     val appName = Play.application.configuration.getString("sapsan.name", "Demo")
 
-    /** Левое навигационное меню */
+    /** Side navigation bar */
     def navigation = Schema.models.map(m => m._1 -> m._2.label)
 
-    /** Приветственная страница админки, включает список моделей и краткую историю по ним */
+    /** Welcome page of SapsanAdmin, includes list of models and brief information about them */
     def index = withAuth { username => implicit request =>
         val i18lErrors = Schema.prepareKeysForI18l(true).trim.nonEmpty
         val warningsBlock = admin.index.selfVerification(i18lErrors, false)
@@ -37,11 +37,10 @@ object AdminController extends Controller with Secured {
     }
 
 
-    /** Список записей данной модели, включает разбивку на страницы и сортировку */
+    /** Record list of this model, includes pagination and sorting */
     def list(model: String, page: Int, sort: String, orderBy: String) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
 
-        // записи для грида
         val itemsPerPage = Play.application.configuration.getInt("sapsan.pagination.items_per_page")
         val sortBy = if (sort.isEmpty) m.nameField.name else sort
         //val orderBy = if(order) "asc" else "desc"
@@ -50,16 +49,16 @@ object AdminController extends Controller with Secured {
         Ok(admin.list.list(Schema.models(model), items))
     }
 
-    /** Форма добавления новой записи в заданную модель */
+    /** Displays the form of adding new record to a given model  */
     def create(model: String) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
-        // Каша: используется хелпер из Java-части фреймворка
+        // TODO: bad mixed code, it uses helper from Play-Java
         val f = Form.form(m.clazz)
 
         Ok(admin.edit.recordCreate(m, f))
     }
 
-    /** Добавление новой записи - обработка данных отправленных create() */
+    /** Processes form data and creates new record. This method handle data from create() method */
     def save(model: String) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         if(request.body.isInstanceOf[AnyContentAsFormUrlEncoded]) {
@@ -99,7 +98,7 @@ object AdminController extends Controller with Secured {
     }
 
 
-    /** Перенаправление после редактирования записи в модели, в зависимости от нажатой кнопки в форме */
+    /** Redirect after editing record, this depends on button pressed in form */
     def redirectAfterSave(model: String, id: Long, data: Map[String, String], msg: (String, String) ) =
         if (data.exists(_._1 == FormButton.SaveAndEdit.toString))
             Redirect(controllers.sa.routes.AdminController.edit(model, id)).flashing(msg)
@@ -109,14 +108,14 @@ object AdminController extends Controller with Secured {
             Redirect(controllers.sa.routes.AdminController.list(model)).flashing(msg)
 
 
-    /** Форма редактирования существующей записи данной модели */
+    /** Displays editing form of existing record of this model */
     def edit(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         val f = Form.form(classOf[Any]).fill(m.recordById(id))
         Ok(admin.edit.recordEdit(m, f, id))
     }
 
-    /** Обновление записи - обработка данных отправленных edit() */
+    /** Processes form data and update existing record. This method handle data from edit() method */
     def update(model: String, id: Long) = withAuth { _ => implicit request =>
         request.body.asFormUrlEncoded match {
             case Some(form) =>
@@ -138,31 +137,31 @@ object AdminController extends Controller with Secured {
         }
     }
 
-    /** Просмотр подробной информации о выбранной записи */
+    /** Displays detailed information about this record */
     def show(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         Ok(admin.show.index(m, m.recordById(id), id))
     }
 
-    /** Страница подтверждения удаления записи */
+    /** Page for confirm deleting record */
     def deleteConfirm(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         Ok(admin.delete.confirm(m, m.recordById(id), id))
     }
 
-    /** Реальное удаление записи */
+    /** Deletes record from database */
     def delete(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         m.delete(id)
         Redirect(routes.AdminController.list(m.toCNotation))
     }
 
-    /** Настройка экспорта данных из модели */
+    /** Shows export settings's form data from given model */
     def exportConfig(model: String) = withAuth { _ => implicit request =>
         Ok(admin.export.index(Schema.models(model)))
     }
 
-    /** Экспорт данных из данной модели */
+    /** Export data from given model and send file to user */
     def export(model: String, all: Boolean) = withAuth { _ => implicit request =>
         request.body.asFormUrlEncoded match {
             case Some(form) =>
@@ -188,18 +187,18 @@ object AdminController extends Controller with Secured {
         }
     }
 
-    /** История редактирования записей в данной модели */
+    /** History editing records of this model */
     def history(model: String) = withAuth { _ => implicit request =>
         Ok(admin.history.model(Schema.models(model)))
     }
 
-    /** История редактирования данной записи */
+    /** History of editing this record */
     def historyRecord(model: String, id: Long) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         Ok(admin.history.record(m, m.recordById(id), id))
     }
 
-    /** Массовые действия с переданными записями */
+    /** Mass actions with given recods (codes records are transmitted via POST-method) */
     def bulkAction(model: String) = withAuth { _ => implicit request =>
         request.body.asFormUrlEncoded match {
             case Some(form) =>
