@@ -10,7 +10,7 @@ object Export {
         //        var result = ""
 //        val m = Schema.models(model)
 //
-//        // Запрос к БД
+//        // query to database
 //        import collection.JavaConversions._
 //        val items = Ebean.find(m.clazz).findList //.toArray // TODO .toArray?
 //

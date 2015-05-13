@@ -1,16 +1,20 @@
+@(warningsBlock: Html)
 @import views.html.sapsan.admin._
 @import views.html.sapsan.bootstrap._
 @import controllers.sa._
 @skeleton() {
 
-    @common.pageHeader("Site administration")
 
+
+    @common.pageHeader(Messages("admin.index.title"))
+
+    @warningsBlock
 
     <table class="table table-condensed table-striped">
         <thead>
             <tr>
                 <th class="shrink model-name">Model name</th>
-                <th class="shrink last-used">Last used</th>
+                @*<th class="shrink last-used">Last used</th>*@
                 <th class="records">Records</th>
                 <th class="shrink controls"></th>
             </tr>
@@ -21,9 +25,9 @@
                 <td>
                     <span class="show"><a href="@routes.AdminController.list(model.toCNotation)" class="">@model.label</a></span>
                 </td>
-                <td>
-                1 day ago
-                </td>
+                @*<td>*@
+                @*1 day ago*@
+                @*</td>*@
                 <td>
                     <div class="animate-width-to label label-success" data-animate-length="1000" data-animate-width-to="49%" style="width : 2 %">@model.recordCount</div>
                 </td>

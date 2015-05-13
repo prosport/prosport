@@ -46,26 +46,25 @@ class Field(val model: Model, jf: JavaField) {
     //                val extra: String = "",
     //                val k: String = "",
 
-    /** Название в программе */
+    /** Internal name in application */
     val name = jf.getName
 
-    /** Родной тип поля */
+    /** Native data type */
     val nt: Any = jf.getType
 
-    /** Название для пользователей */
+    /** Name for user interface */
     lazy val label = {
       val key = s"field.${model.name}.${name}"
       if (Messages.isDefinedAt(key)) Messages(key)
       else name
     }
 
-    /** Название в Си-нотации (для применения в виде идентификаторов на сайте) */
+    /** Name in C-nonation (for use as identifiers within site) */
     val toCNotation = Notation.camelToC(name)
 
     val ann = jf.getAnnotation(classOf[SapsanField])
 
-    /** Обобщённый тип данных */
-    // TODO проверять аннотацию, если есть, то возвращаем тип из неё
+    /** Generalized data type */
     lazy val dataType =
         if(ann.dataType() == DataTypeGroup.Unknown) detectDataType
         else ann.dataType()
@@ -74,7 +73,7 @@ class Field(val model: Model, jf: JavaField) {
         if(ann.inputComponent() == HtmlInputComponent.Unknown) typesToComponents(dataType)
         else ann.inputComponent()
 
-    /** Максимальная длина в символах, которое можно записать в поле */
+    /** Maximum length of characters, that can be written to this field */
     lazy val maxLength = {
         val ebeanLen = jf.getAnnotation(classOf[com.avaje.ebean.validation.Length])
         val playLen = jf.getAnnotation(classOf[play.data.validation.Constraints.MaxLength])
@@ -83,7 +82,7 @@ class Field(val model: Model, jf: JavaField) {
         else 0
     }
 
-    /** Минимально допустимое кол-во символов */
+    /** Minimum length of characters, that can be written to this field */
     lazy val minLength = {
         val ebeanLen = jf.getAnnotation(classOf[com.avaje.ebean.validation.Length])
         val playLen = jf.getAnnotation(classOf[play.data.validation.Constraints.MinLength])
@@ -93,7 +92,7 @@ class Field(val model: Model, jf: JavaField) {
     }
 
 
-    /** Минимальное числовое/временное значение, допустимое в поле */
+    /** The minimum numerical/time value allowed in the field */
     //TODO : Option[Long]
     lazy val min = {
         val a = jf.getAnnotation(classOf[play.data.validation.Constraints.Min])
@@ -103,7 +102,7 @@ class Field(val model: Model, jf: JavaField) {
         else null
     }
 
-    /** Максимальное числовое/временное значение, допустимое в поле  */
+    /** The maximum numerical/time value allowed in the field  */
     lazy val max = {
         val a = jf.getAnnotation(classOf[play.data.validation.Constraints.Max])
         val range = jf.getAnnotation(classOf[com.avaje.ebean.validation.Range])
@@ -112,10 +111,11 @@ class Field(val model: Model, jf: JavaField) {
         else null
     }
 
-    /** Хелпер для форматирования дат */
+    /** Helper for date-formatting */
     lazy val dateFormatter = {
+        val defaultFormat = Schema.conf.getString("sapsan.localization.default_full_date_pattern", "dd.MM.yyyy HH:mm:ss")
         val format = jf.getAnnotation(classOf[play.data.format.Formats.DateTime])
-        new SimpleDateFormat(if (format != null) format.pattern() else "dd.MM.yyyy HH:mm:ss")
+        new SimpleDateFormat(if (format != null) format.pattern() else defaultFormat)
     }
 
     private[this] lazy val columnAnn = jf.getAnnotation(classOf[javax.persistence.Column])
@@ -142,21 +142,19 @@ class Field(val model: Model, jf: JavaField) {
       jf.getAnnotation(classOf[javax.persistence.Version]) != null
 
 
-    /** Является ли это поле ключевым? */
     // GeneratedValue
     lazy val isPrimary = jf.getAnnotation(classOf[javax.persistence.Id]) != null
     lazy val isAutoIncrement = isPrimary
 
     lazy val isOneToOne = jf.getAnnotation(classOf[javax.persistence.OneToOne]) != null
     lazy val isOneToMany = jf.getAnnotation(classOf[javax.persistence.OneToMany]) != null
-    // TODO def/val - баг Scala?
     lazy val isManyToOne = jf.getAnnotation(classOf[javax.persistence.ManyToOne]) != null
     lazy val isManyToMany = jf.getAnnotation(classOf[javax.persistence.ManyToMany]) != null
     lazy val isKeyField = isOneToOne || isOneToMany || isManyToOne || isManyToMany
     lazy val isEnumerated = jf.getAnnotation(classOf[javax.persistence.Enumerated]) != null
     lazy val encryptedAnn = jf.getAnnotation(classOf[com.avaje.ebean.annotation.Encrypted])
 
-    /** Типы */
+    /** types */
     def isInt8 = nt == classOf[Byte] || nt == classOf[java.lang.Byte]
 
     def isInt16 = nt == classOf[Short] || nt == classOf[java.lang.Short]
@@ -196,7 +194,7 @@ class Field(val model: Model, jf: JavaField) {
         case dt if isString => DataTypeGroup.String
         case dt if isTimestampAny => DataTypeGroup.Timestamp
         case nt => {
-            Logger.warn("Неопределённый тип:" + nt)
+            Logger.warn("Unknown type:" + nt)
             DataTypeGroup.String
         }
     }
@@ -209,25 +207,23 @@ class Field(val model: Model, jf: JavaField) {
 
     def foreignColumn = foreignModel.primaryField
 
-    /** Является ли поле авто-заполняемым */
     def isAutoFilling = dataType == DataTypeGroup.Timestamp && Field.dateFields.contains(name)
 
-    /** Есть л дефолтное значение у поля */
-    def isDefaultExists = extract(model.experiment) != null
+    def hasDefaultValue = extract(model.experiment) != null
 
-    /** Извлечение данного поля из переданного объекта */
+    /** Extracts this field from given object */
     def extract(obj: Any) = {
         try {
             jf.get(obj)
         } catch {
-            case e: IllegalAccessException => throw new IllegalAccessException(s"К полю '${name}' в модели '${model.name}' запрещён доступ: " + e.getMessage)
+            case e: IllegalAccessException => throw new IllegalAccessException(s"""Access denied for field "${name}" at model "${model.name}": """ + e.getMessage)
             case x: Exception => throw x
         }
     }
 
-    /** Как и extract извлекает значение поля из объекта, но и ФОРМАТИРУЕТ его */
+    /** as extract() but after formats data  */
     def extractD(obj: Any) = jf.get(obj) match {
-        case v: java.lang.Boolean => if (v) "Да" else "Нет"
+        case v: java.lang.Boolean => if (v) Messages("interface.yes") else Messages("interface.no")
         case v: java.util.Date => dateFormatter.format(v)
         case v: String => v.take(50)
         case v => {
@@ -237,11 +233,6 @@ class Field(val model: Model, jf: JavaField) {
     }
 
 
-    /**
-     * Перевод строкового значения из формы в значение подходящего типа модели
-     * @param v - строковое значение, пришедшее из формы
-     * @return собственно значение
-     */
     def fromString(v: String) = nt match {
         case t: Date => {
             val format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
@@ -252,7 +243,7 @@ class Field(val model: Model, jf: JavaField) {
         case t => v
     }
 
-    /** Конвертация значения из типа Long в родной тип поля. Применяется для конвертации id в ОРМ Ebean */
+    /** Converts Long to native (only integers) type of field. */
     def fromLong(id: Long): Any = nt match {
         case dt if isInt64 => id
         case dt if isInt32 => id.toInt
@@ -261,11 +252,10 @@ class Field(val model: Model, jf: JavaField) {
         case t => id
     }
 
-    /** Цикличная связь, т.е. это поле имеет М-1 ключ указывающий
-      * на эту же модель (обычно используют для организации деревьев) */
+    /** Is cyclic relation, ie this field has M-1 key to this model (commonly used for trees) */
     def isCyclicRel = isManyToOne && foreignModel == model
 
-    /** Генерация случайного значения для данного типа поля */
+    /** Generates random value for this field */
     def random = nt match {
         case nt if isBoolean => Random.nextBoolean
         case nt if isInt8 => Random.nextInt(Byte.MaxValue).toByte
@@ -283,7 +273,7 @@ class Field(val model: Model, jf: JavaField) {
             foreignModel.recordById(id)
         }
 
-        case nt => "Unknow"
+        case nt => "Unknown"
     }
 
 

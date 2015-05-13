@@ -32,7 +32,7 @@ public class ProductCategory extends IDNameTimeEntity {
     @OneToMany(mappedBy = "parent")
     private Set<ProductCategory> subCategories = new HashSet<>();
 
-    public static Model.Finder<String,ProductCategory> find = new Model.Finder<>(String.class, ProductCategory.class);
+    public static Model.Finder<Long,ProductCategory> find = new Model.Finder<>(Long.class, ProductCategory.class);
 
     public static List<ProductCategory> findAll() {
         return find.all();

@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.validation.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -34,6 +35,7 @@ public class User extends AbstractBaseEntity {
     public String password;
 
     @SapsanField()
+    @NotEmpty
     @Length(min = 0, max = 16)
     public SecurityRole role;
 
@@ -50,7 +52,7 @@ public class User extends AbstractBaseEntity {
         return StringUtils.getAngleBracketString(email);
     }
 
-    public static Model.Finder<String,User> find = new Model.Finder<>(String.class, User.class);
+    public static Model.Finder<Long,User> find = new Model.Finder<>(Long.class, User.class);
 
     public static User authenticate(String email, String password) {
         return find.where()

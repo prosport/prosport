@@ -1,0 +1,12 @@
+@()
+@import _root_.sapsan.schema.Schema
+
+@for((_, model) <- Schema.models) {
+    void test@{model.name}() {
+        @{model.name} m = new @{model.name}();
+    @for((_, field) <- model.fields) {
+        m.@{field.name} = "";
+    }
+        Ebean.save(m);
+    }
+}

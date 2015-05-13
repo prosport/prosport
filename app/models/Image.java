@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "images_id_seq")
 public class Image extends IDNameEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @SapsanField
     public Product product;
 

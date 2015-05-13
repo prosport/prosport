@@ -2,6 +2,7 @@
 @import views.html.sapsan.bootstrap._
 @import views.html.sapsan.admin._
 @import controllers.sa._
+@import _root_.sapsan.common.HtmlInputComponent
 @skeleton(model = model) {
 
     @common.pageHeader(model.label)
@@ -21,14 +22,21 @@
         <h4>@Messages("admin.show.title")</h4>
         <dl  class="dl-horizontal">
             @for((name, field) <- model.fields if(field.extract(item) != null)) {
-                <dt class="label">@field.label</dt>
+                <dt>@field.label</dt>
                 <dd>
-                @if(field.isManyToOne) {
-                    <pre class="prettyprint">
-                        <a href="@routes.AdminController.show(field.foreignModel.toCNotation, field.foreignColumn.extract(field.extract(item)).toString.toLong)">@field.extract(item)</a>
-                    </pre>
-                } else {
-                    <pre class="prettyprint">@field.extractD(item)</pre>
+                @field match {
+                    case f if field.isManyToOne => {
+                        <pre class="prettyprint">
+                            <a href="@routes.AdminController.show(field.foreignModel.toCNotation, field.foreignColumn.extract(field.extract(item)).toString.toLong)">@field.extract(item)</a>
+                        </pre>
+                    }
+                    case f if(field.component == HtmlInputComponent.FileUpload) => {
+                        <img href="/images/@field.extract(item)" width="30%" height="30%"/>
+                        @field.extract(item)
+                    }
+                    case _ => {
+                        <pre class="prettyprint">@field.extractD(item)</pre>
+                    }
                 }
                 </dd>
             }

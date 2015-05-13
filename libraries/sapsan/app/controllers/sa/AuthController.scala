@@ -18,14 +18,14 @@ object AuthController extends Controller {
 
     def check(username: String, password: String) = (username == "admin" && password == "admin")
 
-    /** Форма входа в приложение */
+    /** Shows login form */
     def login = Action {
         implicit request =>
         //        Ok(auth.login(play.data.Form loginForm))
             Ok
     }
 
-    /** Авторизация пользователя - обработка данных из login() */
+    /** User authentication - data processing from login () */
     def authenticate = Action {
         implicit request =>
         //        loginForm.bindFromRequest.fold(

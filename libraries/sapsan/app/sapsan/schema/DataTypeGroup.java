@@ -1,12 +1,6 @@
 package sapsan.schema;
 
-/**
- * Этот файл является частью программы "demo".
- * Любое распространение без письменного  разрешения автора запрещено!
- * <p/>
- * Автор: Румата Эсторский <rumata@sputnikchess.ru>
- * Создан: 09.08.13 в 14:15
- */
+
 public enum DataTypeGroup {
     Unknown,
     /**
@@ -36,16 +30,13 @@ public enum DataTypeGroup {
     Enumerated, /** Set, */
 
     /**
-     * Связочные поля
+     * Related fields
      */
     OneToOne, OneToMany, ManyToOne, ManyToMany,
     /**
-     * Ключевые поля
+     * Key Fields
      */
     Primary,
 
-    /** Jelly: Expression, Image, Slug, Polymorphic */
-
-
-
+    // TODO Jelly: Expression, Image, Slug, Polymorphic
 }

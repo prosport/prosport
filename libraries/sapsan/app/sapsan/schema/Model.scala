@@ -1,20 +1,24 @@
 package sapsan.schema
 
+import java.io.File
 import java.lang.reflect.{Field => ReflectField}
 
+import play.{Logger, Play}
+import play.api.libs.Files
+import play.api.mvc.MultipartFormData
 import sapsan.annotation.SapsanField
 import play.api.i18n.Messages
 import scala.collection.mutable.LinkedHashMap
-import sapsan.common.Notation
+import sapsan.common.{UploadUtils, HtmlInputComponent, Notation}
 import com.avaje.ebean.Ebean
 import java.util.Date
 
 class Model(val clazz: Class[_]) extends Ordered[Model] {
 
-    /** Название класса */
+    /** Model name */
     val name = clazz.getSimpleName
 
-    /** Название для пользователей */
+    /** Name for web interface */
     lazy val label = {
       val key = "model." + name
       if(Messages.isDefinedAt(key)) Messages(key)
@@ -22,19 +26,17 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
     }
 
 
-    /** JPA-аннотация модели @Table (описывает свойства таблицы) */
+    /** JPA-annotation @Table for this model */
     private [this] lazy val tableAnn = clazz.getAnnotation(classOf[javax.persistence.Table])
 
-    /** Название таблицы в базе данных */
+    /** Name of table in database */
     lazy val table = if(tableAnn == null) Notation.camelToC(name) else tableAnn.name()
 
-    /** Название схемы в базе данных */
+    /** Schema name of table in database */
     lazy val schema = if(tableAnn == null) "" else tableAnn.schema()
 
-    /** Ключи уникальности для данной модели */
     lazy val uniqueConstraints = if(tableAnn == null) List() else tableAnn.uniqueConstraints()
 
-    /**  Является ли наследником класса play.db.ebean.Model */
     //TODO Hibernate http://stackoverflow.com/questions/1042798/retrieving-the-inherited-attribute-names-values-using-java-reflection
     val isModel =
       clazz.getAnnotation(classOf[javax.persistence.Entity]) != null &&
@@ -53,51 +55,34 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
     }.toMap
 
 
-    /** Название в Си-нотации (для применения в виде идентификаторов на сайте) */
     val toCNotation = Notation.camelToC(name)
 
-    /** Экспериментальный экземпляр объекта для данной модели (для получения значений по-умолчанию и других операций) */
+    /** Experimental object instance for the model (for default values and other operations) */
     def experiment = clazz.getConstructor().newInstance()
 
-//    init
-
-//    /** Инициализация класса */
-//    def init = {
-//        // TODO getDeclaredFields
-//        clazz.getFields.foreach { f =>
-//            // Берём только ПУБЛИЧНЫЕ поля, помеченные аннотацией Label
-//            if(f.getAnnotation(classOf[Label]) != null) {
-//                val field = new Field(this, f)
-//                fields.put(field.toCNotation, field)
-//            }
-//        }
-//
-//    }
-
-    /** Ассоциативный массив из названий полей в кач. ключей и пустых строк - как значений. Магия 7 уровня, объяснения в книгах по алхимии. */
+    /** An associative array of field names in Kutch. Keys and blank lines - both values. Magic level 7, the explanations in books on alchemy. */
     val emptyForm = fields.map { case (_, f) => (f.toCNotation, "") }
 
     //    def fieldsWithoutKeys = fields.filter(f => !(f._2.isId || f._2.isKeyField))
 
-    /** Только простые поля для формы редактирования, без первичных и внешних ключей, авто-поставляемых */
+    /** Only simple form fields for editing, without primary, foreign keys and auto-supplied */
     def fieldsForEdit = fields.filter(f => !(f._2.isPrimary /* || f._2.isKeyField || f._2.isDefaultExists */ || f._2.isOneToMany ))
-    def fieldsForEdit2 = fieldsForEdit.filter(f => !(f._2.isDefaultExists))
+    def fieldsForEdit2 = fieldsForEdit.filter(f => !(f._2.hasDefaultValue))
     def fieldsForEdit3 = fieldsForEdit.filter(f => !(Field.dateFields.contains(f._2.name)))
 
-    /** Поля для вывода в списке записей */
+    /** selected fields for grid */
     def fieldsForGrid = fields.filter(f => !(f._2.isManyToMany || f._2.isOneToMany))
 
     val maxGridColumns = 6
 
     def hasPrimary = fields.exists(_._2.isPrimary)
-    /** Возвращает первую колонку, которая является первичным ключом */
-    //TODO hasPrimary
+
+    /** Returns first fields, that is primary key */
     def primaryField = fields.find(_._2.isPrimary).headOption match {
       case Some(f) => f._2
       case None => fields.head._2
     }
 
-    /** Возвращает "именной ключ", или же первый столбец, если именной ключ не будет найден */
     def nameField = {
         fields.find(f => f._2.name == Field.name).headOption.getOrElse {
             fields.find(f => f._2.dataType == DataTypeGroup.String).headOption.getOrElse {
@@ -106,10 +91,10 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
         }
     }._2
 
-    /** Извлечение кода записи из переданного объекта */
+    /** Extracts record ID from given object */
     def extractId(obj: Any) = primaryField.extract(obj).toString.toLong
 
-    /** Формирование ассоциативного массива: (код записи -> именное поле) */
+    /** Creates has map: (record code -> naming field) */
     def biList = {
         val result = new LinkedHashMap[Any, Any]
         val items = Ebean.find(clazz)
@@ -123,31 +108,26 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
         result
     }
 
-    /** Загрузка экземпляра объекта данной модели по его коду */
+    /** Loads an instance record of this model by id */
     def recordById(id: Any) = Ebean.find(clazz).where.eq(primaryField.name, id).findUnique()
 
-    /** Добавление новой записи в БД по карте,
-      * где ключом выступает имя поля в модели, а значением - некоторая строка
-      */
+    /** Creates new record to database by map data */
     def createRecord(data : Map[String, String] ) {
         val obj = clazz.getConstructor().newInstance()
 
-        // Установка полям модели значений из формы
         data.foreach { case (key, value) =>
                 val f = clazz.getDeclaredField(key)
                 val mf = fields(key)
                 f.set(obj, mf.fromString(value))
-//                println(s"$key = ${value}")
         }
 
         saveRecord(obj)
     }
 
-    /** Создание записи в БД, заполненной случайными данными */
+    /** Creates new record and fills it random data */
     def createRandomRecord {
         val obj = clazz.getConstructor().newInstance()
 
-        // Установка полям модели значений из формы
         fieldsForEdit2.foreach { case (name, field) =>
             val f = clazz.getDeclaredField(field.name)
             f.set(obj, field.random)
@@ -165,13 +145,12 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
         }
     }
 
-    /** Сохранение новой записи  в БД */
+    /** Saves new record into database */
     def saveRecord(bean: Any) {
-        // Проставляем дату добавления записи (если есть такое поле)
         getReflectField(Field.createdAt).map { f =>
             f.set(bean, new Date())
         }
-        // Сохраняем запись
+
         try {
             val method = clazz.getMethod("save")
             method.invoke(bean)
@@ -180,13 +159,12 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
         }
     }
 
-    /** Обновление записи  в БД */
+    /** Updates existing record by record-object and id */
     def updateRecord(bean: Any, id: Long) {
-        // Проставляем дату обновления записи (если есть такое поле)
         getReflectField(Field.updatedAt).map { f =>
             f.set(bean, new Date())
         }
-        // Обновляем запись
+
         try {
             val method = clazz.getMethod("update", classOf[Object])
             val nativeId = primaryField.fromLong(id)
@@ -203,20 +181,19 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 //
 //    }
 
-    /** Абсолютно статическая, то есть связи M-1 и 1-1 отсутствуют, но цикличные связи возможны
-      * т.е. ищем первую связанную, но не цикличную связь */
+    /** Is absolutely static, ie communication M-1 and 1-1 are not available, but cyclic communication is possible */
     lazy val isStatic = fields.find(f => (f._2.isManyToOne  && !f._2.isCyclicRel)).isEmpty
 
-    /** Является ли данная модель связанной с переданной связью 1-М со стороны "M"  **/
+    /** Is the model associated with the transferred communication "1-M" from the "M"  **/
     def isSlave(that: Model) = fields.find(f => f._2.isManyToOne && f._2.foreignModel == that).nonEmpty
 
-    /** Сравнение модели по степени статичности */
+    /** Comparison of the model for much static */
     def compare(that: Model) =
         if(isSlave(that)) -1
         else if(that.isSlave(this)) 1
         else 0
 
-    /** Количество записей в таблице */
+    /** Count records in this table */
     def recordCount = Ebean.find(clazz).findRowCount()
 //    def recordCount = {
 //      val qb = JPA.em().getCriteriaBuilder
@@ -226,10 +203,15 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 //    }
 //    def recordCount = 0L // TODO Hibernate
 
+    // TODO   val method = m.clazz.getMethod("delete") &&  method.invoke(r)
+    // TODO check and invoke methods model - save(), update(), delete()
+
     def delete(id : Long) = {
+        //        Ebean.delete(m.clazz, id)
       val r = recordById(id)
       Ebean.delete(r)
     }
+
 
   def pageXYZ(page: Int, pageSize: Int, sortBy: String, orderBy: String = "asc") = {
     Ebean.find(clazz).where
@@ -240,15 +222,21 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
   }
 
 
-  // удаление без загрузки
-  //        Ebean.delete(m.clazz, id)
+    def allFieldsFileUpload = fields.filter(_._2.component == HtmlInputComponent.FileUpload)
+
+    def isExistFieldFileUpload = allFieldsFileUpload.nonEmpty
 
 
-  // удаление через вызов метода delete()
-  //        val method = m.clazz.getMethod("delete")
-  //        method.invoke(r)
-  // перевод к списку
-
+    def uploadAndSaveFiles(files: Seq[MultipartFormData.FilePart[Files.TemporaryFile]]) = {
+        val relativePath = Play.application.configuration.getString("sapsan.upload.path", "media")
+        val absolutePath = Play.application.getFile(relativePath)
+        for (file <- files) yield {
+            val start = System.currentTimeMillis
+            val relativePath = UploadUtils.uploadAndSaveFile(file.ref, file.filename, absolutePath)
+            Logger.debug(s"Times of loading file ${System.currentTimeMillis - start} ms.")
+            file.key -> relativePath
+        }
+    }
 
     override def toString: String = name
 }
