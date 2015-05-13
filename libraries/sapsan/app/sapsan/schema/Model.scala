@@ -3,7 +3,7 @@ package sapsan.schema
 import java.io.File
 import java.lang.reflect.{Field => ReflectField}
 
-import play.Play
+import play.{Logger, Play}
 import play.api.libs.Files
 import play.api.mvc.MultipartFormData
 import sapsan.annotation.SapsanField
@@ -230,14 +230,11 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
     def uploadAndSaveFiles(files: Seq[MultipartFormData.FilePart[Files.TemporaryFile]]) = {
         val relativePath = Play.application.configuration.getString("sapsan.upload.path", "media")
         val absolutePath = Play.application.getFile(relativePath)
-        for (file <- files) {
-
+        for (file <- files) yield {
             val start = System.currentTimeMillis
-            //            println(file.filename + " = " + md5File(file.ref.file).map("%02x" format _).mkString)
-            //file.ref.moveTo(new File(absolutePath + "/" + file.filename), true)
-            UploadUtils.uploadAndSaveFile(file.ref.file, absolutePath)
-
-            println(System.currentTimeMillis - start)
+            val relativePath = UploadUtils.uploadAndSaveFile(file.ref, file.filename, absolutePath)
+            Logger.debug(s"Times of loading file ${System.currentTimeMillis - start} ms.")
+            file.key -> relativePath
         }
     }
 

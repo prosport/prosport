@@ -52,7 +52,7 @@ object AdminController extends Controller with Secured {
     /** Displays the form of adding new record to a given model  */
     def create(model: String) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
-        // TODO: bad mixed code, it uses helper from Play-Java
+        // TODO: bad mixed code, ше used helper from Play-Java
         val f = Form.form(m.clazz)
 
         Ok(admin.edit.recordCreate(m, f))
@@ -62,15 +62,17 @@ object AdminController extends Controller with Secured {
     def save(model: String) = withAuth { _ => implicit request =>
         val m = Schema.models(model)
         if(request.body.isInstanceOf[AnyContentAsFormUrlEncoded]) {
-            saveFormUrlEncoded(m, request.body)
+            request.body.asFormUrlEncoded match {
+                case Some(form) => saveFormUrlEncoded(m, form)
+                case None => BadRequest
+            }
         } else if(request.body.isInstanceOf[AnyContentAsMultipartFormData]) {
             request.body.asMultipartFormData match {
                 case Some(form) => {
 
-//                    println(m.allFieldsFileUpload.map(_._2.name))
-//                    m.uploadAndSaveFiles(form.files)
+                    val files = m.uploadAndSaveFiles(form.files).toMap
 
-                    saveFormUrlEncoded(m, request.body)
+                    saveFormUrlEncoded(m, form.asFormUrlEncoded, files)
 
                 }
                 case None => BadRequest
@@ -81,20 +83,17 @@ object AdminController extends Controller with Secured {
         }
     }
 
-    def saveFormUrlEncoded(m: Model, form: AnyContent) = form.asFormUrlEncoded match {
-        case Some(form) =>
-            val data = form.map(x => x._1 -> x._2.head)
-            import collection.JavaConversions._
-            val f = Form.form(m.clazz).bind(data)
+    def saveFormUrlEncoded(m: Model, form: Map[String, Seq[String]], preload: Map[String, String] = Map()) = {
+        val data = form.map(x => x._1 -> x._2.head) ++ preload
+        import collection.JavaConversions._
+        val f = Form.form(m.clazz).bind(data)
 
-            if (f.hasErrors()) {
-                BadRequest(admin.edit.recordCreate(m, f))
-            } else {
-                m.saveRecord(f.get)
-
-                redirectAfterSave(m.toCNotation, m.extractId(f.get), data, "success" -> Messages("interface.successAdded",  f.get.toString))
-            }
-        case None => BadRequest
+        if (f.hasErrors()) {
+            BadRequest(admin.edit.recordCreate(m, f))
+        } else {
+            m.saveRecord(f.get)
+            redirectAfterSave(m.toCNotation, m.extractId(f.get), data, "success" -> Messages("interface.successAdded",  f.get.toString))
+        }
     }
 
 
