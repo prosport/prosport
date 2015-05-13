@@ -23,4 +23,4 @@ lazy val sapsanAdmin = project.in(file("libraries/sapsan"))
 lazy val main = project.in(file("."))
   .dependsOn(sapsanAdmin).aggregate(sapsanAdmin)
 
-javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
+//javacOptions ++= Seq("-source", "1.8", "-target", "1.8")

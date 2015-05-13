@@ -1,7 +1,8 @@
 package utils;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static utils.NavNode.leaf;
 import static utils.NavNode.root;
@@ -12,8 +13,8 @@ import static utils.NavNode.root;
 public class StaticNavigation {
     public static String main = "Главная";
 
-    public static List<NavNode> get() {
-        return Arrays.asList(
+    public static Set<NavNode> get() {
+        return new HashSet<>(Arrays.asList(
                 leaf("Главная", "#"),
                 root("Прайс-Лист", "#",
                         leaf("Производство", "#"),
@@ -30,6 +31,8 @@ public class StaticNavigation {
                         leaf("Зимние шапки", "#")),
                 leaf("Фотогалерея", "#"),
                 leaf("О компании", "#"),
-                leaf("Контакты", "#"));
+                leaf("Контакты", "#")));
     }
+
+
 }

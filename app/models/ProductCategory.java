@@ -17,6 +17,13 @@ import java.util.Set;
 @SequenceGenerator(name = "entity_id_gen", sequenceName = "productcategories_id_seq")
 public class ProductCategory extends IDNameTimeEntity {
 
+
+    @SapsanField
+    public Integer sortOrder;
+
+    @SapsanField
+    public String url;
+
     @ManyToOne
     @SapsanField()
     public ProductCategory parent;
@@ -72,7 +79,4 @@ public class ProductCategory extends IDNameTimeEntity {
         return subCategories;
     }
 
-    public void setSubCategories(Set<ProductCategory> subCategories) {
-        this.subCategories = subCategories;
-    }
 }
