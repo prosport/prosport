@@ -10,6 +10,7 @@
     padding-bottom: 7px;
     overflow: hidden;
     position: relative;
+    text-align: center;
     width: @content-width;
     
     ul.slides-list {
@@ -73,6 +74,35 @@
         
         a:hover:after {
             background-position: 0 -27px;
+        }
+    }
+    
+    .flex_control-nav {
+        display: inline-block;
+        margin: 0 auto;
+        position: absolute;
+        bottom: 25px;
+        z-index: 2;
+        
+        & > li {
+            display: block;
+            float: left;
+            margin-right: 7px;
+            
+            &:last-child {margin-right: 0}
+        }
+        
+        & > li > a {
+            background: #FFF;
+            border-radius: 50px;
+            border: 1px solid #32312F;
+            cursor: pointer;
+            display: block;
+            font-size: 0;
+            height: 10px;
+            width: 10px;
+            
+            &.flex_active {background: @active-color}
         }
     }
     

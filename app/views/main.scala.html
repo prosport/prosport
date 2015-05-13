@@ -1,5 +1,5 @@
 @(title: String)(content: Html)
-@import utils.Temporary
+@import utils.StaticNavigation
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,25 +29,39 @@
                         +7-342-2-125-490
                     </div>
                 </section>
-                <section class="reg-section">
-                    <div class="reg-section_inner">
-                        <a href="#">Регистрация</a>
-                        <a href="#" class="orange">Вход</a>
-                    </div>
-                </section>
             </header>
             <nav>
                 <ul>
-                @for((title, url) <- Temporary.topSiteMenu) {
-                    <li>
-                        <a href="@url" class="@("active".when(title == Temporary.topSiteMenuActive))">
-                            <span class="text-wrapper">
-                                @title
-                            <span class="border-bottom"></span>
-                            </span>
-                        </a>
-                    </li>
-                }
+
+                    @for(node <- Application.getNavigation) {
+                        <li>
+                            <a href="@node.url" class="@("active".when(StaticNavigation.main.equals(node.title)))">
+                                <span class="text-wrapper">
+                                    @node.title
+                                <span class="border-bottom"></span>
+                                </span>
+                            </a>
+                            @if(node.hasChilds) {
+                                <ul>
+
+                                @for(c <- node.nodes) {
+                                    <li>
+                                        <a href="#">@c.title</a>
+                                        @if(c.hasChilds) {
+                                            <ul>
+                                            @for(cc <- c.nodes) {
+                                                <li>
+                                                    <a href="#">@cc.title</a>
+                                                </li>
+                                            }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                                </ul>
+                            }
+                        </li>
+                    }
                 </ul>
             </nav>
 

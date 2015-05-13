@@ -3,7 +3,6 @@ package models;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 import sapsan.common.HtmlInputComponent;
 
@@ -72,6 +71,10 @@ public class Product extends IDNameTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Image> images;
 
-    public static Model.Finder<Long, Product> find = new Model.Finder<>(Long.class, Product.class);
+    public static Model.Finder<String, Product> find = new Model.Finder<>(String.class, Product.class);
+
+    public static List<Product> getProductsWithCategory(String categoryName) {
+        return find.where().eq("category.name", categoryName).findList();
+    }
 
 }
