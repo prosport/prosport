@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 
@@ -30,7 +31,7 @@ public class ProductCategory extends IDNameTimeEntity {
 
     @NotNull
     @OneToMany(mappedBy = "parent")
-    private Set<ProductCategory> subCategories = new HashSet<>();
+    public Set<ProductCategory> subCategories = new HashSet<>();
 
     public static Model.Finder<Long,ProductCategory> find = new Model.Finder<>(Long.class, ProductCategory.class);
 
@@ -42,6 +43,10 @@ public class ProductCategory extends IDNameTimeEntity {
         return find.where()
                 .eq("parent", null)
                 .findList();
+    }
+
+    public static void update(Object category) {
+        Ebean.update(category);
     }
 
 

@@ -33,7 +33,7 @@
             <nav>
                 <ul>
 
-                    @for(node <- Application.getNavigation) {
+                    @for(node <- Application.getNavigation().iterator()) {
                         <li>
                             <a href="@node.url" class="@("active".when(StaticNavigation.main.equals(node.title)))">
                                 <span class="text-wrapper">
@@ -44,14 +44,14 @@
                             @if(node.hasChilds) {
                                 <ul>
 
-                                @for(c <- node.nodes) {
+                                @for(c <- node.nodes.iterator()) {
                                     <li>
                                         <a href="#">@c.title</a>
                                         @if(c.hasChilds) {
                                             <ul>
-                                            @for(cc <- c.nodes) {
+                                            @for(cc <- c.nodes.iterator()) {
                                                 <li>
-                                                    <a href="#">@cc.title</a>
+                                                    <a href="@cc.url">@cc.title</a>
                                                 </li>
                                             }
                                             </ul>

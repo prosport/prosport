@@ -1,38 +1,46 @@
 package utils;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import models.ProductCategory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Objects;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Created by andy on 5/5/15.
  */
-public class NavNode {
+public class NavNode implements Comparable<NavNode> {
+    public static final int MAX_ORDER = 1000;
+
     public final int sortOrder;
     public final String title;
     public final String url;
-    public final List<NavNode> nodes;
+    public final SortedSet<NavNode> nodes = new TreeSet<>();
 
     public boolean hasChilds() {
         return !nodes.isEmpty();
     }
 
-    //TODO: builder that increment sort order
-    private NavNode(String title, String url) {
-        this.sortOrder = 0;
+    private NavNode(String title, String url, int sortOrder) {
+        this.sortOrder = sortOrder;
         this.title = title;
         this.url = url;
-        this.nodes = new ArrayList<>();
     }
 
-    public static NavNode leaf(String title, String url) {
-        return new NavNode(title, url);
+    public NavNode(ProductCategory category) {
+        this.sortOrder = category.sortOrder == null ? MAX_ORDER : category.sortOrder;
+        this.title = category.name;
+        this.url =  "/catalog/" + category.url;
+
     }
 
-    public static NavNode root(String title, String url, NavNode... childs) {
-        NavNode result = new NavNode(title, url);
+    public static NavNode leaf(String title, String url, int sortOrder) {
+        return new NavNode(title, url, sortOrder);
+    }
+
+    public static NavNode root(String title, String url, int sortOrder, NavNode... childs) {
+        NavNode result = new NavNode(title, url, sortOrder);
         result.nodes.addAll(Arrays.asList(childs));
         return result;
     }
@@ -55,8 +63,14 @@ public class NavNode {
 
         NavNode rhs = (NavNode) obj;
 
-        return new EqualsBuilder()
-                .append(title, rhs.title)
-                .isEquals();
+        return Objects.equals(this.title, ((NavNode) obj).title);
+    }
+
+    @Override
+    public int compareTo(NavNode o) {
+        if(o == null) return 1;
+
+        int compare = Integer.compare(this.sortOrder, o.sortOrder);
+        return compare == 0 ? this.title.compareTo(o.title) : compare;
     }
 }

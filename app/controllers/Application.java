@@ -11,7 +11,9 @@ import views.html.catalog;
 import views.html.index;
 import views.html.login;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.SortedSet;
 
 import static play.data.Form.form;
 
@@ -77,31 +79,19 @@ public class Application extends Controller {
         return ok("");
     }
 
-    public static Collection<NavNode> getNavigation() {
-        Set<NavNode> staticNavigation = StaticNavigation.get();
+    public static SortedSet<NavNode> getNavigation() {
 
-        Set<NavNode> catalogNavigation = new HashSet<>();
         List<ProductCategory> roots = ProductCategory.findAllRoots();
-        for(ProductCategory root : roots) {
-            NavNode item = putChild(root, null);
-            catalogNavigation.add(item);
-        }
+        SortedSet<NavNode> catalogNavigation = StaticNavigation.convert(roots);
 
-        NavNode catalog = NavNode.root("Каталог", "#");
+        NavNode catalog = NavNode.root("Каталог", "#", 2);
         catalog.nodes.addAll(catalogNavigation);
-        staticNavigation.remove(catalog);
+        SortedSet<NavNode> staticNavigation = StaticNavigation.get();
         staticNavigation.add(catalog);
         return staticNavigation;
     }
 
-    private static NavNode putChild(ProductCategory child, NavNode root) {
-        NavNode item = NavNode.leaf(child.name, child.url);
-        if(root != null) root.nodes.add(item);
-        for(ProductCategory c : child.getSubCategories()) {
-            putChild(c, item);
-        }
-        return item;
-    }
+
 
 
 }
