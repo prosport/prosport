@@ -151,6 +151,7 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
             f.set(bean, new Date())
         }
 
+//        invokeMethod(bean, "save") { Ebean.save(bean) }
         try {
             val method = clazz.getMethod("save")
             method.invoke(bean)
@@ -165,6 +166,9 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
             f.set(bean, new Date())
         }
 
+//        val nativeId = primaryField.fromLong(id)
+//        println(nativeId)
+//        invokeMethod(bean, "update", nativeId) {}
         try {
             val method = clazz.getMethod("update", classOf[Object])
             val nativeId = primaryField.fromLong(id)
@@ -174,6 +178,19 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
                 e.printStackTrace()
                 // => Ebean.update(bean)
             throw e
+        }
+    }
+
+
+    def invokeMethod(obj: Any, methodName: String, args: Any*)(whenError: => Unit) = {
+        try {
+            val method = clazz.getMethod(methodName, classOf[Object])
+            method.invoke(obj, args)
+        } catch {
+            case e: Throwable =>
+                whenError
+                Logger.error(s"Error invokeMethod, model: $name, method: $methodName, args: $args." + e.getLocalizedMessage)
+//                throw e
         }
     }
 

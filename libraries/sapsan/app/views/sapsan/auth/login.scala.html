@@ -1,0 +1,60 @@
+@(form: play.api.data.Form[controllers.sa.AuthController.LoginData])
+@import views.html.sapsan.tags._
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="NONE,NOARCHIVE" name="robots">
+        <title>SapsanAdmin | Login</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        @css("signin.css")
+
+
+
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        @javascript("ra.filter-box.js")
+
+    </head>
+    <body>
+
+        <div class="container">
+
+            @helper.form(controllers.sa.routes.AuthController.authenticate, 'class -> "form-signin") {
+                <h2 class="form-signin-heading">@Messages("admin.auth.titleForm")</h2>
+
+                @form.globalError.map { error =>
+                    <div class="alert alert-danger" role="alert">
+                        @error.message
+                    </div>
+                }
+
+
+                <label for="inputEmail" class="sr-only">@Messages("admin.auth.login")</label>
+                <input type="email" id="email"  name="email" class="form-control" value="@form("email").value" placeholder="@Messages("admin.auth.login")" required autofocus>
+
+                <label for="inputPassword" class="sr-only">@Messages("admin.auth.password")</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="@Messages("admin.auth.password")" required>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="rememberMe" value="remember-me"> @Messages("admin.auth.rememberMe")
+                    </label>
+                </div>
+
+                <input type="hidden" name="redirect" value="@form("redirect").value"/>
+
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">@Messages("admin.auth.loginButton") </button>
+            }
+
+        </div> <!-- /container -->
+
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>

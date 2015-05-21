@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.validation.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+import play.Logger;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;

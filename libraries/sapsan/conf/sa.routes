@@ -14,11 +14,21 @@
 GET     /                     controllers.sa.AdminController.index
 
 
+###############################################################################
+# Authentication
+GET     /login                              controllers.sa.AuthController.login(redirect ?= "")
+POST    /login                              controllers.sa.AuthController.authenticate
+GET     /logout                             controllers.sa.AuthController.logout
 
+
+###############################################################################
+# GenController
 GET     /random/:numberAddingEntries     controllers.sa.GenController.random(numberAddingEntries: Integer)
 GET     /i18l/:onlyNew                   controllers.sa.GenController.i18l(onlyNew: Boolean)
 GET     /unit-tests                      controllers.sa.GenController.unitTests
 
+###############################################################################
+# Edit Actions
 
 #
 GET     /:model               controllers.sa.AdminController.list(model: String, page: Int ?= 0, sort ?= "", order ?= "asc")

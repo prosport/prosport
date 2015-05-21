@@ -45,7 +45,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="@controllers.sa.routes.AdminController.index" class="">@Messages("admin.skeleton.dashboard")</a></li>
                         <li><a href="/" class="">@Messages("admin.skeleton.goHome")</a></li>
-                        <li><a href="/logout" data-method="get"><span class="label label-danger">@Messages("admin.skeleton.logout")</span></a></li>
+                        <li><a href="@controllers.sa.routes.AuthController.logout" data-method="get"><span class="label label-danger">@Messages("admin.skeleton.logout")</span></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
