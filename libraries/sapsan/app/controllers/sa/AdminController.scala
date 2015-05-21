@@ -31,7 +31,6 @@ object AdminController extends Controller with Secured {
 
     /** Welcome page of SapsanAdmin, includes list of models and brief information about them */
     def index = withAuth { username => implicit request =>
-        Logger.debug(username)
         val i18lErrors = Schema.prepareKeysForI18l(true).trim.nonEmpty
         val warningsBlock = admin.index.selfVerification(i18lErrors, false)
         Ok(admin.index.siteAdministration(warningsBlock))
