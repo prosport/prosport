@@ -6,7 +6,7 @@
 
 <form action="@{currRoute.url}"
       method="@{currRoute.method}"
-      class="form-horizontal"
+      class="form-horizontal sapsanEditForm"
       role="form"
       @if(model.isExistFieldFileUpload) {enctype="multipart/form-data"}
       id="@("new_" + model.toCNotation)">
