@@ -16,6 +16,6 @@ dist
 conf/personal.conf
 scripts
 media
-node_modules/
-/*.compiled.css
-/*.compiled.js
+node_modules
+*.compiled.css
+*.compiled.js
