@@ -76,19 +76,11 @@ nav {
                 }
             }
             
-            & > a.active {
+            &.active > a {
                 background: #FFF;
                 color: @active-color;
                 .text-wrapper .border-bottom {
                     opacity: 1;
-                    border-color: @active-color;
-                    width: 100%;
-                }
-            }
-            
-            &:hover > a.active {
-                color: @active-color;
-                .text-wrapper .border-bottom {
                     border-color: @active-color;
                     width: 100%;
                 }
@@ -106,19 +98,24 @@ nav {
                     transition: all 0;
                     color: #FFF;
                 }
+                
+                & > li.active:hover > a {
+                    background: #FFF;
+                    transition: all 0;
+                    color: @active-color;
+                }
             }
             
             & > ul {
-                border-top: 2px solid @active-color;
+                border-top: 1px solid @active-color;
             }
             
-            &:hover > ul {
+            &:hover > ul,
+            &.active > ul {
                 display: block;
             }
             
             & > ul ul {
-                background: @active-color;
-                
                 & li > a {
                     text-transform: none;
                 }
@@ -126,6 +123,36 @@ nav {
         }
         
         & > li:last-child a:after {display: none}
+    }
+}
+
+nav.orange,
+nav.gray {
+    @menu-color: @active-color;
+    
+    & > ul {
+        background: @menu-color;
+    }
+    
+    & > ul > li > ul {
+        border-top: 0;
+    }
+    
+    & > ul ul > li > a:hover {
+        background: #FFF;
+        color: @menu-color;
+    }
+}
+
+nav.gray {
+    @menu-color: #C2BFC0;
+    
+    & > ul {
+        background: @menu-color;
+    }
+    
+    & > ul ul {
+        border-top-color: @menu-color;
     }
 }
 
