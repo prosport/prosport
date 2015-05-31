@@ -162,5 +162,20 @@ nav.gray {
         top: 0;
         width: @content-width;
         z-index: 10;
+        
+        &.gray:after,
+        &.orange:after {
+            content: "";
+            display: block;
+            background: url("../images/log-menu-gray.png") 0 0 no-repeat;
+            height: 41px;
+            position: absolute;
+            left: 30px; top: 6px;
+            width: 41px;
+        }
+        
+        &.orange:after {
+            background: url("../images/log-menu-white.png") 0 0 no-repeat;
+        }
     }
 }
