@@ -1,4 +1,4 @@
-@(modelName: String, currentPage: com.avaje.ebean.Page[_], route: (String, Int, String, String) => Call)
+@(modelName: String, currentPage: com.avaje.ebean.Page[_], route: (String, Int, String, String) => Call)(implicit messages: Messages)
 
 @if(currentPage.getTotalPageCount > 1){
 <div>

@@ -1,4 +1,4 @@
-@(url: Call, title: String, icon: String)
+@(url: Call, title: String, icon: String)(implicit messages: Messages)
 <li title="@title" rel="tooltip" class="glyphicon">
     <a href="@url">
         <span class="glyphicon @icon"></span>

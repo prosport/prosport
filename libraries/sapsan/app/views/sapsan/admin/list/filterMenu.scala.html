@@ -1,4 +1,4 @@
-@(model: _root_.sapsan.schema.Model)
+@(model: _root_.sapsan.schema.Model)(implicit messages: Messages)
 <ul class="dropdown-menu" id="filters" style="left:auto; right:0;">
 @for((fieldName, field) <- model.fields) {
     <li>

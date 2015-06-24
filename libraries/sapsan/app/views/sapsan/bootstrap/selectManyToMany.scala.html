@@ -1,4 +1,4 @@
-@(name: String, route : play.api.mvc.Call, items: Map[String, String], title: String = play.i18n.Messages.get("interface.add"))
+@(name: String, route : play.api.mvc.Call, items: Map[String, String], title: String = play.i18n.Messages.get("interface.add"))(implicit messages: Messages)
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(views.html.sapsan.bootstrap.fieldConstructor.render) }
 @form(route, args = 'class -> "well form-inline") {

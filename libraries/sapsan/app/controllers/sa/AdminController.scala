@@ -5,6 +5,7 @@ import views.html.sapsan._
 import sapsan.schema.{Schema, Model}
 import play.data._
 import play.Play
+import play.api.i18n.Messages.Implicits._
 import play.api.i18n.Messages
 import java.nio.charset.Charset
 import sapsan.common.Export
