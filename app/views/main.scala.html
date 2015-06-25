@@ -11,12 +11,9 @@
         <meta name="description" content=""/>
 
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/styles.compiled.css")" charset="UTF-8"/>
-
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.min.js")" charset="UTF-8"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.flexslider-min.js")" charset="UTF-8"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/scripts.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/scripts.compiled.js")" charset="UTF-8"></script>
     </head>
-    <body>
+    <body class="white">
         <div class="wrapper">
             <header>
                 <a href="/" title="На главную" class="log">
@@ -30,12 +27,12 @@
                     </div>
                 </section>
             </header>
-            <nav>
+            <nav class="gray">
                 <ul>
 
                     @for(node <- Application.getNavigation().iterator()) {
-                        <li>
-                            <a href="@node.url" class="@("active".when(StaticNavigation.main.equals(node.title)))">
+                        <li class="@("active".when(StaticNavigation.main.equals(node.title)))">
+                            <a href="@node.url">
                                 <span class="text-wrapper">
                                     @node.title
                                 <span class="border-bottom"></span>

@@ -17,5 +17,5 @@ conf/personal.conf
 scripts
 media
 node_modules
-*.compiled.css
-*.compiled.js
+//*.compiled.css
+//*.compiled.js
