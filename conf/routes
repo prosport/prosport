@@ -19,7 +19,6 @@ GET         /logout                 controllers.Application.logout()
 #tree
 GET         /tree                   controllers.TreePageController.GET()
 
-GET         /categories/list        controllers.Application.listCategories()
 
 #catalog
 GET         /catalog/:name          controllers.CatalogController.getProducts(name:String)

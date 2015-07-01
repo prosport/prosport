@@ -1,5 +1,4 @@
 @(title: String)(content: Html)
-@import utils.StaticNavigation
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,40 +26,7 @@
                     </div>
                 </section>
             </header>
-            <nav class="gray">
-                <ul>
-
-                    @for(node <- Application.getNavigation().iterator()) {
-                        <li class="@("active".when(StaticNavigation.main.equals(node.title)))">
-                            <a href="@node.url">
-                                <span class="text-wrapper">
-                                    @node.title
-                                <span class="border-bottom"></span>
-                                </span>
-                            </a>
-                            @if(node.hasChilds) {
-                                <ul>
-
-                                @for(c <- node.nodes.iterator()) {
-                                    <li>
-                                        <a href="#">@c.title</a>
-                                        @if(c.hasChilds) {
-                                            <ul>
-                                            @for(cc <- c.nodes.iterator()) {
-                                                <li>
-                                                    <a href="@cc.url">@cc.title</a>
-                                                </li>
-                                            }
-                                            </ul>
-                                        }
-                                    </li>
-                                }
-                                </ul>
-                            }
-                        </li>
-                    }
-                </ul>
-            </nav>
+            @elements.navigation("Главная")
 
             @content
 
