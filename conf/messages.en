@@ -162,3 +162,8 @@ field.User.isBlocked=Блокирован
 field.User.role=Роль
 field.User.registredAt=Зарегистрирован
 field.User.password=Пароль
+
+model.Banner=Баннеры
+field.Banner.name=Заголовок
+field.Banner.url=Ссылка
+field.Banner.image=Картинка
