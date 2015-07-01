@@ -14,7 +14,7 @@ import static utils.NavNode.root;
  * Created by andy on 5/5/15.
  */
 public class StaticNavigation {
-    public static String main = "Каталог";
+    public static String main = "Главная";
 
     public static SortedSet<NavNode> get() {
         return new TreeSet<>(Arrays.asList(

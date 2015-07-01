@@ -1,0 +1,35 @@
+@(title: String)
+<nav class="gray">
+    <ul>
+
+    @for(node <- NavigationController.getNavigation.iterator()) {
+        <li class="@("active".when(title.equals(node.title)))">
+            <a href="@node.url">
+                <span class="text-wrapper">
+                    @node.title
+                <span class="border-bottom"></span>
+                </span>
+            </a>
+            @if(node.hasChilds) {
+                <ul>
+
+                @for(c <- node.nodes.iterator()) {
+                    <li>
+                        <a href="#">@c.title</a>
+                        @if(c.hasChilds) {
+                            <ul>
+                            @for(cc <- c.nodes.iterator()) {
+                                <li>
+                                    <a href="@cc.url">@cc.title</a>
+                                </li>
+                            }
+                            </ul>
+                        }
+                    </li>
+                }
+                </ul>
+            }
+        </li>
+    }
+    </ul>
+</nav>

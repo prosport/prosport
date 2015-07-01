@@ -42,11 +42,6 @@ public class Application extends Controller {
         return ok(catalog.render());
     }
 
-    public static Result listCategories() {
-        return ok(Arrays.toString(getNavigation().toArray()));
-    }
-
-
     /**
      * Login page.
      */
@@ -79,17 +74,7 @@ public class Application extends Controller {
         return ok("");
     }
 
-    public static SortedSet<NavNode> getNavigation() {
 
-        List<ProductCategory> roots = ProductCategory.findAllRoots();
-        SortedSet<NavNode> catalogNavigation = StaticNavigation.convert(roots);
-
-        NavNode catalog = NavNode.root("Каталог", "#", 2);
-        catalog.nodes.addAll(catalogNavigation);
-        SortedSet<NavNode> staticNavigation = StaticNavigation.get();
-        staticNavigation.add(catalog);
-        return staticNavigation;
-    }
 
 
 
