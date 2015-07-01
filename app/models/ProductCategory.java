@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
+import utils.NavNode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,10 +40,16 @@ public class ProductCategory extends IDNameTimeEntity {
         return find.all();
     }
 
-    public static List<ProductCategory> findAllRoots() {
+    public static List<ProductCategory> getRootCategories() {
         return find.where()
                 .eq("parent", null)
                 .findList();
+    }
+
+    public static ProductCategory findByUrl(String url) {
+        return find.where()
+                .eq("url", url)
+                .findUnique();
     }
 
     public static void update(Object category) {

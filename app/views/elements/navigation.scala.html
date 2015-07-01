@@ -2,34 +2,34 @@
 <nav class="gray">
     <ul>
 
-    @for(node <- NavigationController.getNavigation.iterator()) {
-        <li class="@("active".when(title.equals(node.title)))">
-            <a href="@node.url">
-                <span class="text-wrapper">
-                    @node.title
-                <span class="border-bottom"></span>
-                </span>
-            </a>
-            @if(node.hasChilds) {
-                <ul>
+        @for(node <- NavigationController.getNavigation(title).iterator()) {
+            <li class="@("active".when(node.active))">
+                <a href="@node.url">
+                    <span class="text-wrapper">
+                        @node.title
+                    <span class="border-bottom"></span>
+                    </span>
+                </a>
+                @if(node.hasChilds) {
+                    <ul>
 
-                @for(c <- node.nodes.iterator()) {
-                    <li>
-                        <a href="#">@c.title</a>
-                        @if(c.hasChilds) {
-                            <ul>
-                            @for(cc <- c.nodes.iterator()) {
-                                <li>
-                                    <a href="@cc.url">@cc.title</a>
-                                </li>
+                    @for(c <- node.nodes.iterator()) {
+                        <li class="@("active".when(c.active))">
+                            <a href="@c.url">@c.title</a>
+                            @if(c.hasChilds) {
+                                <ul>
+                                @for(cc <- c.nodes.iterator()) {
+                                    <li class="@("active".when(cc.active))">
+                                        <a href="@cc.url">@cc.title</a>
+                                    </li>
+                                }
+                                </ul>
                             }
-                            </ul>
-                        }
-                    </li>
+                        </li>
+                    }
+                    </ul>
                 }
-                </ul>
-            }
-        </li>
-    }
+            </li>
+        }
     </ul>
 </nav>

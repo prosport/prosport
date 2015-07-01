@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 /**
  * Created by andy on 5/5/15.
  */
@@ -17,6 +16,7 @@ public class NavNode implements Comparable<NavNode> {
     public final String title;
     public final String url;
     public final SortedSet<NavNode> nodes = new TreeSet<>();
+    public boolean active;
 
     public boolean hasChilds() {
         return !nodes.isEmpty();
@@ -32,6 +32,7 @@ public class NavNode implements Comparable<NavNode> {
         this.sortOrder = category.sortOrder == null ? MAX_ORDER : category.sortOrder;
         this.title = category.name;
         this.url =  "/catalog/" + category.url;
+
 
     }
 
@@ -60,8 +61,6 @@ public class NavNode implements Comparable<NavNode> {
         if (obj == null) return false;
         if (obj == this) return true;
         if (obj.getClass() != getClass()) return false;
-
-        NavNode rhs = (NavNode) obj;
 
         return Objects.equals(this.title, ((NavNode) obj).title);
     }

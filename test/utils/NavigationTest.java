@@ -12,7 +12,7 @@ import java.util.SortedSet;
 /**
  * Created by andy on 5/14/15.
  */
-public class StaticNavigationTest {
+public class NavigationTest {
 
     @Test
     public void convertTest() {
@@ -39,7 +39,7 @@ public class StaticNavigationTest {
         rootOne.subCategories.add(shirtTwo);
         rootOne.subCategories.add(shirtOne);
 
-        SortedSet<NavNode> ss = StaticNavigation.convert(Arrays.asList(rootTwo, rootOne));
+        SortedSet<NavNode> ss = Navigation.convertToNavNode(Arrays.asList(rootTwo, rootOne));
         List<NavNode> result = new ArrayList<>(ss.size());
         for(NavNode node : ss) {
             result.add(node);

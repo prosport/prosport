@@ -1,19 +1,12 @@
 package controllers;
 
-import models.ProductCategory;
 import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.NavNode;
-import utils.StaticNavigation;
 import views.html.catalog;
 import views.html.index;
 import views.html.login;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.SortedSet;
 
 import static play.data.Form.form;
 
@@ -36,10 +29,6 @@ public class Application extends Controller {
 
     public static Result index() {
         return ok(index.render());
-    }
-
-    public static Result catalog() {
-        return ok(catalog.render());
     }
 
     /**

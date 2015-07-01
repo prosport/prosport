@@ -4,12 +4,6 @@
 
 # Home page
 GET         /                       controllers.Application.index()
-GET         /catalog                controllers.Application.catalog()
-
-
-GET         /test1                  controllers.Test.test1()
-GET         /test3                  controllers.Test.test3()
-#GET         /admin/product/:id/show        controllers.Test.test3(id: Long)
 
 # Authentication
 GET         /login                  controllers.Application.login()
@@ -21,7 +15,8 @@ GET         /tree                   controllers.TreePageController.GET()
 
 
 #catalog
-GET         /catalog/:name          controllers.CatalogController.getProducts(name:String)
+GET         /catalog                controllers.CatalogController.catalog(name:String = "Каталог")
+GET         /catalog/:name          controllers.CatalogController.catalog(name:String)
 
 ->          /admin                  sa.Routes
 
