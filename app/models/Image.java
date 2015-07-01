@@ -27,8 +27,4 @@ public class Image extends IDNameEntity {
     @SapsanField(inputComponent = HtmlInputComponent.FileUpload)
     public String filename;
 
-
-
-
-
 }
