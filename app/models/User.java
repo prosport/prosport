@@ -44,10 +44,6 @@ public class User extends AbstractBaseEntity {
     @Column(name = "registed_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     public Date registredAt;
 
-    @SapsanField()
-    @Column(name = "is_blocked")
-    public Boolean isBlocked;
-
     @Override
     public String toString() {
         return StringUtils.getAngleBracketString(email);
