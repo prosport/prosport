@@ -1,21 +1,22 @@
-@(title: String)
+
+@(title: String, products: List[Product])
 @main(title = title) {
     <content>
 
-        @elements.breadcrumbs()
+        @elements.breadcrumbs(title)
         <section class="catalog-list">
             <ul>
-            @for(i <- (1 to 8)) {
+            @for(product <- products.iterator()) {
                 <li>
-                    <h3>Футболка "Kickboxing, вензеля_1"</h3>
+                    <h3>@product.name</h3>
                     <div class="img-wrapper">
                         <a href="#">
                             <img src="@routes.Assets.at("images/temp/6.jpg")" alt="Image"/>
                         </a>
                     </div>
                     <div class="features">
-                        <p class="float-right"><b>КБ024</b></p>
-                        <p>Кикбоксинг</p>
+                        <p class="float-right"><b>@product.articul</b></p>
+                        <p>@product.category.name</p>
                         <ul class="colors">
                             <li>
                                 <a href="#" style="background: red"></a>
@@ -41,4 +42,5 @@
             }
             </ul>
         </section>
+    </content>
 }

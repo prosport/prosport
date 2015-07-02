@@ -14,22 +14,23 @@ import static utils.NavNode.root;
  * Created by andy on 5/5/15.
  */
 public class Navigation {
-    private static final Collector<NavNode, ?, Map<String, NavNode>> MAP_COLLECTOR =
+    private static final Collector<NavNode, ?, Map<String, NavNode>> MAP_BY_TITLE_COLLECTOR =
             Collectors.toMap(n -> n.title, n -> n);
     public static final String main = "Главная";
 
+    //TODO: для read-only сделать unmodifiable map и шарить статику
     public static Map<String, NavNode> getStaticNavigationMap() {
         List<NavNode> staticNavigationList = Arrays.asList(
                 leaf("Главная", "/", 1),
                 leaf("Каталог", "/catalog", 2),
-                root("Прайс-Лист", "#", 3,
+                root("Прайс-Лист", "/price", 3,
                         leaf("Производство", "#", 1),
                         leaf("Нанесение", "#", 2)),
                 leaf("Фотогалерея", "#", 4),
                 leaf("О компании", "#", 5),
                 leaf("Контакты", "#", 6));
 
-        return staticNavigationList.stream().collect(MAP_COLLECTOR);
+        return staticNavigationList.stream().collect(MAP_BY_TITLE_COLLECTOR);
     }
 
 
@@ -55,7 +56,7 @@ public class Navigation {
         for (NavNode node : nodes) {
             if (title.equals(node.title)) {
                 node.active = true;
-                activateFirstChildrens(node);
+                activateFirstChildrenCategories(node);
                 return true;
             }
             if (node.hasChilds()) {
@@ -66,11 +67,10 @@ public class Navigation {
         return false;
     }
 
-    private static void activateFirstChildrens(NavNode node) {
+    private static void activateFirstChildrenCategories(NavNode node) {
         if (node.hasChilds()) {
             node.nodes.first().active = true;
-            activateFirstChildrens(node.nodes.first());
+            activateFirstChildrenCategories(node.nodes.first());
         }
     }
-
 }

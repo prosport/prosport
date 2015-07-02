@@ -14,9 +14,33 @@ import java.util.stream.Collectors;
  */
 public class NavigationController extends Controller {
 
-    public static Collection<NavNode> getNavigation(String activeNodeTitle) {
+    public static Collection<NavNode> getBreadCrumbsForCategory(String categoryTitle) {
+        Collection<NavNode> nodes = getNavigation();
+        Deque<NavNode> result = new ArrayDeque<>();
+        searchNodeWithTitle(nodes, categoryTitle, result);
+        return result;
+    }
+
+    private static boolean searchNodeWithTitle(Collection<NavNode> nodes, String title, Deque<NavNode> path) {
+        for(NavNode node : nodes) {
+            if(node.title.equals(title)) {
+                path.push(node);
+                return true;
+            }
+            if(node.hasChilds()) {
+                boolean found = searchNodeWithTitle(node.nodes, title, path);
+                if(found) {
+                    path.push(node);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static Collection<NavNode> getNavigationWithActiveCategory(String categoryTitle) {
         Collection<NavNode> result = getNavigation();
-        Navigation.activateNodeWithTitle(activeNodeTitle, result);
+        Navigation.activateNodeWithTitle(categoryTitle, result);
         return result;
     }
 

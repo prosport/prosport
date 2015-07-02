@@ -1,6 +1,8 @@
+@(title: String)
 <section class="breadcrumbs">
     <ul>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Новости компании</a></li>
+        @for(c <- NavigationController.getBreadCrumbsForCategory(title)) {
+            <li><a href="@c.url">@c.title</a></li>
+        }
     </ul>
 </section>

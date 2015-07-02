@@ -2,7 +2,7 @@
 <nav class="gray">
     <ul>
 
-        @for(node <- NavigationController.getNavigation(title).iterator()) {
+        @for(node <- NavigationController.getNavigationWithActiveCategory(title).iterator()) {
             <li class="@("active".when(node.active))">
                 <a href="@node.url">
                     <span class="text-wrapper">
