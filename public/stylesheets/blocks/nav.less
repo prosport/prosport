@@ -2,12 +2,15 @@
 
 nav {
     @transition-speed : .5s;
-
-    border-bottom: 4px solid #EBEBEB;
-    padding-bottom: 15px;
+    
+    box-sizing: content-box;
     text-align: center;
     position: relative;
     z-index: 10;
+    
+    &[class~="bordered"] {
+        border-bottom: 4px solid #EBEBEB;
+    }
     
     & > ul,
     & > ul ul {
@@ -110,7 +113,6 @@ nav {
                 border-top: 1px solid @active-color;
             }
             
-            &:hover > ul,
             &.active > ul {
                 display: block;
             }

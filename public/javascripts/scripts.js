@@ -41,6 +41,13 @@ $(document).ready(function() {
             }
         });
         $(document).trigger('scroll');
+        
+        var height = 0;
+        $('nav ul:visible').each(function() {
+            height += $(this).outerHeight();
+        });
+        $('nav').height(height);
+        ($('nav ul:visible').length > 1) ? $('nav').addClass('bordered') : $('nav').removeClass('bordered');
     })();
     
     /*
