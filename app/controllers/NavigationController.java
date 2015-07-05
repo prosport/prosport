@@ -28,7 +28,7 @@ public class NavigationController extends Controller {
                 return true;
             }
             if(node.hasChilds()) {
-                boolean found = searchNodeWithTitle(node.nodes, title, path);
+                boolean found = searchNodeWithTitle(node.children, title, path);
                 if(found) {
                     path.push(node);
                     return true;
@@ -50,7 +50,7 @@ public class NavigationController extends Controller {
         List<ProductCategory> productCatalogRoots = ProductCategory.getRootCategories();
         List<NavNode> catalogNavigation = Navigation.convertToNavNode(productCatalogRoots);
 
-        staticNavigation.get("Каталог").nodes.addAll(catalogNavigation);
+        staticNavigation.get("Каталог").children.addAll(catalogNavigation);
 
         return staticNavigation.values()
                 .stream()

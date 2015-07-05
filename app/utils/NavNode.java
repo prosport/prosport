@@ -2,7 +2,6 @@ package utils;
 
 import models.ProductCategory;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.SortedSet;
@@ -17,11 +16,11 @@ public class NavNode implements Comparable<NavNode> {
 
     public final String title;
     public final String url;
-    public final SortedSet<NavNode> nodes = new TreeSet<>();
+    public final SortedSet<NavNode> children = new TreeSet<>();
     public boolean active;
 
     public boolean hasChilds() {
-        return !nodes.isEmpty();
+        return !children.isEmpty();
     }
 
     private NavNode(String title, String url, int sortOrder) {
@@ -49,7 +48,7 @@ public class NavNode implements Comparable<NavNode> {
 
     public static NavNode root(String title, String url, int sortOrder, NavNode... childs) {
         NavNode result = new NavNode(title, url, sortOrder);
-        result.nodes.addAll(Arrays.asList(childs));
+        result.children.addAll(Arrays.asList(childs));
         return result;
     }
 

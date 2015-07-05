@@ -13,12 +13,12 @@
                 @if(node.hasChilds) {
                     <ul>
 
-                    @for(c <- node.nodes.iterator()) {
+                    @for(c <- node.children.iterator()) {
                         <li class="@("active".when(c.active))">
                             <a href="@c.url">@c.title</a>
                             @if(c.hasChilds) {
                                 <ul>
-                                @for(cc <- c.nodes.iterator()) {
+                                @for(cc <- c.children.iterator()) {
                                     <li class="@("active".when(cc.active))">
                                         <a href="@cc.url">@cc.title</a>
                                     </li>

@@ -48,8 +48,8 @@ public class NavigationTest {
         Assert.assertEquals(rootOne.name, result.get(0).title);
         Assert.assertEquals(2, result.get(1).sortOrder);
         Assert.assertEquals(rootTwo.name, result.get(1).title);
-        Assert.assertEquals(2, result.get(0).nodes.size());
+        Assert.assertEquals(2, result.get(0).children.size());
 
-        Assert.assertEquals(1, result.get(0).nodes.iterator().next().sortOrder);
+        Assert.assertEquals(1, result.get(0).children.iterator().next().sortOrder);
     }
 }

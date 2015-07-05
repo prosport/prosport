@@ -1,4 +1,7 @@
 @(product: Product)
 @main(title = "") {
+    <content>
+        <img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="Image"/>
+    </content>
 
 }

@@ -46,7 +46,7 @@ public class Navigation {
 
     private static NavNode putChildRecursive(ProductCategory child, NavNode root) {
         NavNode item = new NavNode(child);
-        if (root != null) root.nodes.add(item);
+        if (root != null) root.children.add(item);
         for (ProductCategory c : child.getSubCategories()) {
             putChildRecursive(c, item);
         }
@@ -61,7 +61,7 @@ public class Navigation {
                 return true;
             }
             if (node.hasChilds()) {
-                node.active = activateNodeWithTitle(title, node.nodes);
+                node.active = activateNodeWithTitle(title, node.children);
                 if (node.active) return true;
             }
         }
@@ -70,8 +70,8 @@ public class Navigation {
 
     private static void activateFirstChildrenCategories(NavNode node) {
         if (node.hasChilds()) {
-            node.nodes.first().active = true;
-            activateFirstChildrenCategories(node.nodes.first());
+            node.children.first().active = true;
+            activateFirstChildrenCategories(node.children.first());
         }
     }
 }

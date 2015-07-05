@@ -8,5 +8,5 @@ import java.util.Set;
  */
 public class TreeNode {
     public String text;
-    public Set<TreeNode> nodes = new HashSet<>();
+    public Set<TreeNode> children = new HashSet<>();
 }
