@@ -1,4 +1,3 @@
-
 @(title: String, products: List[Product])
 @main(title = title) {
     <content>
@@ -10,8 +9,8 @@
                 <li>
                     <h3>@product.name</h3>
                     <div class="img-wrapper">
-                        <a href="#">
-                            <img src="@routes.Assets.at("images/temp/6.jpg")" alt="Image"/>
+                        <a href="@routes.ProductDetailsPageController.getProductDetailsPage(product.id)">
+                            <img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="Image"/>
                         </a>
                     </div>
                     <div class="features">

@@ -78,4 +78,8 @@ public class Product extends IDNameTimeEntity {
         return find.where().eq("category.name", categoryName).findList();
     }
 
+    public static Product findById(long productId) {
+        return find.where().eq("id", productId).findUnique();
+    }
+
 }

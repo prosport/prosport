@@ -16,7 +16,8 @@ import static utils.NavNode.root;
 public class Navigation {
     private static final Collector<NavNode, ?, Map<String, NavNode>> MAP_BY_TITLE_COLLECTOR =
             Collectors.toMap(n -> n.title, n -> n);
-    public static final String main = "Главная";
+    public static final String MAIN = "Главная";
+    public static final String CATALOG = "Каталог";
 
     //TODO: для read-only сделать unmodifiable map и шарить статику
     public static Map<String, NavNode> getStaticNavigationMap() {

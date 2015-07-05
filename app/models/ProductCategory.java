@@ -41,7 +41,7 @@ public class ProductCategory extends IDNameTimeEntity {
     }
 
     public static List<ProductCategory> getRootCategories() {
-        return find.where()
+        return find.fetch("subCategories").where()
                 .eq("parent", null)
                 .findList();
     }

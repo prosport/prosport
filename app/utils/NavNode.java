@@ -2,6 +2,7 @@ package utils;
 
 import models.ProductCategory;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.SortedSet;
@@ -13,6 +14,7 @@ public class NavNode implements Comparable<NavNode> {
     public static final int MAX_ORDER = 1000;
 
     public final int sortOrder;
+
     public final String title;
     public final String url;
     public final SortedSet<NavNode> nodes = new TreeSet<>();
@@ -23,12 +25,17 @@ public class NavNode implements Comparable<NavNode> {
     }
 
     private NavNode(String title, String url, int sortOrder) {
+        if(title == null) throw new IllegalArgumentException("title == null");
+        if(url == null) throw new IllegalArgumentException("url == null");
         this.sortOrder = sortOrder;
         this.title = title;
         this.url = url;
     }
 
     public NavNode(ProductCategory category) {
+        if(category.name == null) throw new IllegalArgumentException("category.name == null, category.id = " + category.id);
+        if(category.url == null) throw new IllegalArgumentException("category.url == null, category.id = " + category.id);
+
         this.sortOrder = category.sortOrder == null ? MAX_ORDER : category.sortOrder;
         this.title = category.name;
         this.url =  "/catalog/" + category.url;
