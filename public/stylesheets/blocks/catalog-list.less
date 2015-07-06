@@ -63,49 +63,8 @@
                 .float-right {
                     float: right;
                 }
-                
-                ul.colors {
-                    display: inline-block;
-                    opacity: .1;
-                    padding-top: 5px;
-                    transition: .5s;
-
-                    & > li {
-                        display: block;
-                        float: left;
-                        margin-right: 3px;
-                        
-                        &:last-child {
-                            margin-right: 0;
-                        }
-
-                        a {
-                            border: 1px solid transparent;
-                            border-radius: 2px;
-                            display: block;
-                            height: 17px;
-                            width: 17px;
-                            opacity: .8;
-                            transition: all .5s;
-                        }
-                        
-                        a.border {
-                            border: 1px solid #EBEBEB;
-                        }
-                        
-                        a:hover {
-                            opacity: 1;
-                        }
-                    }
-                }
             }
         }
-        
-         & > li:hover {
-            ul.colors {
-                opacity: 1;
-            }
-         }
         
         li:nth-child(1),
         li:nth-child(2),
