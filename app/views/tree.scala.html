@@ -1,4 +1,4 @@
-@(title: String, categoriesJson : String)
+@(title: String, categoriesJson: String)
 
 <!DOCTYPE html>
 <html>
@@ -14,16 +14,40 @@
     </head>
 
     <body>
+        <div class="row">
+            <div class="col-md-4 col-sm-8 col-xs-8">
+                <button type="button" class="btn btn-success btn-sm" onclick="demo_create();"><i class="glyphicon glyphicon-asterisk"></i>
+                    Create</button>
+                <button type="button" class="btn btn-warning btn-sm" onclick="demo_rename();"><i class="glyphicon glyphicon-pencil"></i>
+                    Rename</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i>
+                    Delete</button>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4" style="text-align : right ;">
+                <input type="text" value="" style="box-shadow : inset 0 0 4 px #eee ; width : 120 px ; margin : 0 ; padding : 6 px 12 px ; border-radius : 4 px ; border : 1 px solid silver ; font-size : 1.1 em ;" id="demo_q" placeholder="Search" />
+            </div>
+        </div>
         <div id="container"></div>
         <script>
         var nodes = @Html(categoriesJson);
-$(function() {
-  $('#container').jstree({
-    'core' : {
-      'data' : nodes
-    }
-  });
-});
+        $(function() {
+        $('#container').jstree({
+            'core' : { 'data' : nodes }
+            });
+        });
+
+//        var loadProductCategoryInfo = function(categoryId) {
+//            $.ajax({
+//                url: "/test",
+//
+//            })
+//        };
+
+        var jsTreeChanged = function(e, data) {
+            console.log(data.node);
+        };
+
+        $('#container').on('changed.jstree', jsTreeChanged);
 </script>
     </body>
 </html>

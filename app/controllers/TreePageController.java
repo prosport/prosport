@@ -7,8 +7,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.tree2;
-
+import utils.Navigation;
+import views.html.tree;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,9 +22,13 @@ public class TreePageController extends Controller {
         List<ProductCategory> categories = ProductCategory.getRootCategories();
 
         List<TreeNode> treeNodes = convertToTree(categories);
-        JsonNode node = Json.toJson(treeNodes);
+        TreeNode root = new TreeNode();
+        root.text = Navigation.CATALOG;
+        root.children.addAll(treeNodes);
+        JsonNode node = Json.toJson(root);
 
-        return ok(tree2.render("Дерево", node.toString()));
+
+        return ok(tree.render("Дерево", node.toString()));
     }
 
 
@@ -38,6 +42,7 @@ public class TreePageController extends Controller {
 
     public static TreeNode convertNode(ProductCategory category) {
         TreeNode result = new TreeNode();
+        result.id = category.id;
         result.text = category.name;
         result.children.addAll(convertToTree(category.getSubCategories()));
         return result;
