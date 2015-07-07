@@ -1,0 +1,38 @@
+@(title: String, content: Html)
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ProSport Admin - @title</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	</head>
+	<body>
+		@admin.topbar()
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-2">
+					<div class="list-group">
+					  <a href="/admin2" class="list-group-item">Home</a>
+					  <a href="/admin2/categories" class="list-group-item">Categories</a>
+					  <a href="/admin2/pages" class="list-group-item">Pages</a>
+					  <a href="/admin2/media" class="list-group-item">Media</a>
+					</div>
+				</div>
+				<div class="col-md-10">
+					@content
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 text-center">
+				ProSport Admin Panel
+				</div>
+			</div>
+		</div>	
+	</body>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
+</html>
