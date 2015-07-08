@@ -1,6 +1,6 @@
 @(title: String, content: Html)
 <!DOCTYPE html>
-<html>
+<html ng-app="adminPanelApp">
 	<head>
 		<title>ProSport Admin - @title</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,14 +15,14 @@
 			<div class="row">
 				<div class="col-md-2">
 					<div class="list-group">
-					  <a href="/admin2" class="list-group-item">Home</a>
-					  <a href="/admin2/categories" class="list-group-item">Categories</a>
-					  <a href="/admin2/pages" class="list-group-item">Pages</a>
-					  <a href="/admin2/media" class="list-group-item">Media</a>
+					  <a href="/admin2#/" class="list-group-item">Home</a>
+					  <a href="#categories" class="list-group-item">Categories</a>
+					  <a href="#pages" class="list-group-item">Pages</a>
+					  <a href="#media" class="list-group-item">Media</a>
 					</div>
 				</div>
 				<div class="col-md-10">
-					@content
+					<ng-view></ng-view>
 				</div>
 			</div>
 
@@ -35,4 +35,10 @@
 	</body>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
+	<script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/angular-route.min.js")"></script>
+
+	<script src="@routes.Assets.at("javascripts/admin/app.js")"></script>
+	<script src="@routes.Assets.at("javascripts/admin/controllers/coreControllers.js")"></script>
+	<script src="@routes.Assets.at("javascripts/admin/controllers/pageControllers.js")"></script>
 </html>
