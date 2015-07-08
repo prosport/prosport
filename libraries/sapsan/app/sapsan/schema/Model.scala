@@ -58,7 +58,7 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
     val toCNotation = Notation.camelToC(name)
 
     /** Experimental object instance for the model (for default values and other operations) */
-    def experiment = clazz.getConstructor().newInstance()
+    def newInstance = clazz.getConstructor().newInstance()
 
     /** An associative array of field names in Kutch. Keys and blank lines - both values. Magic level 7, the explanations in books on alchemy. */
     val emptyForm = fields.map { case (_, f) => (f.toCNotation, "") }
@@ -170,21 +170,18 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
 //        println(nativeId)
 //        invokeMethod(bean, "update", nativeId) {}
         try {
-            val method = clazz.getMethod("update", classOf[Object])
+            val method = clazz.getMethod("update")
             val nativeId = primaryField.fromLong(id)
             method.invoke(bean, nativeId.asInstanceOf[Object])  //TODO !!! id.toString.toInt.asInstanceOf[Object]
         } catch {
-            case e: Throwable =>
-                e.printStackTrace()
-                // => Ebean.update(bean)
-            throw e
+            case e: Throwable => Ebean.update(bean)
         }
     }
 
 
     def invokeMethod(obj: Any, methodName: String, args: Any*)(whenError: => Unit) = {
         try {
-            val method = clazz.getMethod(methodName, classOf[Object])
+            val method = clazz.getMethod(methodName)
             method.invoke(obj, args)
         } catch {
             case e: Throwable =>

@@ -1,6 +1,7 @@
 package models;
 
 
+import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 
 import javax.persistence.*;
@@ -19,5 +20,7 @@ public class Banner extends IDNameTimeEntity {
     @SapsanField()
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Image image;
+
+    public static Model.Finder<Long, Banner> find = new Model.Finder<>(Long.class, Banner.class);
 
 }
