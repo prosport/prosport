@@ -13,7 +13,9 @@
 
     <fieldset>
 
-        <input type="hidden" name="@model.primaryField.name" value="@id">
+        @if(id != -1) {
+            <input type="hidden" name="@model.primaryField.name" value="@id">
+        }
 
         @model.fieldsForEdit3.map { case (fieldName, field) =>
             @fieldSelector(field, f)
