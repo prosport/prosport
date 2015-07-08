@@ -1,0 +1,36 @@
+@(page: StaticPage)
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Редактор статичных страниц</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" type="image/x-icon" href="@routes.Assets.at("images/favicon.ico")" />
+
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/scripts.compiled.js")" charset="UTF-8"></script>
+    </head>
+    <body>
+        <form>
+            <label for="nameInput">Название страницы:</label>
+            <input name="name" id="nameInput" type="text"  value="@page.name"/> <br />
+            <label for="urlInput">URL страницы:</label>
+            <input name="url" id="urlInput"  type="text"  value="@page.url"/>
+            <textarea name="content" id="editor" rows="10" cols="80">
+                @page.content
+            </textarea>
+            <script>
+                CKEDITOR.replace( 'content' );
+            </script>
+            <input type="submit" value="Сохранить" id="btnSubmit">
+        </form>
+        <script type="text/javascript">
+            var submitted = function() {
+                var data = CKEDITOR.instances.content.getData();
+                console.log(data);
+            }
+            $("#btnSubmit").click(submitted);
+        </script>
+    </body>
+</html>

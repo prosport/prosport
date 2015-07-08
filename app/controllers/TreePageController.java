@@ -2,8 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.ProductCategory;
-import models.TreeNode;
-import org.apache.commons.lang3.StringEscapeUtils;
+import utils.TreeNode;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;

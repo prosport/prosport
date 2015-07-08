@@ -21,7 +21,10 @@ GET         /catalog/:name        controllers.CatalogPageController.catalog(name
 #product details
 GET         /product/:productId    controllers.ProductDetailsPageController.getProductDetailsPage(productId:Long)
 
-->          /admin                sa.Routes
+GET         /admin/static             controllers.StaticBuilderController.getPage
+#POST        /admin/static             controllers.StaticBuilderController.putPage()
+
+->          /admin                     sa.Routes
 
 # Test Admin Templates
 GET 		/admin2				  controllers.AdminController.index()

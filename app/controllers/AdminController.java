@@ -1,18 +1,17 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import models.ProductCategory;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.Navigation;
+import utils.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import play.libs.Json;
-import com.fasterxml.jackson.databind.JsonNode;
-import utils.Navigation;
-
-import models.TreeNode;
-import models.ProductCategory;
-
+import java.util.stream.Collectors;
 import views.html.admin.master;
 
 public class AdminController extends Controller {
@@ -41,9 +40,10 @@ public class AdminController extends Controller {
 
     public static List<TreeNode> convertToTree(Collection<ProductCategory> categories) {
         List<TreeNode> result = new ArrayList<>(categories.size());
-        for (ProductCategory category : categories) {
-            result.add(convertNode(category));
-        }
+        result.addAll(categories
+                .stream()
+                .map(AdminController::convertNode)
+                .collect(Collectors.toList()));
         return result;
     }
 
