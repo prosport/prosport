@@ -21,6 +21,8 @@ GET         /catalog/:name        controllers.CatalogPageController.catalog(name
 #product details
 GET         /product/:productId    controllers.ProductDetailsPageController.getProductDetailsPage(productId:Long)
 
+GET         /test                  controllers.TestController.test01()
+
 ->          /admin                sa.Routes
 
 # Map static resources from the /public folder to the /assets URL path

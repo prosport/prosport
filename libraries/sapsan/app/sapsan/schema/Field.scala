@@ -209,7 +209,9 @@ class Field(val model: Model, jf: JavaField) {
 
     def isAutoFilling = dataType == DataTypeGroup.Timestamp && Field.dateFields.contains(name)
 
-    def hasDefaultValue = extract(model.experiment) != null
+    def hasDefaultValue = defaultValue != null
+
+    def defaultValue = extract(model.newInstance)
 
     /** Extracts this field from given object */
     def extract(obj: Any) = {

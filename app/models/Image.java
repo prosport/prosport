@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 import sapsan.common.HtmlInputComponent;
 
@@ -27,4 +28,5 @@ public class Image extends IDNameEntity {
     @SapsanField(inputComponent = HtmlInputComponent.FileUpload)
     public String filename;
 
+    public static Model.Finder<Long, Image> find = new Model.Finder<>(Long.class, Image.class);
 }

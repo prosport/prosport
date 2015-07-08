@@ -58,7 +58,7 @@ class Model(val clazz: Class[_]) extends Ordered[Model] {
     val toCNotation = Notation.camelToC(name)
 
     /** Experimental object instance for the model (for default values and other operations) */
-    def experiment = clazz.getConstructor().newInstance()
+    def newInstance = clazz.getConstructor().newInstance()
 
     /** An associative array of field names in Kutch. Keys and blank lines - both values. Magic level 7, the explanations in books on alchemy. */
     val emptyForm = fields.map { case (_, f) => (f.toCNotation, "") }
