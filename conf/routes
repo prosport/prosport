@@ -27,10 +27,7 @@ GET         /admin/static              controllers.PagesController.getPages
 ->          /admin                     sa.Routes
 
 # Test Admin Templates
-GET         /admin2                    controllers.AdminController.index()
-GET         /admin2/categories         controllers.AdminController.categories()
-GET         /admin2/pages              controllers.AdminController.pages()
-GET         /admin2/media              controllers.AdminController.media()
+GET 		/admin2				  controllers.AdminController.index()
 
 # static page rest api
 GET         /api/pages                 controllers.PagesController.getPages
