@@ -1,5 +1,6 @@
 package models;
 
+import play.db.ebean.Model;
 import sapsan.annotation.SapsanField;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractBaseEntity implements Serializable{
+public abstract class AbstractBaseEntity extends Model {
 
 
     @Id

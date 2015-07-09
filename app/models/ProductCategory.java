@@ -52,11 +52,6 @@ public class ProductCategory extends IDNameTimeEntity {
                 .findUnique();
     }
 
-    public static void update(Object category) {
-        Ebean.update(category);
-    }
-
-
     public ProductCategory() {
     }
 

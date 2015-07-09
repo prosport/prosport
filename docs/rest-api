@@ -1,0 +1,9 @@
+#static pages
+create
+methods: GET POST PUT DELETE
+url:
+    /rest/pages
+GET     no body
+POST    {"name": "test", "url": "urlValue", "conent": "htmlContent"}
+PUT     {"id": test, "name": "test", "url": "urlValue", "conent": "htmlContent"}
+DELETE  {"id": 3}
