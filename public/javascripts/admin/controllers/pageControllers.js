@@ -11,9 +11,10 @@
 
 		// Loading pages
 		$scope.load = function() {
-			$http.get('/url/to/get/pages', {}).
+			$http.get('/api/pages', {}).
 				success(function(data, status, headers, config) {
 					$scope.pages = data;
+					console.log(data);
 				}).
 				error(function(data, status, headers, config) {
 					console.log("Error while loading pages list");
@@ -44,7 +45,7 @@
 
 		// Submit edited page
 		$scope.submit = function() {
-			$http.post('/url/to/submit/page', $scope.editablePage).
+			$http.put('/url/to/submit/page', $scope.editablePage).
 				success(function(data, status, headers, config) {
 					console.log("Edit Success");
 					location.href="/admin2/pages/";

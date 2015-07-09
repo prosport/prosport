@@ -21,7 +21,7 @@ var config = {
 
 };
  
-gulp.task('css', function () {
+gulp.task('maincss', function () {
 	gulp.src(config.inputCSS)
 		.pipe(less())
 		.pipe(gulpAutoprefixer())
@@ -29,6 +29,17 @@ gulp.task('css', function () {
 		.pipe(rename('styles.compiled.css'))
 		.pipe(gulp.dest(config.outputCSS));
 });
+
+gulp.task('admincss', function() {
+	gulp.src('../../public/stylesheets/admin.less')
+		.pipe(less())
+		.pipe(gulpAutoprefixer())
+		.pipe(minifyCSS({keepBreaks: false}))
+		.pipe(rename('admin.compiled.css'))
+		.pipe(gulp.dest('../../public/stylesheets/'));
+});
+
+gulp.task('css', ['maincss', 'admincss']);
 
 gulp.task('js', function () {
 	gulp.src(config.inputJS)

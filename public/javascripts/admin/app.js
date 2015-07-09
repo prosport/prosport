@@ -33,3 +33,8 @@
 	});
 
 })();
+
+$(function() {
+	$(window).on('resize', function() { $("#page-wrapper").height($(this).height()-80); });
+	$("#page-wrapper").height($(this).height()-80);
+});

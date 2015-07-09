@@ -2,41 +2,48 @@
 <!DOCTYPE html>
 <html ng-app="adminPanelApp">
 	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+
 		<title>ProSport Admin - @title</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/font-awesome.min.css")" type="text/css">
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")" type="text/css">
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/admin.compiled.css")" type="text/css">
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    	<!--[if lt IE 9]>
+        	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+
 	</head>
 	<body>
 		@admin.topbar()
-		<div class="container-fluid">
+		<div id="page-wrapper">
+            <div class="container-fluid">
+            	<ng-view></ng-view>
+            </div>
+            <!-- /.container-fluid -->
 
-			<div class="row">
-				<div class="col-md-2">
-					<div class="list-group">
-					  <a href="/admin2#/" class="list-group-item">Home</a>
-					  <a href="#categories" class="list-group-item">Categories</a>
-					  <a href="#pages" class="list-group-item">Pages</a>
-					  <a href="#media" class="list-group-item">Media</a>
-					</div>
-				</div>
-				<div class="col-md-10">
-					<ng-view></ng-view>
-				</div>
-			</div>
+        </div>
+        <!-- /#page-wrapper -->
 
-			<div class="row">
-				<div class="col-md-12 text-center">
-				ProSport Admin Panel
-				</div>
-			</div>
-		</div>	
+    </div>
+    <!-- /#wrapper -->
+
 	</body>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
 	<script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
 	<script src="@routes.Assets.at("javascripts/angular-route.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/ng-ckeditor.min.js")"></script>
 
 	<script src="@routes.Assets.at("javascripts/admin/app.js")"></script>
 	<script src="@routes.Assets.at("javascripts/admin/controllers/coreControllers.js")"></script>
