@@ -22,7 +22,7 @@ public class PagesController extends Controller {
 
     public static Result getPage(long pageId) {
         StaticPage page = StaticPage.find.byId(pageId);
-        if(page == null) return badRequest("no page with id = " + pageId);
+        if (page == null) return badRequest("no page with id = " + pageId);
         return ok(Json.toJson(page));
     }
 
@@ -39,7 +39,7 @@ public class PagesController extends Controller {
         JsonNode json = request().body().asJson();
         StaticPage fromRequest = Json.fromJson(json, StaticPage.class);
         StaticPage entity = StaticPage.find.byId(fromRequest.id);
-        if(entity == null)
+        if (entity == null)
             return badRequest("no page with id = " + fromRequest.id);
 
         entity.name = fromRequest.name;
@@ -50,12 +50,10 @@ public class PagesController extends Controller {
         return ok();
     }
 
-    public static Result deletePage() {
-        JsonNode json = request().body().asJson();
-        StaticPage fromRequest = Json.fromJson(json, StaticPage.class);
-        StaticPage entity = StaticPage.find.byId(fromRequest.id);
-        if(entity == null)
-            return badRequest("no page with id = " + fromRequest.id);
+    public static Result deletePage(long pageId) {
+        StaticPage entity = StaticPage.find.byId(pageId);
+        if (entity == null)
+            return badRequest("no page with id = " + pageId);
         entity.delete();
 
         return ok();

@@ -31,10 +31,10 @@ GET           /admin2                    controllers.AdminController.index()
 
 # static page rest api
 GET           /api/pages                 controllers.PagesController.getPages
-GET           /api/pages/:pageId        controllers.PagesController.getPage(pageId:Long)
+GET           /api/pages/:pageId         controllers.PagesController.getPage(pageId:Long)
 POST          /api/pages                 controllers.PagesController.createPage
 PUT           /api/pages                 controllers.PagesController.updatePage
-DELETE        /api/pages                 controllers.PagesController.deletePage
+DELETE        /api/pages/:pageId         controllers.PagesController.deletePage(pageId:Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
