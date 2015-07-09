@@ -21,14 +21,14 @@
 				controller: "PagesCreateController",
 				templateUrl: "/assets/templates/admin/pages_create.html"
 			}).
-			when("/categories", {
-				redirectTo: "/"
-			}).
-			when("/media", {
-				redirectTo: "/"
-			}).
+			// when("/categories", {
+			// 	redirectTo: "/"
+			// }).
+			// when("/media", {
+			// 	redirectTo: "/"
+			// }).
 			otherwise({
-				redirectTo: "/"
+				templateUrl: "/assets/templates/admin/404.html"
 			});
 	});
 
