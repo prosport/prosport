@@ -21,6 +21,16 @@
 				});
 		};
 
+		$scope.delete = function(page) {
+			$http.delete('/api/pages/'+page.id).
+			success(function(data, status, headers, config) {
+					$scope.load();
+				}).
+				error(function(data, status, headers, config) {
+					console.log("Error while removing page");
+				});		
+		};
+
 		// Call load function
 		$scope.load();
 	}]);
@@ -32,9 +42,14 @@
 		// Declare page object
 		$scope.editablePage = {};
 
+		// CKEditor config
+		$scope.editorOptions = {
+    		language: 'ru'
+		};		
+
 		// Loading page
 		$scope.load = function() {
-			$http.get('/url/to/get/page/by/id?page_id='+$routeParams.pageId).
+			$http.get('/api/pages/'+$routeParams.pageId).
 				success(function(data, status, headers, config) {
 					$scope.editablePage = data;
 				}).
@@ -45,10 +60,10 @@
 
 		// Submit edited page
 		$scope.submit = function() {
-			$http.put('/url/to/submit/page', $scope.editablePage).
+			$http.put('/api/pages', $scope.editablePage).
 				success(function(data, status, headers, config) {
 					console.log("Edit Success");
-					location.href="/admin2/pages/";
+					location.href="/admin2#pages";
 				}).
 				error(function(data, status, headers, config) {
 					console.log("Error while editing page");
@@ -66,12 +81,17 @@
 		// Declare new page object
 		$scope.newPage = {};
 
+		// CKEditor config
+		$scope.editorOptions = {
+    		language: 'ru'
+		};
+
 		// Submit new page function
 		$scope.submit = function() {
-			$http.post('/url/to/submit/new/page', $scope.newPage).
+			$http.post('/api/pages', $scope.newPage).
 				success(function(data, status, headers, config) {
 					console.log("Page Create Success");
-					location.href="/admin2/pages/";
+					location.href="/admin2#pages";
 				}).
 				error(function(data, status, headers, config) {
 					console.log("Error while creating page");

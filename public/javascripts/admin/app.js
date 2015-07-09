@@ -1,6 +1,6 @@
 (function() {
 
-	var app = angular.module('adminPanelApp', ['ngRoute']);
+	var app = angular.module('adminPanelApp', ['ngRoute', 'ngCkeditor']);
 
 	app.config(function($routeProvider) {
 
@@ -33,8 +33,3 @@
 	});
 
 })();
-
-$(function() {
-	$(window).on('resize', function() { $("#page-wrapper").height($(this).height()-80); });
-	$("#page-wrapper").height($(this).height()-80);
-});
