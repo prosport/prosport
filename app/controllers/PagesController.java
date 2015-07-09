@@ -20,6 +20,12 @@ public class PagesController extends Controller {
         return ok(result);
     }
 
+    public static Result getPage(long pageId) {
+        StaticPage page = StaticPage.find.byId(pageId);
+        if(page == null) return badRequest("no page with id = " + pageId);
+        return ok(Json.toJson(page));
+    }
+
 
     public static Result createPage() {
         JsonNode json = request().body().asJson();
