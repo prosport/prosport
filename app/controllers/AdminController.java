@@ -17,7 +17,8 @@ import views.html.admin.master;
 public class AdminController extends Controller {
 
     public static Result index() {
-        return ok(master.render("Index", views.html.admin.index.render()));
+        //TODO: changed from views.html.admin.index.render()
+        return ok(master.render("Index", views.html.index.render()));
     }
 
     public static Result categories() {
@@ -30,13 +31,13 @@ public class AdminController extends Controller {
         return ok(master.render("Categories", views.html.admin.categories.render(node.toString())));
     }
 
-    public static Result pages() {
-        return ok(master.render("Pages", views.html.admin.pages.render()));
-    }
-
-    public static Result media() {
-        return ok(master.render("Pages", views.html.admin.media.render()));
-    }
+//    public static Result pages() {
+//        return ok(master.render("Pages", views.html.admin.pages.render()));
+//    }
+//
+//    public static Result media() {
+//        return ok(master.render("Pages", views.html.admin.media.render()));
+//    }
 
     public static List<TreeNode> convertToTree(Collection<ProductCategory> categories) {
         List<TreeNode> result = new ArrayList<>(categories.size());
