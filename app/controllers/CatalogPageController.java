@@ -7,6 +7,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.LogMessageStrings;
 import utils.Navigation;
+import utils.StringUtils;
 import views.html.catalog;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class CatalogPageController extends Controller {
         if (Navigation.CATALOG_URL.equals(fullUrl)) { // "Каталог" -> перенаправляем на самого левого сына
             category = ProductCategory.getLeftmostRoot();
         } else {
-            String url = getLastSubUrl(fullUrl);
+            String url = StringUtils.getLastSubUrl(fullUrl);
             category = ProductCategory.findByUrl(url);// Ищем категорию по урлу
         }
 
@@ -40,7 +41,4 @@ public class CatalogPageController extends Controller {
         }
     }
 
-    private static String getLastSubUrl(String fullUrl) {
-        return fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
-    }
 }

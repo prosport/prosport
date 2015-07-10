@@ -11,6 +11,7 @@ import views.html.tree;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by andy on 4/17/15.
@@ -33,9 +34,9 @@ public class TreePageController extends Controller {
 
     public static List<TreeNode> convertToTree(Collection<ProductCategory> categories) {
         List<TreeNode> result = new ArrayList<>(categories.size());
-        for (ProductCategory category : categories) {
-            result.add(convertNode(category));
-        }
+        result.addAll(categories.stream()
+                .map(TreePageController::convertNode)
+                .collect(Collectors.toList()));
         return result;
     }
 

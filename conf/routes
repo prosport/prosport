@@ -3,46 +3,43 @@
 # ~~~~
 
 # Home page
-GET           /                          controllers.Application.index()
+GET           /                           controllers.Application.index()
 
 # Authentication
-GET           /login                     controllers.Application.login()
-POST          /login                     controllers.Application.authenticate()
-GET           /logout                    controllers.Application.logout()
+GET           /login                      controllers.Application.login()
+POST          /login                      controllers.Application.authenticate()
+GET           /logout                     controllers.Application.logout()
 
 #tree
-GET           /tree                      controllers.TreePageController.GET()
+GET           /tree                       controllers.TreePageController.GET()
 
 
 #catalog
-GET           /catalog                   controllers.CatalogPageController.catalog(name:String = "/catalog")
-GET           /catalog/*path             controllers.CatalogPageController.catalog(path:String)
+GET           /catalog                    controllers.CatalogPageController.catalog(name:String = "/catalog")
+GET           /catalog/*path              controllers.CatalogPageController.catalog(path:String)
 
 #product details
-GET           /product/:productId        controllers.MiscPagesController.getProductDetailsPage(productId:Long)
+GET           /product/:productId         controllers.MiscPagesController.getProductDetailsPage(productId:Long)
 
-GET           /admin/static              controllers.PagesController.getPages
-#POST        /admin/static             controllers.PagesController()
+GET           /admin/static               controllers.PagesController.getPages
 
-->            /admin                     sa.Routes
+->            /admin                      sa.Routes
 
 # Test Admin Templates
-GET           /admin2                    controllers.AdminController.index()
+GET           /admin2                     controllers.AdminController.index()
 
 # static page rest api
-GET           /api/pages                 controllers.PagesController.getPages
-GET           /api/pages/:pageId         controllers.PagesController.getPage(pageId:Long)
-POST          /api/pages                 controllers.PagesController.createPage
-PUT           /api/pages                 controllers.PagesController.updatePage
-DELETE        /api/pages/:pageId         controllers.PagesController.deletePage(pageId:Long)
+GET           /api/pages                  controllers.PagesController.getPages
+GET           /api/pages/:pageId          controllers.PagesController.getPage(pageId:Long)
+POST          /api/pages                  controllers.PagesController.createPage
+PUT           /api/pages                  controllers.PagesController.updatePage
+DELETE        /api/pages/:pageId          controllers.PagesController.deletePage(pageId:Long)
 
 #misc pages
-GET          /price                 controllers.MiscPagesController.getPricePage
+GET           /price                      controllers.MiscPagesController.getPricePage
+GET           /price/manufacturing        controllers.MiscPagesController.getPriceManufacture
+GET           /price/application          controllers.MiscPagesController.getPriceApplication
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file              controllers.Assets.at(path="/public", file)
-GET           /images/*file              controllers.ExternalAssets.at(path="media", file)
-
-
-# All custom url
-GET           /:url                      controllers.PagesController.getPageContent(url:String)
+GET           /assets/*file               controllers.Assets.at(path="/public", file)
+GET           /images/*file               controllers.ExternalAssets.at(path="media", file)

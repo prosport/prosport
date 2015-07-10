@@ -21,6 +21,11 @@ public class Navigation {
     public static final String CATALOG = "Каталог";
     public static final String CATALOG_URL = "/catalog";
     public static final String PRICE = "Прайс-лист";
+    public static final String PRICE_MANUFACTURE = "Производство";
+    public static final String PRICE_MANUFACTURE_URL = "/price/manufacturing";
+    public static final String PRICE_APPLICATION = "Нанесение";
+    public static final String PRICE_APPLICATION_URL = "/price/application";
+
 
     //TODO: для read-only сделать unmodifiable map и шарить статику
     public static Map<String, NavNode> getStaticNavigationMap() {
@@ -28,8 +33,8 @@ public class Navigation {
                 leaf(MAIN, MAIN_URL, 1),
                 leaf(CATALOG, CATALOG_URL, 2),
                 root(PRICE, "/price", 3,
-                        leaf("Производство", "/price/manufacturing", 1),
-                        leaf("Нанесение", "/price/application", 2)),
+                        leaf(PRICE_MANUFACTURE, PRICE_MANUFACTURE_URL, 1),
+                        leaf(PRICE_APPLICATION, PRICE_APPLICATION_URL, 2)),
                 leaf("Фотогалерея", "#", 4),
                 leaf("О компании", "#", 5),
                 leaf("Контакты", "#", 6));
