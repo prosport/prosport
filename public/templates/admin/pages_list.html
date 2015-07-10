@@ -20,7 +20,7 @@
 					<td>{{ p.id }}</td>
 					<td>{{ p.name }}</td>
 					<td>{{ p.url }}</td>
-					<td><a  ng-href="#pages/edit/{{p.id}}">Редактировать</a> <a ng-click="delete(p)">Удалить</a></td>
+					<td><a  ng-href="#pages/edit/{{p.id}}">Редактировать</a> <a ng-click="delete(p)">Удалить</a> <a ng-href="{{p.url}}">Открыть</a></td>
 				</tr>
 			</tbody>
 		</table>
