@@ -41,4 +41,7 @@ $(function() {
 		pageWrapper.height($(this).height()-80);
 	});
 	pageWrapper.height($(this).height()-80);
+
+	CKEDITOR.plugins.addExternal('imagebrowser', '/assets/javascripts/ckeditor/plugins/imagebrowser/', 'plugin.js');
+	CKEDITOR.plugins.addExternal('mediaembed', '/assets/javascripts/ckeditor/plugins/mediaembed/', 'plugin.js');
 })

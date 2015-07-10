@@ -44,7 +44,24 @@
 
 		// CKEditor config
 		$scope.editorOptions = {
-    		language: 'ru'
+    		language: 'ru',
+    		'extraPlugins': "imagebrowser,mediaembed",
+    		imageBrowser_listUrl: '/api/v1/ckeditor/gallery',
+            filebrowserBrowseUrl: '/api/v1/ckeditor/files',
+            filebrowserImageUploadUrl: '/api/v1/ckeditor/images',
+            filebrowserUploadUrl: '/api/v1/ckeditor/files',
+            toolbarLocation: 'top',
+            toolbar: 'full',
+            toolbar_full: [
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', 'Underline' ] },
+                { name: 'paragraph', items: [ 'BulletedList', 'NumberedList', 'Blockquote' ] },
+                { name: 'editing', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                { name: 'tools', items: [ 'SpellChecker', 'Maximize' ] },
+                { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                { name: 'styles', items: [ 'Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat' ] },
+                { name: 'insert', items: [ 'Image', 'Table', 'SpecialChar', 'MediaEmbed' ] },'/',
+            ]
 		};		
 
 		// Loading page
@@ -83,8 +100,25 @@
 
 		// CKEditor config
 		$scope.editorOptions = {
-    		language: 'ru'
-		};
+    		language: 'ru',
+    		'extraPlugins': "imagebrowser,mediaembed",
+    		imageBrowser_listUrl: '/api/v1/ckeditor/gallery',
+            filebrowserBrowseUrl: '/api/v1/ckeditor/files',
+            filebrowserImageUploadUrl: '/api/v1/ckeditor/images',
+            filebrowserUploadUrl: '/api/v1/ckeditor/files',
+            toolbarLocation: 'top',
+            toolbar: 'full',
+            toolbar_full: [
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', 'Underline' ] },
+                { name: 'paragraph', items: [ 'BulletedList', 'NumberedList', 'Blockquote' ] },
+                { name: 'editing', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                { name: 'tools', items: [ 'SpellChecker', 'Maximize' ] },
+                { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                { name: 'styles', items: [ 'Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat' ] },
+                { name: 'insert', items: [ 'Image', 'Table', 'SpecialChar', 'MediaEmbed' ] },'/',
+            ]
+		};	
 
 		// Submit new page function
 		$scope.submit = function() {
