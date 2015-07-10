@@ -17,16 +17,19 @@ public class Navigation {
     private static final Collector<NavNode, ?, Map<String, NavNode>> MAP_BY_TITLE_COLLECTOR =
             Collectors.toMap(n -> n.title, n -> n);
     public static final String MAIN = "Главная";
+    public static final String MAIN_URL = "/";
     public static final String CATALOG = "Каталог";
+    public static final String CATALOG_URL = "/catalog";
+    public static final String PRICE = "Прайс-лист";
 
     //TODO: для read-only сделать unmodifiable map и шарить статику
     public static Map<String, NavNode> getStaticNavigationMap() {
         List<NavNode> staticNavigationList = Arrays.asList(
-                leaf("Главная", "/", 1),
-                leaf("Каталог", "/catalog", 2),
-                root("Прайс-Лист", "/price", 3,
-                        leaf("Производство", "#", 1),
-                        leaf("Нанесение", "#", 2)),
+                leaf(MAIN, MAIN_URL, 1),
+                leaf(CATALOG, CATALOG_URL, 2),
+                root(PRICE, "/price", 3,
+                        leaf("Производство", "/price/manufacturing", 1),
+                        leaf("Нанесение", "/price/application", 2)),
                 leaf("Фотогалерея", "#", 4),
                 leaf("О компании", "#", 5),
                 leaf("Контакты", "#", 6));

@@ -37,7 +37,7 @@ public class NavNode implements Comparable<NavNode> {
 
         this.sortOrder = category.sortOrder == null ? MAX_ORDER : category.sortOrder;
         this.title = category.name;
-        this.url =  "/catalog/" + category.url;
+        this.url =  category.getFullUrl();
 
 
     }

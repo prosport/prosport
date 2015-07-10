@@ -60,4 +60,9 @@ public class PagesController extends Controller {
     }
 
 
+    public static Result getPageContent(String url) {
+        StaticPage page = StaticPage.findByUrl('/' + url);
+        if (page == null) return notFound("page not found!");
+        return ok(page.content);
+    }
 }

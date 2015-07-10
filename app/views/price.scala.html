@@ -1,5 +1,9 @@
-@main(title = "Прайс-лист") {
+@(page:StaticPage)
+@main(title = page.name) {
     <content>
+    @elements.breadcrumbs(Navigation.PRICE)
+        @Html(page.content);
 
     </content>
 }
+@import utils.Navigation

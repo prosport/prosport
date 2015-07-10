@@ -26,4 +26,8 @@ public class StaticPage extends IDNameEntity{
     @NotNull
     @SapsanField
     public String content;
+
+    public static StaticPage findByUrl(String url) {
+        return find.where().eq("url", url).findUnique();
+    }
 }

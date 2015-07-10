@@ -15,11 +15,11 @@ GET           /tree                      controllers.TreePageController.GET()
 
 
 #catalog
-GET           /catalog                   controllers.CatalogPageController.catalog(name:String = "Каталог")
-GET           /catalog/:name             controllers.CatalogPageController.catalog(name:String)
+GET           /catalog                   controllers.CatalogPageController.catalog(name:String = "/catalog")
+GET           /catalog/*path             controllers.CatalogPageController.catalog(path:String)
 
 #product details
-GET           /product/:productId        controllers.ProductDetailsPageController.getProductDetailsPage(productId:Long)
+GET           /product/:productId        controllers.MiscPagesController.getProductDetailsPage(productId:Long)
 
 GET           /admin/static              controllers.PagesController.getPages
 #POST        /admin/static             controllers.PagesController()
@@ -36,7 +36,13 @@ POST          /api/pages                 controllers.PagesController.createPage
 PUT           /api/pages                 controllers.PagesController.updatePage
 DELETE        /api/pages/:pageId         controllers.PagesController.deletePage(pageId:Long)
 
+#misc pages
+GET          /price                 controllers.MiscPagesController.getPricePage
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file              controllers.Assets.at(path="/public", file)
 GET           /images/*file              controllers.ExternalAssets.at(path="media", file)
+
+
+# All custom url
+GET           /:url                      controllers.PagesController.getPageContent(url:String)

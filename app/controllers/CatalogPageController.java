@@ -17,19 +17,30 @@ import java.util.List;
  */
 public class CatalogPageController extends Controller {
 
-    public static Result catalog(String categoryUrl) {
-        //TODO: любая нефинальная категория должна редиректить на первую категорию
-        if(Navigation.CATALOG.equals(categoryUrl)) {
-            
+    public static Result catalog(String fullUrl) {
+        ProductCategory category;
+        if (Navigation.CATALOG_URL.equals(fullUrl)) { // "Каталог" -> перенаправляем на самого левого сына
+            category = ProductCategory.getLeftmostRoot();
+        } else {
+            String url = getLastSubUrl(fullUrl);
+            category = ProductCategory.findByUrl(url);// Ищем категорию по урлу
         }
 
-        ProductCategory category = ProductCategory.findByUrl(categoryUrl);
-        if(category == null) {
-            Logger.warn(LogMessageStrings.NO_CATEGORY_WITH_URL + categoryUrl);
+        if (category == null) {
+            Logger.warn(LogMessageStrings.NO_CATEGORY_WITH_NAME + fullUrl);
             return ok(catalog.render(Navigation.CATALOG, new ArrayList<>(0)));
         }
 
-        List<Product> products = Product.getProductsWithCategory(category.name);
-        return ok(catalog.render(category.name, products));
+        ProductCategory leftDeepestSon = category.getLeftDeepestChildrenOrSelf();
+        if (leftDeepestSon != category) {
+            return redirect(leftDeepestSon.getFullUrl());
+        } else {
+            List<Product> products = Product.getProductsWithCategory(category.name);
+            return ok(catalog.render(category.name, products));
+        }
+    }
+
+    private static String getLastSubUrl(String fullUrl) {
+        return fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
     }
 }
