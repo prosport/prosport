@@ -13,23 +13,26 @@ import java.util.stream.Collectors;
  * Created by andy on 26.06.15.
  */
 public class NavigationController extends Controller {
+    private static final NavNode ROOT = new NavNode(Navigation.MAIN, Navigation.MAIN_URL, -1);
 
     public static Collection<NavNode> getBreadCrumbsForCategory(String categoryTitle) {
         Collection<NavNode> nodes = getNavigation();
         Deque<NavNode> result = new ArrayDeque<>();
         searchNodeWithTitle(nodes, categoryTitle, result);
+        if (!ROOT.title.equals(result.getFirst().title))
+            result.push(ROOT);
         return result;
     }
 
     private static boolean searchNodeWithTitle(Collection<NavNode> nodes, String title, Deque<NavNode> path) {
-        for(NavNode node : nodes) {
-            if(node.title.equals(title)) {
+        for (NavNode node : nodes) {
+            if (node.title.equals(title)) {
                 path.push(node);
                 return true;
             }
-            if(node.hasChilds()) {
+            if (node.hasChilds()) {
                 boolean found = searchNodeWithTitle(node.children, title, path);
-                if(found) {
+                if (found) {
                     path.push(node);
                     return true;
                 }

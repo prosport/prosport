@@ -25,6 +25,10 @@ public class Navigation {
     public static final String PRICE_MANUFACTURE_URL = "/price/manufacturing";
     public static final String PRICE_APPLICATION = "Нанесение";
     public static final String PRICE_APPLICATION_URL = "/price/application";
+    public static final String ABOUT = "О компании";
+    public static final String ABOUT_URL = "/about";
+    public static final String CONTACT = "Контакты";
+    public static final String CONTACT_URL = "/contacts";
 
 
     //TODO: для read-only сделать unmodifiable map и шарить статику
@@ -36,8 +40,8 @@ public class Navigation {
                         leaf(PRICE_MANUFACTURE, PRICE_MANUFACTURE_URL, 1),
                         leaf(PRICE_APPLICATION, PRICE_APPLICATION_URL, 2)),
                 leaf("Фотогалерея", "#", 4),
-                leaf("О компании", "#", 5),
-                leaf("Контакты", "#", 6));
+                leaf(ABOUT, ABOUT_URL, 5),
+                leaf(CONTACT, CONTACT_URL, 6));
 
         return staticNavigationList.stream().collect(MAP_BY_TITLE_COLLECTOR);
     }

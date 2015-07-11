@@ -23,7 +23,7 @@ public class NavNode implements Comparable<NavNode> {
         return !children.isEmpty();
     }
 
-    private NavNode(String title, String url, int sortOrder) {
+    public NavNode(String title, String url, int sortOrder) {
         if(title == null) throw new IllegalArgumentException("title == null");
         if(url == null) throw new IllegalArgumentException("url == null");
         this.sortOrder = sortOrder;

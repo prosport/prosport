@@ -1,0 +1,9 @@
+@(page:StaticPage)
+@main(title = page.name) {
+    <content>
+        @elements.breadcrumbs(page.name)
+        <div class="staticpage-wrapper">
+        @Html(page.content)
+        </div>
+    </content>
+}

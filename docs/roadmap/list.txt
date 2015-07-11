@@ -12,7 +12,6 @@
 9) Поправить вёрстку в админке (а - иконки, б - поля чтобы краснели, вообще озаботиться полями, отступы между формой и табами, и т.д., валидировать весь html)
 
 
-
 ---
 http://stackoverflow.com/questions/2891970/getting-default-value-for-java-primitive-types
 w.com/questions/8572218/java-is-it-possible-to-get-the-default-value-of-a-field-without-instantation

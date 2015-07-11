@@ -2,12 +2,14 @@ package controllers;
 
 import models.Product;
 import models.StaticPage;
+import play.api.templates.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.collection.mutable.StringBuilder;
 import utils.Navigation;
-import utils.StringUtils;
-import views.html.price;
+import views.html.main;
 import views.html.productDetails;
+import views.html.staticPage;
 
 
 /**
@@ -23,20 +25,27 @@ public class MiscPagesController extends Controller {
 
     public static Result getPricePage() {
         return redirect(Navigation.PRICE_MANUFACTURE_URL);
-
     }
 
     public static Result getPriceManufacture() {
-        StaticPage page = StaticPage.findByUrl(Navigation.PRICE_MANUFACTURE_URL);
-        if(page == null) throw new RuntimeException("no price-manufacture page!, url: ");
-        return ok(price.render(page));
-
+        return getStaticPage(Navigation.PRICE_MANUFACTURE, Navigation.PRICE_MANUFACTURE_URL);
     }
 
     public static Result getPriceApplication() {
-        StaticPage page = StaticPage.findByUrl(StringUtils.getLastSubUrl(Navigation.PRICE_APPLICATION_URL));
-        return ok(price.render(page));
+        return getStaticPage(Navigation.PRICE_APPLICATION, Navigation.PRICE_APPLICATION_URL);
     }
 
+    public static Result getAboutPage() {
+        return getStaticPage(Navigation.ABOUT, Navigation.ABOUT_URL);
+    }
 
+    public static Result getContactPage() {
+        return getStaticPage(Navigation.CONTACT, Navigation.CONTACT_URL);
+    }
+
+    private static Result getStaticPage(String title, String url) {
+        StaticPage page = StaticPage.findByUrl(url);
+        if(page == null) throw new RuntimeException("no " + url + " page!");
+        return ok(staticPage.render(page));
+    }
 }
