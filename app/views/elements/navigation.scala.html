@@ -17,7 +17,7 @@
                         <li class="@("active".when(c.active))">
                             <a href="@c.url">@c.title</a>
                             @if(c.hasChilds) {
-                                <ul>
+                                <ul class="nav-dropdown">
                                 @for(cc <- c.children.iterator()) {
                                     <li class="@("active".when(cc.active))">
                                         <a href="@cc.url">@cc.title</a>

@@ -126,6 +126,56 @@ nav {
         
         & > li:last-child a:after {display: none}
     }
+
+    & ul ul li {
+        position: relative;
+    }
+
+    & .nav-dropdown {
+        list-style: none;
+        position: absolute;
+        left: 0px;
+        top: 100%;
+        opacity: 0;
+        transition: 0.25s linear opacity;
+        width: 240px;
+        z-index: 1000;
+        display: none!important;
+        padding: 0 10px;
+        border: 1px solid #EBEBEB;
+        border-top: none;
+        text-align: left;
+
+        & li {
+            padding: 1px;
+            float: none;
+            background-color: #fff;
+            display: block;
+            width: auto;
+            height: 30px;
+            line-height: 30px;
+
+            & a {
+                display: block;
+                background: none;
+                padding: 10px 20px;
+
+                &:after {
+                    display: none;
+                }
+            }
+
+            &:hover a {
+                height: 30px!important;
+                background: none!important;
+            }
+        }
+    }
+
+    & ul ul li:hover > .nav-dropdown {
+        opacity: 1;
+        display: block!important;
+    }
 }
 
 nav.orange,
