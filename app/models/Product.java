@@ -75,11 +75,14 @@ public class Product extends IDNameTimeEntity {
     public static Model.Finder<Long, Product> find = new Model.Finder<>(Long.class, Product.class);
 
     public static List<Product> getProductsWithCategory(String categoryName) {
-        return find.where().eq("category.name", categoryName).findList();
+        return find.where().eq("category.name", categoryName).orderBy("articul").findList();
     }
 
     public static Product findById(long productId) {
         return find.where().eq("id", productId).findUnique();
     }
 
+    public static boolean hasProductWithName(String name) {
+        return find.where().eq("name", name).findRowCount() > 0;
+    }
 }

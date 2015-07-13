@@ -35,6 +35,9 @@ POST          /api/pages                  controllers.PagesController.createPage
 PUT           /api/pages                  controllers.PagesController.updatePage
 DELETE        /api/pages/:pageId          controllers.PagesController.deletePage(pageId:Long)
 
+#products rest api
+PUT           /api/products/auto          controllers.ProductController.createProducts
+
 #misc pages
 GET           /price                      controllers.MiscPagesController.getPricePage
 GET           /price/manufacturing        controllers.MiscPagesController.getPriceManufacture

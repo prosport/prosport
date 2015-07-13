@@ -32,7 +32,7 @@ public class PagesController extends Controller {
         StaticPage person = Json.fromJson(json, StaticPage.class);
 
         person.save();
-        return ok();
+        return created();
     }
 
     public static Result updatePage() {

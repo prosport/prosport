@@ -55,6 +55,10 @@ public class ProductCategory extends IDNameTimeEntity implements Comparable<Prod
                 .findUnique();
     }
 
+    public static ProductCategory findByName(String name) {
+        return find.where().eq("name", name).findUnique();
+    }
+
     public ProductCategory() {
     }
 
