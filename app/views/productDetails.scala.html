@@ -1,46 +1,44 @@
 @(product: Product)
-@main(title = "") {
+@main(title = product.category.name) {
     <content>
-    @elements.breadcrumbs(product.category.name)
-    <div class="productcard-row">
-    	<div class="productcard-row__preview-block">
-    		<!--img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="Image"/-->
-    		<div class="productcard-row__preview-block__current-img">
-    			<img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="product image">
-    		</div>
-    		<div class="productcard-row__preview-block__previews">
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    			<div class="productcard-row__preview-block__previews_preview">
-    				<img src="http://placehold.it/130x130" alt="product image">	
-    			</div>
-    		</div>
-    	</div>
-    	<div class="productcard-row__info-block">
-    		<h2 class="productcard-row__info-block__name">@product.name <span class="productcard-row__info-block__name__articul">Арт. @product.articul</h2>
-    		<p class="productcard-row__info-block__about">Striking the perfect balance between rugged and refined, the Flynn Chambray lends itself to casual and stylish settings alike. Striking the perfect balance between rugged and refined, the Flynn Chambray lends itself to casual and stylish settings alike. Striking the perfect balance between rugged and refined, the Flynn Chambray lends itself to casual and stylish settings alike. Striking the perfect balance between rugged and refined, the Flynn Chambray lends itself to casual and stylish settings alike.</p>
-    	</div>
-    </div>
-        
+        @elements.breadcrumbs(product.category.name)
+        <div class="productcard-row">
+            <div class="productcard-row__preview-block">
+                    <!--img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="Image"/-->
+                <div class="productcard-row__preview-block__current-img">
+                    <img src="@routes.ExternalAssets.at(product.images.get(0).filename)" alt="@product.images.get(0).name" style="max-width : 100% ; max-height : 100% ;">
+                </div>
+
+                <div class="productcard-row__preview-block__previews">
+                @for(img <- product.images.iterator()) {
+                    <div class="productcard-row__preview-block__previews_preview">
+                        <img onclick="changeImage(this.src, this.alt)" src="@routes.ExternalAssets.at(img.filename)" alt="@img.name" style="max-width: 100% ; max-height: 100% ;">
+                    </div>
+                }
+                </div>
+
+                <script language="javascript">
+    function changeImage(src, alt) {
+        $('.productcard-row__preview-block__current-img img').attr("src", src);
+        $('.productcard-row__preview-block__current-img img').attr("alt", alt);
+
+    }
+</script>
+
+
+            </div>
+            <div class="productcard-row__info-block">
+                <h2 class="productcard-row__info-block__name">@product.name <span class="productcard-row__info-block__name__articul">
+                    Арт. @product.articul</h2>
+                <p class="productcar    d-row__info-block__about">
+                    Приобести изделия можно только оптом. <br/>
+                    Размерные группы: не указаны <br/>
+                    Минимальный тираж: не указан <br/>
+                    В тираже могут присутствовать все указанные вариации. <br/>
+                        <a href="/images/orders.doc">Скачать бланк для оформления заказа (.doc)</a>
+            </div>
+        </div>
+
     </content>
 
 }
