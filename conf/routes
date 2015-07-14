@@ -47,4 +47,4 @@ GET           /contacts                   controllers.MiscPagesController.getCon
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file               controllers.Assets.at(path="/public", file)
-GET           /images/*file               controllers.ExternalAssets.at(path="media", file)
+GET           /images/*file               controllers.ExternalAssets.at(path="/media", file)
