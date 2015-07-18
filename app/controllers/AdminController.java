@@ -2,9 +2,11 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.ProductCategory;
+import play.api.templates.Html;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import utils.Navigation;
 import utils.TreeNode;
 
@@ -16,9 +18,10 @@ import views.html.admin.master;
 
 public class AdminController extends Controller {
 
+    @Security.Authenticated(Secured.class)
     public static Result index() {
         //TODO: changed from views.html.admin.index.render()
-        return ok(master.render("Index", views.html.index.render()));
+        return ok(master.render("Index", views.html.index.render(), session().get("email")));
     }
 
     public static Result categories() {
@@ -28,16 +31,11 @@ public class AdminController extends Controller {
         root.text = Navigation.CATALOG;
         root.children.addAll(treeNodes);
         JsonNode node = Json.toJson(root);
-        return ok(master.render("Categories", views.html.admin.categories.render(node.toString())));
-    }
 
-//    public static Result pages() {
-//        return ok(master.render("Pages", views.html.admin.pages.render()));
-//    }
-//
-//    public static Result media() {
-//        return ok(master.render("Pages", views.html.admin.media.render()));
-//    }
+        Html categoriesHtml = views.html.admin.categories.render(node.toString());
+        String email = session().get("email");
+        return ok(master.render("Categories", categoriesHtml, email));
+    }
 
     public static List<TreeNode> convertToTree(Collection<ProductCategory> categories) {
         List<TreeNode> result = new ArrayList<>(categories.size());

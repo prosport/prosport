@@ -1,4 +1,4 @@
-@(title: String, content: Html)
+@(title: String, content: Html, userName:String)
 <!DOCTYPE html>
 <html ng-app="adminPanelApp">
 	<head>
@@ -25,7 +25,7 @@
 
 	</head>
 	<body>
-		@admin.topbar()
+		@admin.topbar(userName)
 		<div id="page-wrapper">
             <div class="container-fluid">
             	<ng-view></ng-view>

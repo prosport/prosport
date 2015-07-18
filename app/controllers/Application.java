@@ -17,14 +17,12 @@ public class Application extends Controller {
         public String email;
         public String password;
 
-        //        @Transactional(readOnly = true)
         public String validate() {
             if (User.authenticate(email, password) == null) {
                 return "Invalid user or password";
             }
             return null;
         }
-
     }
 
     public static Result index() {
@@ -46,8 +44,9 @@ public class Application extends Controller {
         if (loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
         } else {
+            session().clear();
             session("email", loginForm.get().email);
-            return redirect(""); ///TODO
+            return redirect(routes.AdminController.index());
         }
     }
 
@@ -60,7 +59,7 @@ public class Application extends Controller {
 //        return redirect(
 //                routes.Application.login()
 //        );
-        return ok("");
+        return redirect("/");
     }
 
 
